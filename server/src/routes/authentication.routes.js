@@ -4,7 +4,7 @@ const authController = require("../controllers/authentication.controllers");
 const catchAsyncError = require("../errors/catchAsyncError");
 
 router.post("/login", catchAsyncError(authController.login));
-router.post("/register");
+router.post("/register", catchAsyncError(authController.register));
 router.delete("/logout");
 
 router.post("/refresh-token");

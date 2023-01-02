@@ -4,9 +4,7 @@
  */
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
-// function isPasswordValid(password) {
-//   console.log(password);
-//   return Boolean(passwordRegex.test(password));
-// }
+const emailRegex =
+  /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
-module.exports = { passwordRegex };
+module.exports = { passwordRegex, emailRegex };
