@@ -11,8 +11,8 @@ class UnauthorizeError extends Error {
 }
 
 class BadRequestError extends Error {
-  constructor() {
-    super("Bad request");
+  constructor(message) {
+    super(message || "Bad request");
   }
 }
 

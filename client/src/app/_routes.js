@@ -1,6 +1,6 @@
 import React from "react";
 
-const Index = React.lazy(() => import("../pages/Index"));
+const Index = React.lazy(() => import("../pages/Home/Index"));
 const Login = React.lazy(() => import("../pages/Login/Login"));
 const Register = React.lazy(() => import("../pages/Register"));
 const Chat = React.lazy(() => import("../pages/Chat"));

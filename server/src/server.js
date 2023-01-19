@@ -7,7 +7,6 @@ const initialMongoConnection = require("./database/initialConnection");
 const socketMain = require("./socket.io/socketMain");
 const cors = require("cors");
 const routes = require("./routes/index");
-const errorHandler = require("./errors/errorHandler");
 
 const httpServer = createServer(app);
 initialMongoConnection();
@@ -16,9 +15,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use(routes);
-
-app.use(errorHandler);
-
 const io = new Server(httpServer, {
   cors: {
     origin: "http://localhost:3000",

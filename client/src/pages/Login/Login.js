@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   loginByEmailAndPassword,
   clearErrorMessage,
@@ -20,8 +21,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const navigate = useNavigate();
 
-  const { isLoading, error } = useSelector((state) => state.auth);
+  const { isLoading, error, isAuth } = useSelector((state) => state.auth);
 
   function onLoginSubmit(e) {
     e.preventDefault();
@@ -39,6 +41,10 @@ const Login = () => {
       }, TIME_TO_CLEAR_ERROR_MSG);
     }
   }, [error, dispatch]);
+
+  useEffect(() => {
+    if (isAuth) navigate("/");
+  }, [isAuth, navigate]);
 
   return (
     <div className={classes.login_wrapper}>

@@ -9,8 +9,7 @@ const jwtConfig = {
 const createAccessToken = (userId) => {
   try {
     const token = jwt.sign({ userId }, jwtConfig.ac_secret, {
-      //   expiresIn: new Date(jwtConfig.ac_expired_millisecond).getTime(),
-      expiresIn: new Date(1).getTime(),
+      expiresIn: new Date(jwtConfig.ac_expired_millisecond).getTime(),
     });
     return token;
   } catch (error) {

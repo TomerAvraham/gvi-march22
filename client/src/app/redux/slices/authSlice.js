@@ -13,7 +13,7 @@ const initialState = {
   isLoading: false,
   isAuth: false,
   error: "",
-  accessToken: localStorage.getItem("ac_token") || "",
+  user: {},
 };
 
 const authSlice = createSlice({
@@ -39,9 +39,9 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = "";
       state.isAuth = true;
-      state.accessToken = payload.accessToken;
+      state.user = payload;
 
-      localStorage.setItem("ac_token", payload.accessToken);
+      localStorage.setItem("ac_token", payload.jwt_ac_token);
     },
   },
 });

@@ -31,7 +31,7 @@ const userSchema = new Schema({
     required: false,
   },
   role: {
-    type: [String],
+    type: String,
     enum: Object.values(USER_ROLE),
     default: USER_ROLE.ENTREPRENEUR,
     required: true,

@@ -13,7 +13,9 @@ exports.login = async (req, res, next) => {
   const accessToken = JwtTokenService.createAccessToken(user._id);
   const refreshToken = JwtTokenService.createRefreshToken(user._id);
   user.setJwtTokens(accessToken, refreshToken);
-  res.send({ accessToken, refreshToken });
+  const userWithoutPassword = { ...user._doc };
+  delete userWithoutPassword.password;
+  res.send(userWithoutPassword);
 };
 
 exports.register = async (req, res, next) => {
