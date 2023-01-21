@@ -55,8 +55,8 @@ const Login = () => {
           </Alert>
         )}
         <form className={classes.login_form} onSubmit={onLoginSubmit}>
-          <TextField required inputRef={emailInputRef} />
-          <TextField required inputRef={passwordInputRef} />
+          <TextField required type={"email"} inputRef={emailInputRef} />
+          <TextField required type={"password"} inputRef={passwordInputRef} />
           <Button type="submit" variant="contained">
             Login
           </Button>

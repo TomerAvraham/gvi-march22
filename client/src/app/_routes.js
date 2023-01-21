@@ -7,7 +7,7 @@ const Chat = React.lazy(() => import("../pages/Chat"));
 
 export const routes = [
   { linkLabel: "Home", path: "/", component: Index, isProtected: true },
+  { linkLabel: "Chat", path: "/chat", component: Chat, isProtected: true },
   { linkLabel: "Login", path: "/login", component: Login },
   { linkLabel: "Register", path: "/register", component: Register },
-  { linkLabel: "Chat", path: "/chat", component: Chat, isProtected: true },
 ];
