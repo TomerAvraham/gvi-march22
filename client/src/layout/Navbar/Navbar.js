@@ -136,7 +136,13 @@ const Navbar = () => {
             </Box>
           )}
           {isAuth && (
-            <Box sx={{ marginRight: "1rem" }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                marginRight: "1rem",
+              }}
+            >
               <SearchInput />
             </Box>
           )}
