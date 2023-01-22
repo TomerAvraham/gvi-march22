@@ -13,13 +13,16 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import HomeIcon from "@mui/icons-material/Home";
+import authService from "../../services/auth.service";
 import { routes as appRoutes } from "../../app/_routes";
 import { Link } from "react-router-dom";
 // import Link from '@mui/material/Link';
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
+const settings = [
+  { label: "Profile", path: "/" },
+  { label: "Account", path: "/" },
+  { label: "Dashboard", path: "/" },
+];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -120,7 +123,7 @@ const Navbar = () => {
             {appRoutes.map((link, indexId) => (
               <Link key={indexId} to={link.path}>
                 <Button
-                className='nav-buttton'
+                  className="nav-buttton"
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
@@ -152,10 +155,13 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.label}>
+                  <Typography textAlign="center">{setting.label}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem onClick={() => authService.logout()}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
