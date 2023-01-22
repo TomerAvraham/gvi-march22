@@ -48,15 +48,29 @@ const Login = () => {
 
   return (
     <div className={classes.login_wrapper}>
-      <Paper elevation={3} className={classes.login_form_wrapper}>
+      <Paper
+        elevation={3}
+        sx={{ boxShadow: "none" }}
+        className={classes.login_form_wrapper}
+      >
         {error && (
           <Alert variant="filled" severity="error">
             {error}
           </Alert>
         )}
         <form className={classes.login_form} onSubmit={onLoginSubmit}>
-          <TextField required type={"email"} inputRef={emailInputRef} />
-          <TextField required type={"password"} inputRef={passwordInputRef} />
+          <TextField
+            required
+            type={"email"}
+            placeholder="Email"
+            inputRef={emailInputRef}
+          />
+          <TextField
+            required
+            type={"password"}
+            placeholder="Password"
+            inputRef={passwordInputRef}
+          />
           <Button type="submit" variant="contained">
             Login
           </Button>

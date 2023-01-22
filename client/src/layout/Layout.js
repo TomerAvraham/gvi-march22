@@ -1,8 +1,7 @@
 import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
-import Box from "@mui/material/Box";
+import Navbar from "./Navbar/Navbar";
+import Footer from "./Footer/Footer";
 import Container from "@mui/material/Container";
 
 const Layout = () => {
