@@ -138,7 +138,6 @@ const Navbar = () => {
           {isAuth && (
             <Box
               sx={{
-                flexGrow: 1,
                 display: { xs: "none", md: "flex" },
                 marginRight: "1rem",
               }}
