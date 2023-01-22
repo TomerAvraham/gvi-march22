@@ -119,20 +119,22 @@ const Navbar = () => {
           >
             GVI
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {appRoutes.map((link, indexId) => (
-              <Link key={indexId} to={link.path}>
-                <Button
-                  className="nav-buttton"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {link.linkLabel}
-                </Button>
-              </Link>
-            ))}
-          </Box>
 
+          {isAuth && (
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {appRoutes.map((link, indexId) => (
+                <Link key={indexId} to={link.path}>
+                  <Button
+                    className="nav-buttton"
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {link.linkLabel}
+                  </Button>
+                </Link>
+              ))}
+            </Box>
+          )}
           {isAuth && (
             <Box sx={{ marginRight: "1rem" }}>
               <SearchInput />
@@ -171,6 +173,29 @@ const Navbar = () => {
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
               </Menu>
+            </Box>
+          )}
+
+          {isAuth || (
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Link to={"/register"}>
+                <Button
+                  className="nav-buttton"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Register
+                </Button>
+              </Link>
+              <Link to={"/login"}>
+                <Button
+                  className="nav-buttton"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Login
+                </Button>
+              </Link>
             </Box>
           )}
         </Toolbar>
