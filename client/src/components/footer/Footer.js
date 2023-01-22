@@ -11,8 +11,8 @@ const Footer = () => {
       <BottomNavigation
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
       >
-        <Typography variant="p" component="p">
-          Copyright © GVI March 2022 - {year}.
+        <Typography variant="p" component="p" sx={{ fontSize: "14px" }}>
+          Copyright  GVI March 2022 - {year}.
         </Typography>
         ;
       </BottomNavigation>

@@ -12,13 +12,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import HomeIcon from "@mui/icons-material/Home";
+import SearchInput from "../SearchInput";
 import authService from "../../services/auth.service";
 import { routes as appRoutes } from "../../app/_routes";
 import { Link } from "react-router-dom";
-// import Link from '@mui/material/Link';
 
-const settings = [
+const settingsLinks = [
   { label: "Profile", path: "/" },
   { label: "Account", path: "/" },
   { label: "Dashboard", path: "/" },
@@ -47,23 +46,24 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+          <Link to={"/"} style={{ color: "white" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="p"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              GVI
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -105,7 +105,6 @@ const Navbar = () => {
             variant="h5"
             noWrap
             component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -117,7 +116,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            GVI
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {appRoutes.map((link, indexId) => (
@@ -131,6 +130,9 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
+          </Box>
+          <Box sx={{ marginRight: "1rem" }}>
+            <SearchInput />
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -154,7 +156,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {settingsLinks.map((setting) => (
                 <MenuItem key={setting.label}>
                   <Typography textAlign="center">{setting.label}</Typography>
                 </MenuItem>
