@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   Paper,
   TextField,
@@ -6,19 +6,25 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import FormControl from "@mui/material/FormControl";
-import {
-  loginByEmailAndPassword,
-  clearErrorMessage,
-} from "../../app/redux/slices/authSlice";
-import classes from "./Login.module.css";
+import { clearErrorMessage } from "../../app/redux/slices/authSlice";
+import classes from "../Register/Register.module.css";
 
 const TIME_TO_CLEAR_ERROR_MSG = 3500;
 
-const Login = () => {
+const Register = () => {
+  const [role, setRole] = useState("");
+
+  const handleChange = (event) => {
+    setRole(event.target.value);
+  };
+
   const dispatch = useDispatch();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -26,13 +32,13 @@ const Login = () => {
 
   const { isLoading, error, isAuth } = useSelector((state) => state.auth);
 
-  function onLoginSubmit(e) {
+  function onRegisterSubmit(e) {
     e.preventDefault();
     const formValues = {
       email: emailInputRef.current.value,
       password: passwordInputRef.current.value,
     };
-    dispatch(loginByEmailAndPassword(formValues));
+    // dispatch(loginByEmailAndPassword(formValues));
   }
 
   useEffect(() => {
@@ -48,18 +54,27 @@ const Login = () => {
   }, [isAuth, navigate]);
 
   return (
-    <div className={classes.login_wrapper}>
+    <div className={classes.register_wrapper}>
       <Paper
         elevation={3}
         sx={{ boxShadow: "none" }}
-        className={classes.login_form_wrapper}
+        className={classes.register_form_wrapper}
       >
         {error && (
           <Alert variant="filled" severity="error">
             {error}
           </Alert>
         )}
-        <form className={classes.login_form} onSubmit={onLoginSubmit}>
+        <form className={classes.register_form} onSubmit={onRegisterSubmit}>
+          <FormControl fullWidth>
+            <TextField
+              label="Username"
+              variant="outlined"
+              required
+              type={"text"}
+              inputRef={emailInputRef}
+            />
+          </FormControl>
           <FormControl fullWidth>
             <TextField
               label="Email"
@@ -79,15 +94,30 @@ const Login = () => {
               inputRef={passwordInputRef}
             />
           </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={role}
+              label="Age"
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>ENTREPRENEUR</MenuItem>
+              <MenuItem value={20}>CONSULTANT</MenuItem>
+              <MenuItem value={30}>ADMIN</MenuItem>
+            </Select>
+          </FormControl>
           <Button type="submit" variant="contained">
-            Login
+            register
           </Button>
           {isLoading && <CircularProgress />}
         </form>
-        <Link to="/register">Don't have account?, please click here</Link>
+        <Link to="/login">Allready have account?, please click here</Link>
       </Paper>
     </div>
   );
 };
 
-export default Login;
+export default Register;
