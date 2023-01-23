@@ -13,13 +13,14 @@ import {
   Box,
 } from "@mui/material";
 import { LocationOn, Phone, Person, Email } from "@mui/icons-material";
-import "../components/Usercard.css";
+import "./Usercard.css";
+import * as UserCardStyle from "./UserCard.style";
 
 export default function Usercard() {
   return (
     <Card sx={{ maxWidth: 305, margin: 4, color: "var(--text--color)" }}>
       <CardMedia
-        sx={{ height: 200 }}
+        sx={UserCardStyle.cardMediaStyle}
         image={
           "https://www.realco.co.il/wp-content/uploads/2020/01/%D7%A8%D7%A7%D7%A2-%D7%9E%D7%95%D7%91%D7%99%D7%99%D7%9C-min.jpg"
         }
