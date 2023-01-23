@@ -2,6 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url('../../../public/img/gradient.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }
 
 .login_form_wrapper {
@@ -21,3 +25,23 @@
     justify-content: space-evenly;
     flex-direction: column;
 }
+
+.link_wrapper {
+    text-decoration: none;
+    color: #000;
+    transition: 500ms;
+}
+
+.link_wrapper:hover {
+    color: #49B3DA;
+    font-size: 1.1rem;
+
+} 
+
+.show_pass {
+    position: absolute;
+    margin-left: 35vh;
+    margin-top: 1%;
+    height: 30px;
+    width: 35px;
+} 

@@ -1,12 +1,18 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
+  Box,
   Paper,
   TextField,
   Button,
   CircularProgress,
   Alert,
+  Typography,
+  IconButton,
+
 } from "@mui/material";
-import { Link } from "react-router-dom";
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,6 +28,8 @@ const Login = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const navigate = useNavigate();
+
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const { isLoading, error, isAuth } = useSelector((state) => state.auth);
 
@@ -46,25 +54,47 @@ const Login = () => {
     if (isAuth) navigate("/");
   }, [isAuth, navigate]);
 
+  const handleClickShowPassword = () => {
+
+      setPasswordShown(!passwordShown);
+  };
+
+ 
+
   return (
-    <div className={classes.login_wrapper}>
+    <Box className={classes.login_wrapper} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
       <Paper elevation={3} className={classes.login_form_wrapper}>
         {error && (
           <Alert variant="filled" severity="error">
             {error}
           </Alert>
         )}
+        <Typography variant="h5" sx={{borderBottom: 1}}>
+          Login
+        </Typography>
         <form className={classes.login_form} onSubmit={onLoginSubmit}>
-          <TextField required inputRef={emailInputRef} />
-          <TextField required inputRef={passwordInputRef} />
-          <Button type="submit" variant="contained">
+          <TextField required id="outlined-basic" label="Email" variant="outlined" placeholder="Email" inputRef={emailInputRef} sx={{}} />
+          <TextField required id="outlined-basic" type={passwordShown ? 'text' : 'password'} label="Password" variant="outlined" placeholder="Password" inputRef={passwordInputRef} 
+          
+          />
+          <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                className={classes.show_pass}
+              >
+                {passwordShown ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+
+          <Button type="submit" variant="contained" sx={{backgroundColor: "#49B3DA", borderRadius: "20px", width: "140px"}}>
             Login
           </Button>
           {isLoading && <CircularProgress />}
         </form>
-        <Link to="/register">Don't have account, please click here</Link>
+        
+        <Link className={classes.link_wrapper} to="/register">Don't have account, please click here</Link>
       </Paper>
-    </div>
+     
+    </Box>
   );
 };
 
