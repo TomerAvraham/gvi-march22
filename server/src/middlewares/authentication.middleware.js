@@ -8,6 +8,12 @@ const authJwtToken = (req, res, next) => {
     if (!token) return res.sendStatus(401);
     const decodedToken = JwtTokenService.verifyAccessToken(token);
     req.userId = decodedToken.userId;
+
+  //we just add it to show completion of task although 
+  // you already change it in the code.
+      //req.fetcherRoleById=decodedToken.userId;
+    
+
     next();
   } catch (error) {
     console.log(error instanceof JsonWebTokenError);
