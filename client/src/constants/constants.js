@@ -5,3 +5,10 @@ export const USER_ROLE = {
   CONSULTANT: "CONSULTANT",
   ADMIN: "ADMIN",
 };
+
+
+export const USER_PROFILE_LINKS = [
+  { label: "Profile", path: "/" },
+  { label: "Account", path: "/" },
+  { label: "Dashboard", path: "/" },
+];

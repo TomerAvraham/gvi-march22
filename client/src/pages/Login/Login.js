@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import FormControl from "@mui/material/FormControl";
 import {
   loginByEmailAndPassword,
   clearErrorMessage,
@@ -48,21 +49,42 @@ const Login = () => {
 
   return (
     <div className={classes.login_wrapper}>
-      <Paper elevation={3} className={classes.login_form_wrapper}>
+      <Paper
+        elevation={3}
+        sx={{ boxShadow: "none" }}
+        className={classes.login_form_wrapper}
+      >
         {error && (
           <Alert variant="filled" severity="error">
             {error}
           </Alert>
         )}
         <form className={classes.login_form} onSubmit={onLoginSubmit}>
-          <TextField required inputRef={emailInputRef} />
-          <TextField required inputRef={passwordInputRef} />
+          <FormControl fullWidth>
+            <TextField
+              label="Email"
+              variant="outlined"
+              required
+              type={"email"}
+              inputRef={emailInputRef}
+            />
+          </FormControl>
+
+          <FormControl fullWidth>
+            <TextField
+              label="Password"
+              variant="outlined"
+              required
+              type={"password"}
+              inputRef={passwordInputRef}
+            />
+          </FormControl>
           <Button type="submit" variant="contained">
             Login
           </Button>
           {isLoading && <CircularProgress />}
         </form>
-        <Link to="/register">Don't have account, please click here</Link>
+        <Link to="/register">Don't have account?, please click here</Link>
       </Paper>
     </div>
   );

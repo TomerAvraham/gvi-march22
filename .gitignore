@@ -1,2 +1,6 @@
-client/node_modules
-server/node_modules
+# all node_modules folders
+**node_modules
+# all env files
+**.env
+ 
+ **package-lock.json

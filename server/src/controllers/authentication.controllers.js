@@ -26,3 +26,12 @@ exports.register = async (req, res, next) => {
     return res.redirect(307, "/auth/login");
   });
 };
+
+exports.logout = async (req, res, next) => {
+  const { token } = req.body;
+  const user = await User.findOne({ jwt_ac_token: token });
+  if (!user) next(new NotFoundError());
+  user.jwt_ac_token = undefined;
+  user.save();
+  res.send({ ok: true, messgae: "You have been logged out" });
+};

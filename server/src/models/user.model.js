@@ -34,7 +34,7 @@ const userSchema = new Schema({
     type: String,
     enum: Object.values(USER_ROLE),
     default: USER_ROLE.ENTREPRENEUR,
-    required: true,
+    required: false,
   },
   startup: String,
   mentoring: [Consulting],
