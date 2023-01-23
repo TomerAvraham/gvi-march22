@@ -7,7 +7,7 @@ const authJwtToken = (req, res, next) => {
     const token = req.headers["access-token"];
     if (!token) return res.sendStatus(401);
     const decodedToken = JwtTokenService.verifyAccessToken(token);
-    // save the user at req.userId
+    req.userId = decodedToken.userId;
     next();
   } catch (error) {
     console.log(error instanceof JsonWebTokenError);
