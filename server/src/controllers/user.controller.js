@@ -1,8 +1,7 @@
 const User = require("../models/user.model");
 const { USER_ROLE } = require("../constants/user.constants");
-const { BadRequestError } = require("../errors/Errors");
 
-const selectedUserFiled = [
+const selectedUserField = [
   "_id",
   "email",
   "firstName",
@@ -29,7 +28,7 @@ exports.getAllUsersByRole = async (req, res, next) => {
       : USER_ROLE.ENTREPRENEUR;
 
   const users = await User.find({ role: filterRoleByFetcherRole }).select(
-    selectedUserFiled
+    selectedUserField
   );
 
   res.status(200).send(users);

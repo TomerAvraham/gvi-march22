@@ -2,14 +2,36 @@ import React, { useState } from "react";
 import { TextField, Box, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import classes from "./Register.module.css";
+import formValidationSchema from "./formValidationSchema";
+import { joiResolver } from "@hookform/resolvers/joi";
+
+const RegisterTextField = ({ label, fieldName, register, errors }) => {
+  return (
+    <TextField
+      label={label}
+      error={Boolean(errors[fieldName])}
+      helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
+      {...register(fieldName)}
+    />
+  );
+};
 
 const Register = () => {
-  const { register, handleSubmit, formState } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: joiResolver(formValidationSchema),
+  });
+
+  React.useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   const onRegisterSubmit = (formData) => {
     console.log({
       formData,
-      formState,
     });
   };
 
@@ -18,11 +40,18 @@ const Register = () => {
       <div className={classes.form_section}>
         <form onSubmit={handleSubmit(onRegisterSubmit)}>
           <div className={classes.desktop_input_section}>
-            <TextField
+            <RegisterTextField
               label="First Name"
-              {...register("firstName", { required: true })}
+              fieldName="firstName"
+              register={register}
+              errors={errors}
             />
-            <TextField label="Last Name" />
+            <RegisterTextField
+              label="Last Name"
+              fieldName="lastName"
+              register={register}
+              errors={errors}
+            />
           </div>
           <Button type="submit" variant="contained">
             Register
