@@ -32,6 +32,29 @@ const logout = async () => {
     return Promise.reject(error);
   }
 };
+const register = async (
+  email,
+  password,
+  passwordConfirmation,
+  role,
+  lastName,
+  firstName
+) => {
+  try {
+    const response = await api.post("/register", {
+      email,
+      password,
+      passwordConfirmation,
+      role,
+      lastName,
+      firstName,
+    });
 
-const authService = { login, logout };
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const authService = { login, logout, register };
 export default authService;
