@@ -1,11 +1,11 @@
 .page_container {
-    width: 100vw;
+    margin: 0;
+    padding: 0;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-top: 60px;
+    align-items: center;
+    min-height: inherit;
 }
-
 
 .form_section {
     display: flex;
@@ -14,7 +14,7 @@
     min-width: 70vw;
 }
 
-.form_section > form {
+.form_section>form {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -29,4 +29,17 @@
     justify-content: space-evenly;
     width: 60%;
     padding: 8px 0;
+}
+
+.app_preview_container {
+    margin: 0;
+    padding: 0 3rem;
+    display: flex;
+    background: #0071ff;
+    justify-content: center;
+    align-items: center;
+    min-height: inherit!important;
+    color: #fff;
+    width: 600px;
+    flex-direction: column;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { routes as appRoutes } from "./_routes";
 import { useSelector } from "react-redux";
-import Layout from "../layout/Layout";
+import Layout from "../layout/Layout/Layout";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
