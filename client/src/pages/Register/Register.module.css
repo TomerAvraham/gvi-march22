@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     display: flex;
+    height: 100vh;
     justify-content: space-between;
     align-items: center;
     min-height: inherit;
@@ -24,11 +25,7 @@
 
 
 .desktop_input_section {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
     width: 60%;
-    padding: 8px 0;
 }
 
 .app_preview_container {
@@ -38,8 +35,17 @@
     background: #0071ff;
     justify-content: center;
     align-items: center;
-    min-height: inherit!important;
+    min-height: inherit !important;
     color: #fff;
     width: 600px;
     flex-direction: column;
+    border-radius: 8px;
+}
+
+.titles_container {
+    margin: 4rem 0;
+}
+
+.top_bottom_margin {
+    margin: 3rem 0;
 }
