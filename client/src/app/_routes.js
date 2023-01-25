@@ -11,3 +11,18 @@ export const routes = [
   { linkLabel: "Login", path: "/login", component: Login },
   { linkLabel: "Register", path: "/register", component: Register },
 ];
+
+// export const footerRoutes = [
+//   { linkLabel: "(home)", path: "/", component: Index, isProtected: true },
+//   {
+//     linkLabel: "PrivacyPolicy",
+//     path: "/privacyPolicy",
+//     component: PrivacyPolicy,
+//   },
+//   { linkLabel: "Contact", path: "/footer/contact", component: Contact },
+//   {
+//     linkLabel: "CopyRights",
+//     path: "/copyRights",
+//     component: CopyRights,
+//   },
+// ];

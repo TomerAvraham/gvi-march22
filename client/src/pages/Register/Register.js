@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TextField, Box, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import classes from "./Register.module.css";
 import formValidationSchema from "./formValidationSchema";
+import { useDispatch, useSelector } from "react-redux";
+import { registerByPayload } from "../../app/redux/slices/registerSlice";
+import { loginByEmailAndPassword } from "../../app/redux/slices/authSlice";
 import { joiResolver } from "@hookform/resolvers/joi";
-
 import AdbIcon from "@mui/icons-material/Adb";
 
 const RegisterTextField = ({ label, fieldName, register, errors }) => {
@@ -20,6 +22,9 @@ const RegisterTextField = ({ label, fieldName, register, errors }) => {
 };
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuth } = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -31,11 +36,25 @@ const Register = () => {
   React.useEffect(() => {
     console.log(errors);
   }, [errors]);
+  React.useEffect(() => {
+    if (isAuth) navigate("/");
+  }, [isAuth, navigate]);
 
   const onRegisterSubmit = (formData) => {
-    console.log({
-      formData,
-    });
+    const formValues = {
+      email: formData.email,
+      password: formData.password,
+      passwordConfirmation: formData.passwordConfirmation,
+      role: formData.role,
+      lastName: formData.lastName,
+      firstName: formData.firstName,
+    };
+    dispatch(registerByPayload(formValues));
+
+    setTimeout(() => {
+      console.log(formValues.email, formValues.password);
+      dispatch(loginByEmailAndPassword(formValues));
+    }, 500);
   };
 
   return (
@@ -43,8 +62,20 @@ const Register = () => {
       <form onSubmit={handleSubmit(onRegisterSubmit)}>
         <div className={classes.desktop_input_section}>
           <RegisterTextField
-            label="First Name"
-            fieldName="firstName"
+            label="Email"
+            fieldName="email"
+            register={register}
+            errors={errors}
+          />
+          <RegisterTextField
+            label="Password"
+            fieldName="password"
+            register={register}
+            errors={errors}
+          />
+          <RegisterTextField
+            label="Confirm Password"
+            fieldName="passwordConfirmation"
             register={register}
             errors={errors}
           />
@@ -54,9 +85,24 @@ const Register = () => {
             register={register}
             errors={errors}
           />
+          <RegisterTextField
+            label="First Name"
+            fieldName="firstName"
+            register={register}
+            errors={errors}
+          />
+
+          <RegisterTextField
+            label="Role"
+            fieldName="role"
+            register={register}
+            errors={errors}
+          />
+
           <Button type="submit" variant="contained">
             Register
           </Button>
+          <Link to="/login">Already have an account, please click here</Link>
         </div>
       </form>
 
