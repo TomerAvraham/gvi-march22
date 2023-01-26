@@ -10,7 +10,6 @@ const authJwtToken = (req, res, next) => {
     req.userId = decodedToken.userId;
     next();
   } catch (error) {
-    console.log(error instanceof JsonWebTokenError);
     if (error instanceof TokenExpiredError) {
       // Home work
       console.log("first");

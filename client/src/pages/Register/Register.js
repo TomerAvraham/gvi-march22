@@ -25,10 +25,6 @@ const Register = () => {
     resolver: joiResolver(formValidationSchema),
   });
 
-  React.useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   const onRegisterSubmit = (formData) => {
     console.log({
       formData,
