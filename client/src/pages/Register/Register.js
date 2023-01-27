@@ -103,113 +103,115 @@ const Register = () => {
   };
 
   return (
-    <Box className={classes.page_container}>
-      <form onSubmit={handleSubmit(onRegisterSubmit)}>
-        <div className={classes.desktop_input_section}>
-          <div className={`titles_container ${classes.top_bottom_margin}`}>
-            <Typography variant="h4" noWrap component="div">
-              Register
-            </Typography>
-            <Typography variant="h6" noWrap component="div">
-              {pageTitles.title}
-            </Typography>
-            <Typography variant="p" noWrap component="div">
-              {pageTitles.subTitle}
-            </Typography>
-          </div>
-          {/* Fields */}
-          <Box sx={{ width: "100%" }}>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              <Grid item xs={6}>
-                {" "}
-                <RegisterTextField
-                  label="Email"
-                  fieldName="email"
-                  register={register}
-                  errors={errors}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                {" "}
-                <RegisterTextField
-                  label="Password"
-                  fieldName="password"
-                  register={register}
-                  errors={errors}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                {" "}
-                <RegisterTextField
-                  label="Confirm Password"
-                  fieldName="passwordConfirmation"
-                  register={register}
-                  errors={errors}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                {" "}
-                <RegisterTextField
-                  label="Last Name"
-                  fieldName="lastName"
-                  register={register}
-                  errors={errors}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                {" "}
-                <RegisterTextField
-                  label="First Name"
-                  fieldName="firstName"
-                  register={register}
-                  errors={errors}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                {" "}
-                {/* // TODO: use the select field and use it to select role from ENUM */}
-                {/* <FormControl sx={{ m: 0, width: "82%" }}>
-                  <InputLabel id="role">Role</InputLabel>
-                  <Select
-                    labelId="role"
+    <Box  className={classes.page_container}>
+      <div className={classes.register_left_container} >
+        <form onSubmit={handleSubmit(onRegisterSubmit)}>
+          <div className={classes.desktop_input_section}>
+            <div className={`titles_container ${classes.top_bottom_margin}`}>
+              <Typography variant="h4" noWrap component="div">
+                Register
+              </Typography>
+              <Typography variant="h6" noWrap component="div">
+                {pageTitles.title}
+              </Typography>
+              <Typography variant="p" noWrap component="div">
+                {pageTitles.subTitle}
+              </Typography>
+            </div>
+            {/* Fields */}
+            <Box sx={{ width: "100%" }}>
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                <Grid item xs={6}>
+                  {" "}
+                  <RegisterTextField
+                    label="Email"
+                    fieldName="email"
+                    register={register}
+                    errors={errors}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  {" "}
+                  <RegisterTextField
+                    label="Password"
+                    fieldName="password"
+                    register={register}
+                    errors={errors}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  {" "}
+                  <RegisterTextField
+                    label="Confirm Password"
+                    fieldName="passwordConfirmation"
+                    register={register}
+                    errors={errors}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  {" "}
+                  <RegisterTextField
+                    label="Last Name"
+                    fieldName="lastName"
+                    register={register}
+                    errors={errors}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  {" "}
+                  <RegisterTextField
+                    label="First Name"
+                    fieldName="firstName"
+                    register={register}
+                    errors={errors}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  {" "}
+                  {/* // TODO: use the select field and use it to select role from ENUM */}
+                  {/* <FormControl sx={{ m: 0, width: "82%" }}>
+                    <InputLabel id="role">Role</InputLabel>
+                    <Select
+                      labelId="role"
+                      fieldName="role"
+                      register={register}
+                      errors={errors}
+                      id="role"
+                      value={role}
+                      label="Role"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={"ADMIN"}>ADMIN</MenuItem>
+                    </Select>
+                  </FormControl> */}
+                  {/* <RegisterTextField
+                    label="Role"
                     fieldName="role"
                     register={register}
                     errors={errors}
-                    id="role"
-                    value={role}
-                    label="Role"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={"ADMIN"}>ADMIN</MenuItem>
-                  </Select>
-                </FormControl> */}
-                {/* <RegisterTextField
-                  label="Role"
-                  fieldName="role"
-                  register={register}
-                  errors={errors}
-                /> */}
+                  /> */}
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
-          <Box component={"div"} className={classes.top_bottom_margin}>
-            <Button type="submit" variant="contained">
-              Register
-            </Button>
-            <div>
-              <Link to="/login">
-                Already have an account, please click here
-              </Link>
-            </div>
-          </Box>
-        </div>
-      </form>
+            </Box>
+            <Box component={"div"} className={classes.top_bottom_margin}>
+              <Button type="submit" variant="contained">
+                Register
+              </Button>
+              <div>
+                <Link to="/login">
+                  Already have an account, please click here
+                </Link>
+              </div>
+            </Box>
+          </div>
+        </form>
+      </div>
 
       <div className={classes.app_preview_container}>
         <Box component={"div"} sx={{ display: "flex" }}>
