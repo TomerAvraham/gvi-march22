@@ -16,7 +16,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 
 import SearchInput from "../../components/SearchInput";
 import authService from "../../services/auth.service";
-import { routes as appRoutes } from "../../app/_routes";
+import { mainRoutes } from "../../app/_routes";
 import { USER_PROFILE_LINKS } from "../../constants/constants";
 
 import { useSelector } from "react-redux";
@@ -94,7 +94,7 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {appRoutes.map((link, index) => (
+              {mainRoutes.map((link, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{link.linkLabel}</Typography>
                 </MenuItem>
@@ -122,7 +122,7 @@ const Navbar = () => {
 
           {isAuth && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {appRoutes.map((link, indexId) => (
+              {mainRoutes.map((link, indexId) => (
                 <Link key={indexId} to={link.path}>
                   <Button
                     className="nav-buttton"
