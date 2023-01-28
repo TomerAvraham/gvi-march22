@@ -24,9 +24,8 @@ const logout = async () => {
     const { data } = await api.delete("/logout", { data: { token } });
     if (data.ok) {
       deleteLocalStorageValue("ac_token");
-      window.location = "/login";
+      return data;
     }
-    return data;
   } catch (error) {
     return Promise.reject(error);
   }

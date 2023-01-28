@@ -10,6 +10,9 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
+
+import { setIsAuth } from "../../app/redux/slices/authSlice";
 
 import { PersonAdd, Settings, Logout } from "@mui/icons-material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -41,8 +44,18 @@ export const USER_SETTING_LINKS = [
 ];
 
 export default function NavbarUserMenu() {
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    const response = await authService.logout();
+    if (response.ok === true) {
+      dispatch(setIsAuth());
+    }
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -112,7 +125,7 @@ export default function NavbarUserMenu() {
             {link.label}
           </MenuItem>
         ))}
-        <MenuItem onClick={() => authService.logout()}>
+        <MenuItem onClick={() => handleLogout()}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

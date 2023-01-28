@@ -24,6 +24,9 @@ const authSlice = createSlice({
     clearErrorMessage: (state) => {
       state.error = "";
     },
+    setIsAuth: (state) => {
+      state.isAuth = !state.isAuth;
+    },
   },
   extraReducers: {
     [loginByEmailAndPassword.pending]: (state, action) => {
@@ -47,5 +50,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearErrorMessage } = authSlice.actions;
+export const { clearErrorMessage,setIsAuth } = authSlice.actions;
 export default authSlice.reducer;
