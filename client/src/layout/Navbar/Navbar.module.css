@@ -5,7 +5,7 @@
 
 .app_logo {
      flex-grow: 1;
-     /* margin-right: 2px; */
+     margin-right: 1rem!important;
      font-weight: 700;
      letter-spacing: ".3rem";
      color: "inherit";
