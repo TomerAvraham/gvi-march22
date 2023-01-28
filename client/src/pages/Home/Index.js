@@ -1,20 +1,35 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { USER_ROLE } from "../../constants/constants";
+import React, { useEffect, useState } from "react";
+import { getAllUsersByRole } from "../../services/user.service";
+import { Container, Grid } from "@mui/material";
+import UserCard from "../../components/cards/userCard/UserCard";
 
 const Index = () => {
-  const { user } = useSelector((store) => store.auth);
-  const { role } = user;
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if (USER_ROLE.ENTREPRENEUR === role) {
-      console.log("Im ENTREPRENEUR");
-      // actions for ENTREPRENEUR
-    } else if (USER_ROLE.CONSULTANT === role) {
-    }
-  }, [role]);
+    const controller = new AbortController();
+    (async () => {
+      const data = await getAllUsersByRole({ signal: controller.signal });
+      setUsers(data);
+    })();
 
-  return <div>Index</div>;
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  return (
+    <Container>
+      <Grid container spacing={2}>
+        {users &&
+          users.map((user) => (
+            <Grid key={user._id} item xs={12} sm={6} md={4} xl={3}>
+              <UserCard key={user._id} user={user} />
+            </Grid>
+          ))}
+      </Grid>
+    </Container>
+  );
 };
 
 export default Index;

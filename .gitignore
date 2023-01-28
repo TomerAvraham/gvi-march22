@@ -2,5 +2,4 @@
 **node_modules
 # all env files
 **.env
- 
  **package-lock.json

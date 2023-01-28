@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const { USER_ROLE } = require("../constants/user.constants");
+const userService = require("../services/user.service");
 
 const selectedUserField = [
   "_id",
@@ -17,13 +18,12 @@ const selectedUserField = [
 ].join(" ");
 
 exports.getAllUsersByRole = async (req, res, next) => {
-  const userId = req.userId;
-  const { role: fetcherRole } = await User.findOne({ _id: userId }).select(
-    "role"
-  );
+  const userRole = await userService.getUserRoleById(req.userId);
+
+  console.log("someone made request");
 
   const filterRoleByFetcherRole =
-    fetcherRole === USER_ROLE.ENTREPRENEUR
+    userRole === USER_ROLE.ENTREPRENEUR
       ? USER_ROLE.CONSULTANT
       : USER_ROLE.ENTREPRENEUR;
 
