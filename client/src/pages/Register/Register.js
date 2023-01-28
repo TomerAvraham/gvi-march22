@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { TextField, Box, Typography, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import classes from "./Register.module.css";
 import formValidationSchema from "./formValidationSchema";
@@ -8,20 +7,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerByPayload } from "../../app/redux/slices/registerSlice";
 import { loginByEmailAndPassword } from "../../app/redux/slices/authSlice";
 import { joiResolver } from "@hookform/resolvers/joi";
-import AdbIcon from "@mui/icons-material/Adb";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-// import registerBackgroundImage from '../../../public/register-background-img.png'
+import {
+  TextField,
+  Box,
+  Typography,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  InputLabel,
+  MenuItem,
+  FormHelperText,
+  FormControl,
+  Select,
+} from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
-import Grid from "@mui/material/Grid";
-
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { fontSize } from "@mui/system";
+import AdbIcon from "@mui/icons-material/Adb";
+import { PrimaryButton } from "../../components/common/Buttons";
 
 const RegisterTextField = ({ label, fieldName, register, errors }) => {
   return (
@@ -84,9 +86,10 @@ const Register = () => {
     resolver: joiResolver(formValidationSchema),
   });
 
-  React.useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  // React.useEffect(() => {
+  //   console.log(errors);
+  // }, [errors]);
+
   React.useEffect(() => {
     if (isAuth) navigate("/");
   }, [isAuth, navigate]);
@@ -158,7 +161,7 @@ const Register = () => {
               <Grid
                 container
                 rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                columnSpacing={{ xs: 1, sm: 3, md: 5, lg: 1, xl: 0 }}
               >
                 <Grid item xs={0} sm={6}>
                   {" "}
@@ -205,6 +208,7 @@ const Register = () => {
                     errors={errors}
                   />
                 </Grid>
+                {/* Select field */}
                 <Grid item xs={0} sm={6}>
                   {" "}
                   <FormControl sx={{ m: 0, minWidth: 222 }} size="small">
@@ -243,6 +247,7 @@ const Register = () => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    required
                     sx={{
                       color: blueGrey[200],
                       "&.Mui-checked": {
@@ -257,9 +262,7 @@ const Register = () => {
               />
             </FormGroup>
             <Box component={"div"} className={classes.top_bottom_margin}>
-              <Button type="submit" variant="contained">
-                Register
-              </Button>
+              <PrimaryButton type="submit">Register</PrimaryButton>
               <div className={classes.top_bottom_margin}>
                 Already have an account? <Link to="/login">Log in</Link>
               </div>

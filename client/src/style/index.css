@@ -20,7 +20,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Montserrat', sans-serif;
 }
 
 code {
@@ -41,11 +40,14 @@ header .nav-buttton {
 }
 
 header .nav-buttton:hover {
-
   background-color: var(--link-primary-background-color);
 }
 
 hr {
   border: 1px solid #e4e4e476;
   margin: 20px 0;
+}
+
+button {
+  text-transform: none !important;
 }

@@ -7,13 +7,15 @@ import classes from "./Layout.module.css";
 
 const Layout = () => {
   const { pathname } = useLocation();
-  const isAuthRoute = (pathname === "/register" || pathname === "/login") ? true : false;
+  const isAuthRoute =
+    pathname === "/register" || pathname === "/login" ? true : false;
   return (
     <>
       {isAuthRoute || <Navbar />}
       <Suspense fallback={<h1>Loading..</h1>}>
         <Container
-          maxWidth={(isAuthRoute) ? "xxl" : "xl"}
+          sx={{ padding: isAuthRoute && "0!important" }}
+          maxWidth={isAuthRoute ? "xxl" : "xl"}
           className={classes.layout_container}
         >
           <Outlet />

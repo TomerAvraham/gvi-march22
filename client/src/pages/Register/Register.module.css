@@ -24,7 +24,8 @@
 
 
 .desktop_input_section {
-    width: 60%;
+    width: 65%;
+    margin: auto;
 }
 
 .app_preview_container {
@@ -47,12 +48,10 @@
 
 }
 
-
-
 /* .app_preview_container::before {
     position: absolute;
-    top: 10%;
-    right: 20%;
+    top: 45%;
+    right: 90%;
     content: '';
     height: calc(width);
     background: rgb(90, 77, 253);
@@ -63,7 +62,6 @@
     aspect-ratio: 1 / 1;
     animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     z-index: -1;
-
 } */
 
 .shadow-drop-2-center {
@@ -82,7 +80,7 @@
 
 .register_left_container {
     margin: auto;
-    margin-left: 3rem;
+    /* margin-left: 3rem; */
     /* padding: 200px; */
 }
 
