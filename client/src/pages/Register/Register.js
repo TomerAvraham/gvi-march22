@@ -230,7 +230,10 @@ const Register = () => {
                 </Grid>
               </Grid>
             </Box>
-            <FormGroup sx={{ color: blueGrey[600] }}>
+            <FormGroup
+              className={classes.top_bottom_margin}
+              sx={{ color: blueGrey[600] }}
+            >
               <FormControlLabel
                 control={
                   <Checkbox

@@ -74,7 +74,7 @@
 }
 
 .top_bottom_margin {
-    margin: 2rem 0;
+    margin: 2rem 0!important;
 }
 
 
@@ -88,7 +88,7 @@
     text-decoration: underline;
 }
 
-.register_background_image{
+.register_background_image {
     width: 85%;
 }
 
