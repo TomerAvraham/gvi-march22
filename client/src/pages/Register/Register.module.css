@@ -38,7 +38,7 @@
     color: #fff;
     width: 1000px;
     flex-direction: column;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     /* background: linear-gradient(0deg, rgba(0, 113, 255, 1) 0%, rgba(61, 147, 255, 1) 100%); */
     background: rgb(90, 77, 253);
     background: linear-gradient(45deg, rgba(90, 77, 253, 1) 0%, rgba(51, 112, 252, 1) 35%, rgba(65, 165, 251, 1) 62%, rgba(109, 222, 238, 1) 100%);
@@ -47,26 +47,50 @@
 
 }
 
+
+
 /* .app_preview_container::before {
     position: absolute;
-    top: 40%;
-    right: 30%;
+    top: 10%;
+    right: 20%;
     content: '';
     height: calc(width);
-    background: rgb(90,77,253);
-background: linear-gradient(230deg, rgba(90,77,253,1) 0%, rgba(51,112,252,1) 35%, rgba(65,165,251,1) 62%, rgba(109,222,238,1) 100%);
+    background: rgb(90, 77, 253);
+    background: linear-gradient(230deg, rgba(90, 77, 253, 1) 0%, rgba(51, 112, 252, 1) 35%, rgba(65, 165, 251, 1) 62%, rgba(109, 222, 238, 1) 100%);
     color: #fff;
     border-radius: 50%;
-    width: 200px;
+    width: 100px;
     aspect-ratio: 1 / 1;
     animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    
+    z-index: -1;
+
 } */
+
 .shadow-drop-2-center {
     -webkit-animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
+.titles_container {
+    margin: 4rem 0;
+}
+
+.top_bottom_margin {
+    margin: 2rem 0;
+}
+
+
+.register_left_container {
+    margin: auto;
+    margin-left: 3rem;
+    /* padding: 200px; */
+}
+
+.register_left_container a {
+    text-decoration: underline;
+}
+
+/* Keyframes Animation */
 @-webkit-keyframes shadow-drop-2-center {
     0% {
         -webkit-transform: translateZ(0);
@@ -99,22 +123,31 @@ background: linear-gradient(230deg, rgba(90,77,253,1) 0%, rgba(51,112,252,1) 35%
     }
 }
 
-.titles_container {
-    margin: 4rem 0;
-}
-.top_bottom_margin {
-    margin: 2rem 0;
+
+/* Media queries */
+/* On screens that are 600px or less*/
+@media screen and (max-width: 992px) {
+    .app_preview_container {
+        display: none;
+
+    }
+
+    .register_left_container {
+        margin: auto;
+        margin-left: 0;
+    }
+
+    .desktop_input_section {
+        width: 80%;
+        margin: auto;
+    }
+
 }
 
-.register_left_container {
-    margin: auto;
-    margin-left: 3rem;
-    /* padding: 200px; */
-}
-
-.register_left_container a {
-    text-decoration: underline;
-}
-.register_background_image{
-    width: 100px;
+/* On screens that are 600px or less*/
+@media screen and (max-width: 600px) {
+    .app_preview_container {
+        /* background-color: olive; */
+        display: none;
+    }
 }

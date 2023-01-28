@@ -41,21 +41,23 @@ const RegisterSelectField = ({
   register,
   errors,
   handleChange,
-  role,
+  value,
   labelId,
   inputLabel,
   inputLabelId,
+  id,
 }) => {
   return (
     <>
       <Select
+        error={Boolean(errors[fieldName])}
         {...register(fieldName)}
-        helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
-        value={role}
+        // helpertext={errors[fieldName] ? errors[fieldName]?.message : " "}
+        value={value}
         label={label}
         onChange={handleChange}
         labelId={labelId}
-        id={IdleDeadline}
+        id={id}
       >
         <MenuItem value="">
           <em>None</em>
@@ -63,7 +65,9 @@ const RegisterSelectField = ({
         <MenuItem value={"ENTREPRENEUR"}>ENTREPRENEUR</MenuItem>
         <MenuItem value={"CONSULTANT"}>CONSULTANT</MenuItem>
       </Select>
-      <FormHelperText error={Boolean(errors[fieldName])}></FormHelperText>
+      <FormHelperText error={Boolean(errors[fieldName])}>
+        {errors[fieldName] ? errors[fieldName]?.message : " "}
+      </FormHelperText>
     </>
   );
 };
@@ -111,9 +115,10 @@ const Register = () => {
   };
 
   const pageTitles = {
-    title: "Manage all youe lottery efficiently",
+    mainTitle: "Register",
+    title: "Manage all your connection efficiently",
     subTitle:
-      "Let's get you all set up so you can verify your personal account and begin setting up your profile.",
+      "Let's get you all set up so you can verify your personal account.",
   };
 
   return (
@@ -122,13 +127,28 @@ const Register = () => {
         <form onSubmit={handleSubmit(onRegisterSubmit)}>
           <div className={classes.desktop_input_section}>
             <div className={`titles_container ${classes.top_bottom_margin}`}>
-              <Typography variant="h4" noWrap component="div">
-                Register
+              <Typography
+                variant="h4"
+                noWrap
+                component="div"
+                className={classes.top_bottom_margin}
+              >
+                {pageTitles.mainTitle}
               </Typography>
-              <Typography variant="h6" noWrap component="div">
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+              >
                 {pageTitles.title}
               </Typography>
-              <Typography variant="p" noWrap component="div">
+              <Typography
+                variant="p"
+                noWrap
+                component="div"
+                sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+              >
                 {pageTitles.subTitle}
               </Typography>
               <hr />
@@ -140,7 +160,7 @@ const Register = () => {
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
-                <Grid item xs={6}>
+                <Grid item xs={0} sm={6}>
                   {" "}
                   <RegisterTextField
                     label="Email"
@@ -149,7 +169,7 @@ const Register = () => {
                     errors={errors}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={0} sm={6}>
                   {" "}
                   <RegisterTextField
                     label="Password"
@@ -158,7 +178,7 @@ const Register = () => {
                     errors={errors}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={0} sm={6}>
                   {" "}
                   <RegisterTextField
                     label="Confirm Password"
@@ -167,7 +187,7 @@ const Register = () => {
                     errors={errors}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={0} sm={6}>
                   {" "}
                   <RegisterTextField
                     label="Last Name"
@@ -176,7 +196,7 @@ const Register = () => {
                     errors={errors}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={0} sm={6}>
                   {" "}
                   <RegisterTextField
                     label="First Name"
@@ -185,14 +205,16 @@ const Register = () => {
                     errors={errors}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={0} sm={6}>
                   {" "}
                   <FormControl sx={{ m: 0, minWidth: 222 }} size="small">
                     <InputLabel id="role-select">Role</InputLabel>
                     <RegisterSelectField
                       value={role}
-                      id={role}
-                      InputLabel={"role-select"}
+                      id={"role"}
+                      labelId="role-select"
+                      label="Role"
+                      // InputLabel={"role-select"}
                       fieldName="role"
                       register={register}
                       errors={errors}
@@ -247,16 +269,20 @@ const Register = () => {
       </div>
 
       <div className={classes.app_preview_container}>
-        <Box component={"div"} sx={{ display: "flex" }}>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+        <Box
+          component={"div"}
+          sx={{ display: "flex", mb: "10px" }}
+          className={classes.top_bottom_margin}
+        >
+          <AdbIcon />
           <Link to={"/"} style={{ color: "white" }}>
-            <Typography variant="h5" noWrap component="p">
+            <Typography variant="h4" noWrap component="p">
               GVI
             </Typography>
           </Link>
         </Box>
 
-        <Typography align="center" variant="h4">
+        <Typography component={"div"} align="center" variant="h5">
           a few clicks away from creating your account
         </Typography>
         <img
