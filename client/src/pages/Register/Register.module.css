@@ -44,7 +44,7 @@
     background: rgb(90, 77, 253);
     background: linear-gradient(45deg, rgba(90, 77, 253, 1) 0%, rgba(51, 112, 252, 1) 35%, rgba(65, 165, 251, 1) 62%, rgba(109, 222, 238, 1) 100%);
     animation: shadow-drop-2-center 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    background: rgb(0, 113, 255);
+    background: #0071ff;
 
 }
 
@@ -86,6 +86,10 @@
 
 .register_left_container a {
     text-decoration: underline;
+}
+
+.register_background_image{
+    width: 85%;
 }
 
 /* Keyframes Animation */

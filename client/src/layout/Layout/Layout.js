@@ -4,6 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Container from "@mui/material/Container";
 import classes from "./Layout.module.css";
+import Loader from "../../components/common/Loader/Loader";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -12,7 +13,7 @@ const Layout = () => {
   return (
     <>
       {isAuthRoute || <Navbar />}
-      <Suspense fallback={<h1>Loading..</h1>}>
+      <Suspense fallback={<Loader />}>
         <Container
           sx={{ padding: isAuthRoute && "0!important" }}
           maxWidth={isAuthRoute ? "xxl" : "xl"}

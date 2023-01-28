@@ -51,6 +51,9 @@ const RegisterSelectField = ({
 }) => {
   return (
     <>
+      <InputLabel error={Boolean(errors[fieldName])} id="role-select">
+        {label}
+      </InputLabel>
       <Select
         error={Boolean(errors[fieldName])}
         {...register(fieldName)}
@@ -212,7 +215,6 @@ const Register = () => {
                 <Grid item xs={0} sm={6}>
                   {" "}
                   <FormControl sx={{ m: 0, minWidth: 222 }} size="small">
-                    <InputLabel id="role-select">Role</InputLabel>
                     <RegisterSelectField
                       value={role}
                       id={"role"}
@@ -272,11 +274,7 @@ const Register = () => {
       </div>
 
       <div className={classes.app_preview_container}>
-        <Box
-          component={"div"}
-          sx={{ display: "flex", mb: "10px" }}
-          className={classes.top_bottom_margin}
-        >
+        <Box component={"div"} sx={{ display: "flex" }}>
           <AdbIcon />
           <Link to={"/"} style={{ color: "white" }}>
             <Typography variant="h4" noWrap component="p">
@@ -284,8 +282,12 @@ const Register = () => {
             </Typography>
           </Link>
         </Box>
-
-        <Typography component={"div"} align="center" variant="h5">
+        <Typography
+          component={"div"}
+          align="center"
+          variant="h5"
+          className={classes.top_bottom_margin}
+        >
           a few clicks away from creating your account
         </Typography>
         <img
