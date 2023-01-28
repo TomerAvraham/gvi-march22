@@ -49,10 +49,9 @@ const SearchInput = () => {
   return (
     <Search>
       <SearchIconWrapper>
-        <SearchIcon />
+        <SearchIcon fontSize="small" />
       </SearchIconWrapper>
       <StyledInputBase
-      size="small"
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
       />

@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { List, Box, Typography } from "@mui/material";
 import { footerRoutes } from "../../app/_routes";
+import classes from "./Footer.module.css";
+// import { blueGrey } from "@mui/material/colors";
 
 const FooterLinks = () => {
   return (
@@ -9,10 +11,8 @@ const FooterLinks = () => {
       <List>
         {footerRoutes.map((link, indexId) => {
           return (
-            <Link key={indexId} to={link.path}>
-              <Typography margin={"15px"} variant="p" gutterBottom>
-                {link.linkLabel}
-              </Typography>
+            <Link key={indexId} to={link.path} className={classes.footer_links}>
+              {link.linkLabel}
             </Link>
           );
         })}

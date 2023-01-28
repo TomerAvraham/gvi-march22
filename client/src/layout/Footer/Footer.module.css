@@ -14,3 +14,8 @@
 .footer_container p {
      margin-top: 10px;
 }
+
+.footer_links {
+     margin: 15px;
+     color: #787878;
+}
