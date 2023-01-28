@@ -1,24 +1,27 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
+import AdbIcon from "@mui/icons-material/Adb";
 import SearchInput from "../../components/SearchInput";
 import authService from "../../services/auth.service";
 import { mainRoutes } from "../../app/_routes";
 import { USER_PROFILE_LINKS } from "../../constants/constants";
+import MobileNavbarMenu from "./MobileNavbarMenu";
 
+import classes from "./Navbar.module.css";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
@@ -52,74 +55,34 @@ const Navbar = () => {
               variant="h6"
               noWrap
               component="p"
+              className={classes.app_logo}
               sx={{
-                mr: 2,
                 display: { xs: "none", md: "flex" },
                 fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
               }}
             >
               GVI
             </Typography>
           </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {mainRoutes.map((link, index) => (
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{link.linkLabel}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {/* Mobile Menu */}
+          <MobileNavbarMenu
+            handleOpenNavMenu={handleOpenNavMenu}
+            anchorElNav={anchorElNav}
+            handleCloseNavMenu={handleCloseNavMenu}
+          />
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
+            className={classes.app_logo}
             sx={{
-              mr: 2,
               display: { xs: "flex", md: "none" },
-              flexGrow: 1,
               fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
             }}
           >
             GVI
           </Typography>
-
           {isAuth && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {mainRoutes.map((link, indexId) => (
@@ -145,7 +108,6 @@ const Navbar = () => {
               <SearchInput />
             </Box>
           )}
-
           {isAuth && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
@@ -171,36 +133,13 @@ const Navbar = () => {
               >
                 {USER_PROFILE_LINKS.map((link, indexId) => (
                   <MenuItem key={indexId}>
-                    <Typography textAlign="center">{link.label}</Typography>
+                    <Typography align="center">{link.label}</Typography>
                   </MenuItem>
                 ))}
                 <MenuItem onClick={() => authService.logout()}>
-                  <Typography textAlign="center">Logout</Typography>
+                  <Typography align="center">Logout</Typography>
                 </MenuItem>
               </Menu>
-            </Box>
-          )}
-
-          {isAuth || (
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Link to={"/register"}>
-                <Button
-                  className="nav-buttton"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  Register
-                </Button>
-              </Link>
-              <Link to={"/login"}>
-                <Button
-                  className="nav-buttton"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  Login
-                </Button>
-              </Link>
             </Box>
           )}
         </Toolbar>

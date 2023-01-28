@@ -8,8 +8,6 @@ import classes from "./Layout.module.css";
 const Layout = () => {
   const { pathname } = useLocation();
   const isAuthRoute = (pathname === "/register" || pathname === "/login") ? true : false;
-
-  console.log(pathname);
   return (
     <>
       {isAuthRoute || <Navbar />}
