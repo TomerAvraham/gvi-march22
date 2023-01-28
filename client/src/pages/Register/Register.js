@@ -9,13 +9,19 @@ import { registerByPayload } from "../../app/redux/slices/registerSlice";
 import { loginByEmailAndPassword } from "../../app/redux/slices/authSlice";
 import { joiResolver } from "@hookform/resolvers/joi";
 import AdbIcon from "@mui/icons-material/Adb";
-
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+// import registerBackgroundImage from '../../../public/register-background-img.png'
+import { blueGrey } from "@mui/material/colors";
 import Grid from "@mui/material/Grid";
 
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { fontSize } from "@mui/system";
 
 const RegisterTextField = ({ label, fieldName, register, errors }) => {
   return (
@@ -24,35 +30,43 @@ const RegisterTextField = ({ label, fieldName, register, errors }) => {
       error={Boolean(errors[fieldName])}
       helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
       {...register(fieldName)}
+      size="small"
     />
   );
 };
 
-// TODO: create custom component for select
-// const RegisterSelectField = ({ label, fieldName, register, errors,role,handleChange }) => {
-//   return (
-//     <>
-//       {/* <TextField
-//         label={label}
-//         error={Boolean(errors[fieldName])}
-//         helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
-//         {...register(fieldName)}
-//       /> */}
-//       <Select
-//         {...register(fieldName)}
-//         error={Boolean(errors[fieldName])}
-//         helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
-//         value={role}
-//         label={label}
-//         onChange={handleChange}
-//       >
-//         <MenuItem value={10}>Ten</MenuItem>
-//         <MenuItem value={20}>Twenty</MenuItem>
-//         <MenuItem value={"ADMIN"}>ADMIN</MenuItem>
-//       </Select>
-//     </>
-//   );
-// };
+const RegisterSelectField = ({
+  label,
+  fieldName,
+  register,
+  errors,
+  handleChange,
+  role,
+  labelId,
+  inputLabel,
+  inputLabelId,
+}) => {
+  return (
+    <>
+      <Select
+        {...register(fieldName)}
+        helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
+        value={role}
+        label={label}
+        onChange={handleChange}
+        labelId={labelId}
+        id={IdleDeadline}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={"ENTREPRENEUR"}>ENTREPRENEUR</MenuItem>
+        <MenuItem value={"CONSULTANT"}>CONSULTANT</MenuItem>
+      </Select>
+      <FormHelperText error={Boolean(errors[fieldName])}></FormHelperText>
+    </>
+  );
+};
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -103,8 +117,8 @@ const Register = () => {
   };
 
   return (
-    <Box  className={classes.page_container}>
-      <div className={classes.register_left_container} >
+    <Box className={classes.page_container}>
+      <div className={classes.register_left_container}>
         <form onSubmit={handleSubmit(onRegisterSubmit)}>
           <div className={classes.desktop_input_section}>
             <div className={`titles_container ${classes.top_bottom_margin}`}>
@@ -117,6 +131,7 @@ const Register = () => {
               <Typography variant="p" noWrap component="div">
                 {pageTitles.subTitle}
               </Typography>
+              <hr />
             </div>
             {/* Fields */}
             <Box sx={{ width: "100%" }}>
@@ -172,41 +187,59 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={6}>
                   {" "}
-                  {/* // TODO: use the select field and use it to select role from ENUM */}
-                  {/* <FormControl sx={{ m: 0, width: "82%" }}>
-                    <InputLabel id="role">Role</InputLabel>
-                    <Select
-                      labelId="role"
+                  <FormControl sx={{ m: 0, minWidth: 222 }} size="small">
+                    <InputLabel id="role-select">Role</InputLabel>
+                    <RegisterSelectField
+                      value={role}
+                      id={role}
+                      InputLabel={"role-select"}
                       fieldName="role"
                       register={register}
                       errors={errors}
-                      id="role"
-                      value={role}
-                      label="Role"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={"ADMIN"}>ADMIN</MenuItem>
-                    </Select>
-                  </FormControl> */}
-                  {/* <RegisterTextField
-                    label="Role"
-                    fieldName="role"
-                    register={register}
-                    errors={errors}
-                  /> */}
+                      handleChange={handleChange}
+                    />
+                  </FormControl>
                 </Grid>
               </Grid>
             </Box>
+            <FormGroup sx={{ color: blueGrey[600] }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    sx={{
+                      color: blueGrey[200],
+                      "&.Mui-checked": {
+                        color: blueGrey[500],
+                      },
+                    }}
+                    size="small"
+                    defaultChecked
+                  />
+                }
+                label="Yes, I want to recive newsletter emails"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    sx={{
+                      color: blueGrey[200],
+                      "&.Mui-checked": {
+                        color: blueGrey[500],
+                      },
+                    }}
+                    size="small"
+                    defaultChecked
+                  />
+                }
+                label="I agree to all the Terms, Privacy Policy and Fees"
+              />
+            </FormGroup>
             <Box component={"div"} className={classes.top_bottom_margin}>
               <Button type="submit" variant="contained">
                 Register
               </Button>
-              <div>
-                <Link to="/login">
-                  Already have an account, please click here
-                </Link>
+              <div className={classes.top_bottom_margin}>
+                Already have an account? <Link to="/login">Log in</Link>
               </div>
             </Box>
           </div>
@@ -226,6 +259,11 @@ const Register = () => {
         <Typography align="center" variant="h4">
           a few clicks away from creating your account
         </Typography>
+        <img
+          className={classes.register_background_image}
+          src="/register-background-img.png"
+          alt="registerImage"
+        ></img>
       </div>
     </Box>
   );

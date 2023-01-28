@@ -3,13 +3,14 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { mainRoutes, footerRoutes } from "./_routes";
 import { useSelector } from "react-redux";
 import Layout from "../layout/Layout/Layout";
+import { useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuth } = useSelector((state) => state.auth);
   return isAuth ? children : <Navigate to="/login" replace />;
 };
 
-const RouterWrapper = ({children}) => {
+const RouterWrapper = ({ children }) => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -40,7 +41,7 @@ const RouterWrapper = ({children}) => {
                     <route.component />
                   </ProtectedRoute>
                 ) : (
-                  {children}
+                  { children }
                 )
               }
               key={index}
