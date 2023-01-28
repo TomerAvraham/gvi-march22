@@ -1,28 +1,21 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import UserMenu from "./UserMenu";
+import NavbarUserMenu from "./NavbarUserMenu";
 import {
   AppBar,
   Box,
   Toolbar,
-  IconButton,
   Typography,
-  Menu,
   Container,
-  Avatar,
   Button,
-  Tooltip,
-  MenuItem,
 } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
 import SearchInput from "../../components/SearchInput";
-import authService from "../../services/auth.service";
 import { mainRoutes } from "../../app/_routes";
-import { USER_PROFILE_LINKS } from "../../constants/constants";
 import MobileNavbarMenu from "./MobileNavbarMenu";
-
 import classes from "./Navbar.module.css";
-import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -33,24 +26,23 @@ const Navbar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="xxl" className={classes.navbar_container}>
         <Toolbar disableGutters variant="dense">
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Link to={"/"} style={{ color: "white" }}>
+          <Link to={"/"}>
             <Typography
               variant="h6"
               noWrap
@@ -58,7 +50,6 @@ const Navbar = () => {
               className={classes.app_logo}
               sx={{
                 display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
               }}
             >
               GVI
@@ -109,38 +100,14 @@ const Navbar = () => {
             </Box>
           )}
           {isAuth && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {USER_PROFILE_LINKS.map((link, indexId) => (
-                  <MenuItem key={indexId}>
-                    <Typography align="center">{link.label}</Typography>
-                  </MenuItem>
-                ))}
-                <MenuItem onClick={() => authService.logout()}>
-                  <Typography align="center">Logout</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
+            <>
+              <NavbarUserMenu />
+              {/* <UserMenu
+                handleOpenUserMenu={handleOpenUserMenu}
+                anchorElUser={anchorElUser}
+                handleCloseUserMenu={handleCloseUserMenu}
+              /> */}
+            </>
           )}
         </Toolbar>
       </Container>

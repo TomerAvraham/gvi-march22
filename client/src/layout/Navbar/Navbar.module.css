@@ -20,3 +20,10 @@
      margin: 0 3px;
      background-color: black;
 }
+
+.navbar_container > div{
+     padding: 2px;
+}
+.navbar_container a{
+ color: #fff;
+}
