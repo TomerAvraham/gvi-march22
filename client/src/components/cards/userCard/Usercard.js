@@ -13,7 +13,7 @@ import {
   Box,
 } from "@mui/material";
 import { LocationOn, Phone, Person, Email } from "@mui/icons-material";
-import "./UserCard.css";
+import "./Usercard.css";
 import * as UserCardStyle from "./UserCard.style";
 import UserCardDetails from "./UserCardDetails";
 

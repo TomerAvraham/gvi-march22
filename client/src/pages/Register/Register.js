@@ -24,16 +24,26 @@ import {
 import { blueGrey } from "@mui/material/colors";
 import AdbIcon from "@mui/icons-material/Adb";
 import { PrimaryButton } from "../../components/common/Buttons";
+//need to move to utils
+const registerItemLists = [
+  { label: "Email", field: "email" },
+  { label: "Password", field: "password" },
+  { label: "Confirm Password", field: "passwordConfirmation" },
+  { label: "First Name", field: "firstName" },
+  { label: "Last Name", field: "lastName" },
+];
 
 const RegisterTextField = ({ label, fieldName, register, errors }) => {
   return (
-    <TextField
-      label={label}
-      error={Boolean(errors[fieldName])}
-      helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
-      {...register(fieldName)}
-      size="small"
-    />
+    <Grid item xs={0} sm={6}>
+      <TextField
+        label={label}
+        error={Boolean(errors[fieldName])}
+        helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
+        {...register(fieldName)}
+        size="small"
+      />
+    </Grid>
   );
 };
 
@@ -166,7 +176,7 @@ const Register = () => {
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 3, md: 5, lg: 1, xl: 0 }}
               >
-                <Grid item xs={0} sm={6}>
+                {/* <Grid item xs={0} sm={6}>
                   {" "}
                   <RegisterTextField
                     label="Email"
@@ -185,7 +195,6 @@ const Register = () => {
                   />
                 </Grid>
                 <Grid item xs={0} sm={6}>
-                  {" "}
                   <RegisterTextField
                     label="Confirm Password"
                     fieldName="passwordConfirmation"
@@ -210,10 +219,22 @@ const Register = () => {
                     register={register}
                     errors={errors}
                   />
-                </Grid>
+                </Grid> */}
                 {/* Select field */}
+                {/* one map instead of the code above */}
+                {registerItemLists.map((itemRegister, index) => {
+                  return (
+                    <RegisterTextField
+                      label={itemRegister.label}
+                      fieldName={itemRegister.field}
+                      register={register}
+                      errors={errors}
+                      key={index}
+                    />
+                  );
+                })}
+
                 <Grid item xs={0} sm={6}>
-                  {" "}
                   <FormControl sx={{ m: 0, minWidth: 222 }} size="small">
                     <RegisterSelectField
                       value={role}
