@@ -5,9 +5,13 @@ const errorHandler = require("../errors/errorHandler");
 
 const authRoutes = require("./authentication.routes");
 const userRoutes = require("./user.routes");
+const chatsRoutes = require("./chat.routes")
+
 
 router.use("/auth", authRoutes);
 router.use("/user", authJwtToken, userRoutes);
+router.use("/chats", authJwtToken, chatsRoutes);
+
 
 // Handle not found requests
 router.all("*", (req, res, next) => {
