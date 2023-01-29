@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../../../services/auth.service";
+import { setLocalStorageValue } from "../../../utils/localStorage.util";
 
 export const loginByEmailAndPassword = createAsyncThunk(
   "auth/loginByEmailAndPassword",
@@ -41,7 +42,7 @@ const authSlice = createSlice({
       state.isAuth = true;
       state.user = payload;
 
-      localStorage.setItem("ac_token", payload.jwt_ac_token);
+      setLocalStorageValue("ac_token", payload.jwt_ac_token);
     },
   },
 });

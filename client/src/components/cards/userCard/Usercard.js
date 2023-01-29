@@ -13,10 +13,13 @@ import {
   Box,
 } from "@mui/material";
 import { LocationOn, Phone, Person, Email } from "@mui/icons-material";
-import "./Usercard.css";
+import "./UserCard.css";
 import * as UserCardStyle from "./UserCard.style";
+import UserCardDetails from "./UserCardDetails";
 
-export default function Usercard() {
+const UserCard = ({ user }) => {
+  
+
   return (
     <Card sx={{ maxWidth: 305, margin: 4, color: "var(--text--color)" }}>
       <CardMedia
@@ -92,44 +95,7 @@ export default function Usercard() {
           justifyContent: "space-evenly",
         }}
       >
-        <Typography
-          sx={{
-            fontSize: 10,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Phone sx={{ fontSize: "medium" }} />
-          053111111
-        </Typography>
-
-        <Typography
-          sx={{
-            fontSize: 10,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Email sx={{ fontSize: "medium" }} />
-          hazanshoval@gmail.com
-        </Typography>
-
-        <Typography
-          sx={{
-            fontSize: 10,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Person sx={{ fontSize: "medium" }} />
-          real estate
-        </Typography>
+        <UserCardDetails user={user} />
       </CardActions>
 
       <Divider />
@@ -152,4 +118,6 @@ export default function Usercard() {
       </Stack>
     </Card>
   );
-}
+};
+
+export default UserCard;
