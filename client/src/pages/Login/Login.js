@@ -4,13 +4,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FormControl from "@mui/material/FormControl";
-import {
-  loginByEmailAndPassword,
-  clearErrorMessage,
-} from "../../app/redux/slices/authSlice";
+import {loginByEmailAndPassword, clearErrorMessage,} from "../../app/redux/slices/authSlice";
 import classes from "./Login.module.css";
 import people from "./Teamwork.jpg"
-
+import PasswordLabel from "./PasswordLabel";
 
 const TIME_TO_CLEAR_ERROR_MSG = 3500;
 
@@ -56,15 +53,13 @@ const Login = () => {
              <FormControl fullWidth>
                <TextField label="Email" variant="outlined" requiredtype={"email"} inputRef={emailInputRef}/>
              </FormControl>
-             <FormControl fullWidth>
-               <TextField label="Password" variant="outlined"required type={"password"} inputRef={passwordInputRef} />
-             </FormControl>
+             
+             <PasswordLabel /> 
+             
              <Button type="submit" variant="contained">Login</Button>
    
              <div className={classes.social_signin}>
-                 <Button type="onClick" variant="contained" className={classes.google}>google</Button>
-                 <Button type="onClick" variant="contained" className={classes.facebook}>facebook</Button>
-                 <Button type="onClick" variant="contained" className={classes.twitter}>twitter</Button>
+                 <Button fullWidth type="onClick" variant="contained" className={classes.google}>google</Button>
              </div>
 
              {isLoading && <CircularProgress />}

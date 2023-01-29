@@ -62,32 +62,25 @@ button {
 }
 
 .social_signin {
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    flex-direction:row;
-    gap: 10px;
-  }
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-direction:row;
+  gap: 10px;
+  
+}
 
 .social_signin button {
-    width: 40%;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    padding: 5px; 
-  }
+  
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  
+}
 
-  .social_signin button.google {
-    background: #ee8555;
-    color: white;
-  }
-  .social_signin button.facebook {
-    background: #3A5A98;
-    
-    color: white;
-  }
-  .social_signin button.twitter {
-    background: #55ACEE;
-    color: white;
-  }
+.social_signin button.google {
+  background: #ee8555;
+  color: white;
+}
