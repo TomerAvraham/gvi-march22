@@ -17,6 +17,7 @@ const selectedUserField = [
 ].join(" ");
 
 exports.getAllUsersByRole = async (req, res, next) => {
+  
   const userId = req.userId;
   const { role: fetcherRole } = await User.findOne({ _id: userId }).select(
     "role"
