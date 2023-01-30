@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Container, Grid } from "@mui/material";
-import UserCard from "../../components/cards/userCard/Usercard";
+import UserCard from "../../components/cards/userCard/UserCard";
 
 const Index = () => {
   const [users, setUsers] = useState([]);
