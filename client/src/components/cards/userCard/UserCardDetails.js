@@ -10,11 +10,12 @@ const UserCardDetails = ({ user }) => {
   ];
 
   const typographyStyle = {
-    fontSize: 15,
+    fontSize: 13,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+    mt:7,
   };
 
   return (

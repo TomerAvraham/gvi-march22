@@ -6,3 +6,13 @@ export const cardActionStyle = {
   justifyContent: "center",
   mt: 1,
 };
+
+export const cardAboutStyle={
+  padding: 2,
+  height: 0,
+  color:"var(--title--color)",
+}
+
+export const CardHeader={
+  marginTop:1,
+}

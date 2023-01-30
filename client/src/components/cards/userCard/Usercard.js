@@ -28,7 +28,7 @@ const UserCard = ({ user }) => {
         }
         title="green iguana"
       ></CardMedia>
-      <CardHeader
+      <CardHeader sx={UserCardStyle.CardHeader}
         avatar={
           <Avatar
             alt="Remy Sharp"
@@ -41,7 +41,8 @@ const UserCard = ({ user }) => {
           ></Avatar>
         }
         title="Lizard"
-        subheader=" Tel aviv"
+        subheader="Tel aviv"
+
       >
         <Typography
           sx={{
@@ -53,7 +54,6 @@ const UserCard = ({ user }) => {
         >
           Lizard
           <Typography sx={{ fontSize: 12, color: "var(--text--color)" }}>
-            <LocationOn sx={{ ml: -0.5, fontSize: 12 }} />
           </Typography>
         </Typography>
       </CardHeader>
@@ -65,23 +65,14 @@ const UserCard = ({ user }) => {
             variant="body2"
             color="var(--text--color)"
             fontFamily="var(--title--font)"
-            sx={{
-              padding: 2,
-              height: 0,
-              color: "transparent",
-              "&:hover": {
-                color: "black",
-                height: 50,
-                transitionDelay: "100ms",
-              },
-            }}
+            sx={UserCardStyle.cardAboutStyle}
           >
             Lizards are a widespread group of squamate reptiles, with over 6,000
             species, ranging across all continents except Antarctica
           </Typography>
         </CardContent>
       </Box>
-      <UserCardDetails user={user} />
+      <UserCardDetails  user={user} />
 
       <CardActions sx={UserCardStyle.cardActionStyle}>
         <PrimaryButton>Request</PrimaryButton>
