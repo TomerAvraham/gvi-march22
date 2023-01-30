@@ -6,3 +6,11 @@
   --text--font: "Montserrat Alternates", sans-serif;
   --text--color: #7f8487;
 }
+
+
+.user_card_details_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

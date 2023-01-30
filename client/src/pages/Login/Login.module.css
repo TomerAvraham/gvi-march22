@@ -2,11 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height:80vh;
-  background-color: var(--primary-background-color-blue);
-  box-shadow: 5px 10px 10px var(--primary-background-color-blue); 
-  border-radius:2rem;
-  background-image: url(https://media.geeksforgeeks.org/wp-content/uploads/20200326181026/wave3.png);
+  height:100vh;
+  background-color: #0071ff;
   background-position: center;
   background-repeat: no-repeat; 
   background-size: cover;
@@ -74,7 +71,6 @@ button {
 .social_signin button {
   
   border: none;
-  border-radius: 10px;
   cursor: pointer;
   padding: 5px;
   

@@ -11,7 +11,23 @@ const EXPERTISE = {
   UX_DESIGNER: "UX_DESIGNER",
 };
 
+const SELECTED_USER_FIELDS = [
+  "_id",
+  "email",
+  "firstName",
+  "lastName",
+  "startup",
+  "role",
+  "location",
+  "linksView",
+  "expertise",
+  "phoneNumber",
+  "about",
+  "imgSRC",
+].join(" ");
+
 module.exports = {
   USER_ROLE,
   EXPERTISE,
+  SELECTED_USER_FIELDS,
 };

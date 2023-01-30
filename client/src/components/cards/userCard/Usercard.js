@@ -3,11 +3,11 @@ import {
   CardMedia,
   Card,
   CardActions,
+  CardHeader,
   CardContent,
   Typography,
   Divider,
   Stack,
-  Switch,
   Chip,
   Avatar,
   Box,
@@ -16,6 +16,7 @@ import { LocationOn, Phone, Person, Email } from "@mui/icons-material";
 import "./UserCard.css";
 import * as UserCardStyle from "./UserCard.style";
 import UserCardDetails from "./UserCardDetails";
+import { PrimaryButton } from "../../common/Buttons";
 
 const UserCard = ({ user }) => {
   return (
@@ -26,24 +27,24 @@ const UserCard = ({ user }) => {
           "https://www.realco.co.il/wp-content/uploads/2020/01/%D7%A8%D7%A7%D7%A2-%D7%9E%D7%95%D7%91%D7%99%D7%99%D7%9C-min.jpg"
         }
         title="green iguana"
+      ></CardMedia>
+      <CardHeader
+        avatar={
+          <Avatar
+            alt="Remy Sharp"
+            src="https://cdnb.artstation.com/p/assets/images/images/039/196/767/20210702010025/smaller_square/beomjun-baek-face-work.jpg?1625205625"
+            sx={{
+              width: 86,
+              height: 86,
+              ml: 2,
+            }}
+          ></Avatar>
+        }
+        title="Lizard"
+        subheader=" Tel aviv"
       >
-        <Avatar
-          alt="Remy Sharp"
-          src="https://cdnb.artstation.com/p/assets/images/images/039/196/767/20210702010025/smaller_square/beomjun-baek-face-work.jpg?1625205625"
-          sx={{
-            width: 86,
-            height: 86,
-            position: "absolute",
-            top: 180,
-            ml: 2,
-          }}
-        ></Avatar>
-
         <Typography
           sx={{
-            position: "absolute",
-            top: 230,
-            ml: 18,
             fontWeight: "bold",
             fontSize: 19,
             fontFamily: "var(--title--font)",
@@ -53,17 +54,12 @@ const UserCard = ({ user }) => {
           Lizard
           <Typography sx={{ fontSize: 12, color: "var(--text--color)" }}>
             <LocationOn sx={{ ml: -0.5, fontSize: 12 }} />
-            Tel aviv
           </Typography>
         </Typography>
-      </CardMedia>
+      </CardHeader>
 
       <Box>
-        <CardContent
-          sx={{
-            mt: 5,
-          }}
-        >
+        <CardContent>
           <Divider />
           <Typography
             variant="body2"
@@ -85,35 +81,13 @@ const UserCard = ({ user }) => {
           </Typography>
         </CardContent>
       </Box>
+      <UserCardDetails user={user} />
 
-      <CardActions
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <UserCardDetails user={user} />
+      <CardActions sx={UserCardStyle.cardActionStyle}>
+        <PrimaryButton>Request</PrimaryButton>
       </CardActions>
 
       <Divider />
-
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ px: 2, py: 1, bgcolor: "background.default", p: 2 }}
-      >
-        <Chip label="chat" color="primary" onClick={function () {}}></Chip>
-        <Chip label="Online" color="success" onClick={function () {}}></Chip>
-
-        <Chip
-          label="link"
-          variant="outlined"
-          color="primary"
-          onClick={function () {}}
-        ></Chip>
-      </Stack>
     </Card>
   );
 };

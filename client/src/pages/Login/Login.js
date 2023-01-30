@@ -17,7 +17,8 @@ import {
 } from "../../app/redux/slices/authSlice";
 import classes from "./Login.module.css";
 import people from "./Teamwork.jpg";
-import PasswordLabel from "./PasswordLabel";
+import PasswordInput from "./PasswordInput";
+import { PrimaryButton } from "../../components/common/Buttons";
 
 const TIME_TO_CLEAR_ERROR_MSG = 3500;
 
@@ -64,7 +65,7 @@ const Login = () => {
             </Alert>
           )}
 
-          <div className={classes.login_wrapper_title}>Welcom Back!</div>
+          <div className={classes.login_wrapper_title}>Welcome Back!</div>
 
           <form className={classes.login_form} onSubmit={onLoginSubmit}>
             <FormControl fullWidth>
@@ -76,11 +77,11 @@ const Login = () => {
               />
             </FormControl>
 
-            <PasswordLabel passwordInputRef={passwordInputRef} />
+            <PasswordInput passwordInputRef={passwordInputRef} />
 
-            <Button type="submit" variant="contained">
+            <PrimaryButton type="submit" variant="contained">
               Login
-            </Button>
+            </PrimaryButton>
 
             <div className={classes.social_signin}>
               <Button

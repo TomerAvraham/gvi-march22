@@ -18,14 +18,14 @@ const UserCardDetails = ({ user }) => {
   };
 
   return (
-    <>
+    <div className="user_card_details_container">
       {details.map(({ Icon, value }) => (
         <Typography sx={typographyStyle}>
           <Icon sx={{ fontSize: "large" }} />
           {value}
         </Typography>
       ))}
-    </>
+    </div>
   );
 };
 

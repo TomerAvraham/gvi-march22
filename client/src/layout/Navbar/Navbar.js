@@ -76,17 +76,20 @@ const Navbar = () => {
           </Typography>
           {isAuth && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {mainRoutes.map((link, indexId) => (
-                <Link key={indexId} to={link.path}>
-                  <Button
-                    className="nav-buttton"
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    {link.linkLabel}
-                  </Button>
-                </Link>
-              ))}
+              {mainRoutes.map(
+                (link, indexId) =>
+                  link.isNavbarLink && (
+                    <Link key={indexId} to={link.path}>
+                      <Button
+                        className="nav-buttton"
+                        onClick={handleCloseNavMenu}
+                        sx={{ my: 2, color: "white", display: "block" }}
+                      >
+                        {link.linkLabel}
+                      </Button>
+                    </Link>
+                  )
+              )}
             </Box>
           )}
           {isAuth && (

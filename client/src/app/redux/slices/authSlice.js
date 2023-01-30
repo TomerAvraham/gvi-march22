@@ -10,6 +10,14 @@ export const loginByEmailAndPassword = createAsyncThunk(
   }
 );
 
+export const isLoginByToken = createAsyncThunk(
+  "auth/isLoginByToken",
+  async () => {
+    const response = await authService.isLogin();
+    return response.data;
+  }
+);
+
 const initialState = {
   isLoading: false,
   isAuth: false,
@@ -47,8 +55,24 @@ const authSlice = createSlice({
 
       setLocalStorageValue("ac_token", payload.jwt_ac_token);
     },
+    [isLoginByToken.pending]: (state, action) => {
+      state.isLoading = true;
+      state.error = "";
+      state.isAuth = false;
+    },
+    [isLoginByToken.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isAuth = false;
+      state.error = "Invalid token";
+    },
+    [isLoginByToken.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = "";
+      state.isAuth = true;
+      state.user = payload;
+    },
   },
 });
 
-export const { clearErrorMessage,setIsAuth } = authSlice.actions;
+export const { clearErrorMessage, setIsAuth } = authSlice.actions;
 export default authSlice.reducer;

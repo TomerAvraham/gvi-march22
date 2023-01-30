@@ -23,7 +23,7 @@ const Index = () => {
       <Grid container spacing={2}>
         {users &&
           users.map((user) => (
-            <Grid key={user._id} item xs={12} sm={6} md={4} xl={3}>
+            <Grid key={user._id} item xs={12} sm={6} md={4}>
               <UserCard key={user._id} user={user} />
             </Grid>
           ))}

@@ -7,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const PasswordLabel = ({ passwordInputRef }) => {
+const PasswordInput = ({ passwordInputRef }) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -39,4 +39,4 @@ const PasswordLabel = ({ passwordInputRef }) => {
   );
 };
 
-export default PasswordLabel;
+export default PasswordInput;

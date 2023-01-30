@@ -6,8 +6,20 @@ const Register = React.lazy(() => import("../pages/Register/Register"));
 const Chat = React.lazy(() => import("../pages/Chat"));
 
 const mainRoutes = [
-  { linkLabel: "Home", path: "/", component: Index, isProtected: true },
-  { linkLabel: "Chat", path: "/chat", component: Chat, isProtected: true },
+  {
+    linkLabel: "Home",
+    path: "/",
+    component: Index,
+    isProtected: true,
+    isNavbarLink: true,
+  },
+  {
+    linkLabel: "Chat",
+    path: "/chat",
+    component: Chat,
+    isProtected: true,
+    isNavbarLink: true,
+  },
   { linkLabel: "Login", path: "/login", component: Login },
   { linkLabel: "Register", path: "/register", component: Register },
 ];

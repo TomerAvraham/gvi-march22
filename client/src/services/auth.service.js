@@ -54,5 +54,18 @@ const register = async (
   }
 };
 
-const authService = { login, logout, register };
+const isLogin = async () => {
+  try {
+    const token = getLocalStorageValue("ac_token");
+    if (!token) Promise.reject();
+    const response = await api.post("/isLogin", {
+      ac_token: token,
+    });
+    return response;
+  } catch (error) {
+    Promise.reject(error);
+  }
+};
+
+const authService = { login, logout, register, isLogin };
 export default authService;

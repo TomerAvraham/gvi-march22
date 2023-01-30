@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const { UnauthorizeError, NotFoundError } = require("../errors/Errors");
 const JwtTokenService = require("../services/jwt.service");
 const RequestValidationService = require("../services/request-validation.service");
+const { SELECTED_USER_FIELDS } = require("../constants/user.constants");
 
 exports.login = async (req, res, next) => {
   await RequestValidationService.loginValidation(req.body, next);
@@ -34,4 +35,17 @@ exports.logout = async (req, res, next) => {
   user.jwt_ac_token = undefined;
   user.save();
   res.send({ ok: true, messgae: "You have been logged out" });
+};
+
+exports.isLogin = async (req, res, next) => {
+  try {
+    const token = req.query.ac_token || req.body.ac_token;
+    if (!token) return next(new UnauthorizeError("Token is required"));
+    const decoded = JwtTokenService.verifyAccessToken(token);
+    const { userId } = decoded;
+    const user = await User.findById(userId).select(SELECTED_USER_FIELDS);
+    res.status(200).send(user);
+  } catch (error) {
+    next(new UnauthorizeError());
+  }
 };
