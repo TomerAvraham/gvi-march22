@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerByPayload } from "../../app/redux/slices/registerSlice";
 import { loginByEmailAndPassword } from "../../app/redux/slices/authSlice";
 import { joiResolver } from "@hookform/resolvers/joi";
+import Visibility from "@mui/icons-material/Visibility";
+import IconButton from "@mui/material/IconButton";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
   TextField,
   Box,
@@ -25,27 +28,6 @@ import { blueGrey } from "@mui/material/colors";
 import AdbIcon from "@mui/icons-material/Adb";
 import { PrimaryButton } from "../../components/common/Buttons";
 //need to move to utils
-const registerItemLists = [
-  { label: "Email", field: "email" },
-  { label: "Password", field: "password" },
-  { label: "Confirm Password", field: "passwordConfirmation" },
-  { label: "First Name", field: "firstName" },
-  { label: "Last Name", field: "lastName" },
-];
-
-const RegisterTextField = ({ label, fieldName, register, errors }) => {
-  return (
-    <Grid item xs={0} sm={6}>
-      <TextField
-        label={label}
-        error={Boolean(errors[fieldName])}
-        helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
-        {...register(fieldName)}
-        size="small"
-      />
-    </Grid>
-  );
-};
 
 const RegisterSelectField = ({
   label,
@@ -88,6 +70,53 @@ const RegisterSelectField = ({
 };
 
 const Register = () => {
+  const RegisterTextField = ({ label, fieldName, register, errors, type }) => {
+    return (
+      <Grid item xs={0} sm={6}>
+        <TextField
+          label={label}
+          type={type}
+          error={Boolean(errors[fieldName])}
+          helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
+          {...register(fieldName)}
+          size="small"
+        />
+        {label === "Password" || label === "Confirm Password" ? (
+          <IconButton
+            aria-label="toggle password visibility"
+            onClick={togglePassword}
+            edge="end"
+          >
+            {!showPassword ? <Visibility /> : <VisibilityOff />}
+          </IconButton>
+        ) : (
+          ""
+        )}
+      </Grid>
+    );
+  };
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const registerItemLists = [
+    { label: "Email", field: "email" },
+    {
+      label: "Password",
+      field: "password",
+      type: showPassword ? "text" : "password",
+    },
+    {
+      label: "Confirm Password",
+      field: "passwordConfirmation",
+      type: showPassword ? "text" : "password",
+    },
+    { label: "First Name", field: "firstName" },
+    { label: "Last Name", field: "lastName" },
+  ];
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuth } = useSelector((state) => state.auth);
@@ -227,6 +256,7 @@ const Register = () => {
                     <RegisterTextField
                       label={itemRegister.label}
                       fieldName={itemRegister.field}
+                      type={itemRegister.type}
                       register={register}
                       errors={errors}
                       key={index}

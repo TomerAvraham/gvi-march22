@@ -39,7 +39,7 @@ const schema = Joi.object({
     .regex(RegExp(passwordRegex))
     .messages({
       "string.base": `"password" should be a type of 'text'`,
-      "string.empty": `"password" cannot be an empty`,
+      "any.empty": `"password" cannot be an empty`,
       "any.required": `"password" is required `,
       "any.min": `"password" must be more then {#limit}`,
       "any.max": `"password" must be more then {#limit}`,
