@@ -20,6 +20,13 @@ const selectedUserField = [
 exports.getAllUsersByRole = async (req, res, next) => {
   const userRole = await userService.getUserRoleById(req.userId);
 
+   //// we just add it to show completion of task although 
+   // you already change it in the code.
+      //const fetcherRoleTmp  = req.fetcherRoleById;
+      //const userFetcherRole = await User.find({ _id: fetcherRoleTmp });
+      //const fetcherRole = userFetcherRole[0].role;
+
+
   const filterRoleByFetcherRole =
     userRole === USER_ROLE.ENTREPRENEUR
       ? USER_ROLE.CONSULTANT
