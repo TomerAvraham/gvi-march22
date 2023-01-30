@@ -74,7 +74,7 @@
 }
 
 .top_bottom_margin {
-    margin: 2rem 0!important;
+    margin: 2rem 0 !important;
 }
 
 
@@ -90,6 +90,16 @@
 
 .register_background_image {
     width: 85%;
+}
+
+.toggle_hide_password {
+    position: relative;
+    transform: translate(230px, -68px);
+}
+
+.toggle_hide_password svg {
+    color: rgb(192, 192, 192);
+    font-size: 1.2rem;
 }
 
 /* Keyframes Animation */

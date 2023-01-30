@@ -82,13 +82,18 @@ const Register = () => {
           size="small"
         />
         {label === "Password" || label === "Confirm Password" ? (
-          <IconButton
-            aria-label="toggle password visibility"
-            onClick={togglePassword}
-            edge="end"
-          >
-            {!showPassword ? <Visibility /> : <VisibilityOff />}
-          </IconButton>
+
+          <div className={classes.toggle_hide_password}>
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={togglePassword}
+              edge="end"
+              size="small"
+            >
+              {!showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </div>
+
         ) : (
           ""
         )}
