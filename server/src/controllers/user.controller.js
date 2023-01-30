@@ -20,8 +20,6 @@ const selectedUserField = [
 exports.getAllUsersByRole = async (req, res, next) => {
   const userRole = await userService.getUserRoleById(req.userId);
 
-  console.log("someone made request");
-
   const filterRoleByFetcherRole =
     userRole === USER_ROLE.ENTREPRENEUR
       ? USER_ROLE.CONSULTANT

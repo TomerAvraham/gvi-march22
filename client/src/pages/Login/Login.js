@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import {
+  Box,
   Paper,
   TextField,
   Button,
@@ -15,6 +16,8 @@ import {
   clearErrorMessage,
 } from "../../app/redux/slices/authSlice";
 import classes from "./Login.module.css";
+import people from "./Teamwork.jpg";
+import PasswordLabel from "./PasswordLabel";
 
 const TIME_TO_CLEAR_ERROR_MSG = 3500;
 
@@ -49,42 +52,58 @@ const Login = () => {
 
   return (
     <div className={classes.login_wrapper}>
-      <Paper
-        elevation={3}
-        sx={{ boxShadow: "none" }}
-        className={classes.login_form_wrapper}
-      >
-        {error && (
-          <Alert variant="filled" severity="error">
-            {error}
-          </Alert>
-        )}
-        <form className={classes.login_form} onSubmit={onLoginSubmit}>
-          <FormControl fullWidth>
-            <TextField
-              label="Email"
-              variant="outlined"
-              required
-              type={"email"}
-              inputRef={emailInputRef}
-            />
-          </FormControl>
+      <Paper className={classes.login_mid_box}>
+        <Paper
+          elevation={3}
+          sx={{ boxShadow: "none" }}
+          className={classes.login_form_wrapper}
+        >
+          {error && (
+            <Alert variant="filled" severity="error">
+              {error}
+            </Alert>
+          )}
 
-          <FormControl fullWidth>
-            <TextField
-              label="Password"
-              variant="outlined"
-              required
-              type={"password"}
-              inputRef={passwordInputRef}
-            />
-          </FormControl>
-          <Button type="submit" variant="contained">
-            Login
-          </Button>
-          {isLoading && <CircularProgress />}
-        </form>
-        <Link to="/register">Don't have account?, please click here</Link>
+          <div className={classes.login_wrapper_title}>Welcom Back!</div>
+
+          <form className={classes.login_form} onSubmit={onLoginSubmit}>
+            <FormControl fullWidth>
+              <TextField
+                label="Email"
+                variant="outlined"
+                requiredtype={"email"}
+                inputRef={emailInputRef}
+              />
+            </FormControl>
+
+            <PasswordLabel passwordInputRef={passwordInputRef} />
+
+            <Button type="submit" variant="contained">
+              Login
+            </Button>
+
+            <div className={classes.social_signin}>
+              <Button
+                fullWidth
+                type="onClick"
+                variant="contained"
+                className={classes.google}
+              >
+                google
+              </Button>
+            </div>
+
+            {isLoading && <CircularProgress />}
+          </form>
+          <Link to="/register">Don't have an account? please click HERE</Link>
+        </Paper>
+
+        <Box
+          className={classes.image}
+          component="img"
+          alt="The house from the offer."
+          src={people}
+        />
       </Paper>
     </div>
   );

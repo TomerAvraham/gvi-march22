@@ -18,8 +18,6 @@ import * as UserCardStyle from "./UserCard.style";
 import UserCardDetails from "./UserCardDetails";
 
 const UserCard = ({ user }) => {
-  console.log(user);
-
   return (
     <Card sx={{ maxWidth: 305, margin: 4, color: "var(--text--color)" }}>
       <CardMedia

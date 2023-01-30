@@ -82,7 +82,6 @@ const Register = () => {
           size="small"
         />
         {label === "Password" || label === "Confirm Password" ? (
-
           <div className={classes.toggle_hide_password}>
             <IconButton
               aria-label="toggle password visibility"
@@ -93,7 +92,6 @@ const Register = () => {
               {!showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </div>
-
         ) : (
           ""
         )}
@@ -132,10 +130,6 @@ const Register = () => {
   } = useForm({
     resolver: joiResolver(formValidationSchema),
   });
-
-  // React.useEffect(() => {
-  //   console.log(errors);
-  // }, [errors]);
 
   React.useEffect(() => {
     if (isAuth) navigate("/");
