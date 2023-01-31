@@ -1,6 +1,5 @@
 export const getLocalStorageValue = (name) => {
   return localStorage.getItem(name);
-  // ss
 };
 
 export const setLocalStorageValue = (key, value) => {
