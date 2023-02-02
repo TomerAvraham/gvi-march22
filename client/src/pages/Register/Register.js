@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import classes from "./Register.module.css";
@@ -23,11 +23,23 @@ import {
   FormHelperText,
   FormControl,
   Select,
+  InputAdornment,
 } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import AdbIcon from "@mui/icons-material/Adb";
 import { PrimaryButton } from "../../components/common/Buttons";
+
 //need to move to utils
+
+
+
+function passwordReducer(state, action) {
+  switch (action.type) {
+    case "TEXT":
+      return {typeText: !state.typeText};
+      break;
+  }
+}
 
 const RegisterSelectField = ({
   label,
@@ -70,51 +82,52 @@ const RegisterSelectField = ({
 };
 
 const Register = () => {
-  const RegisterTextField = ({ label, fieldName, register, errors, type }) => {
+
+  
+
+  const RegisterTextField = ({ label, fieldName, register, errors}) => {
+
+    const [typeTextState, dispatch] = useReducer(passwordReducer, {typeText: false});
+
+
     return (
       <Grid item xs={0} sm={6}>
         <TextField
           label={label}
-          type={type}
+          type={typeTextState.typeText ? "text": "password"}
           error={Boolean(errors[fieldName])}
           helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
           {...register(fieldName)}
           size="small"
+          InputProps={{
+            endAdornment: label === "Password" || label === "Confirm Password" ?  
+            !typeTextState.typeText ? <InputAdornment position="end"><IconButton onClick={()=> dispatch({type: "TEXT"}) }><Visibility/></IconButton></InputAdornment>:
+              <InputAdornment position="end"><IconButton onClick={()=> dispatch({type: "TEXT"}) }><VisibilityOff/></IconButton></InputAdornment> : null
+          }}
         />
-        {label === "Password" || label === "Confirm Password" ? (
-          <div className={classes.toggle_hide_password}>
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={togglePassword}
-              edge="end"
-              size="small"
-            >
-              {!showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </div>
-        ) : (
-          ""
-        )}
+       
+        
       </Grid>
     );
   };
-  const [showPassword, setShowPassword] = useState(false);
 
-  const togglePassword = () => {
-    setShowPassword(!showPassword);
-  };
+
+
+  // const [showPassword, setShowPassword] = useState(false);
+
+  // const togglePassword = () => {
+  //   setShowPassword(!showPassword);
+  // };
 
   const registerItemLists = [
     { label: "Email", field: "email" },
     {
       label: "Password",
       field: "password",
-      type: showPassword ? "text" : "password",
     },
     {
       label: "Confirm Password",
       field: "passwordConfirmation",
-      type: showPassword ? "text" : "password",
     },
     { label: "First Name", field: "firstName" },
     { label: "Last Name", field: "lastName" },
@@ -255,7 +268,6 @@ const Register = () => {
                     <RegisterTextField
                       label={itemRegister.label}
                       fieldName={itemRegister.field}
-                      type={itemRegister.type}
                       register={register}
                       errors={errors}
                       key={index}
