@@ -11,23 +11,23 @@ const mainRoutes = [
     path: "/",
     component: Index,
     isProtected: true,
-    isNavbarLink: true,
+    isNavbarLink: true
   },
   {
     linkLabel: "Chat",
     path: "/chat",
     component: Chat,
-    isProtected: true,
-    isNavbarLink: true,
+    isProtected: false,
+    isNavbarLink: true
   },
   { linkLabel: "Login", path: "/login", component: Login },
-  { linkLabel: "Register", path: "/register", component: Register },
+  { linkLabel: "Register", path: "/register", component: Register }
 ];
 
 const footerRoutes = [
   { linkLabel: "Privacy Policy", path: "/privacyPolicy" },
   { linkLabel: "Contact", path: "/contact" },
-  { linkLabel: "Copy Rights", path: "/copyRights" },
+  { linkLabel: "Copy Rights", path: "/copyRights" }
 ];
 
 export { mainRoutes, footerRoutes };
