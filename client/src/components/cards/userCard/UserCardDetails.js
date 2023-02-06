@@ -6,14 +6,14 @@ const UserCardDetails = ({ user }) => {
   const details = [
     { Icon: Phone, value: user.phoneNumber ? user.phoneNumber : "-" },
     { Icon: Email, value: user.email },
-    { Icon: Person, value: "we will think" },
+    { Icon: Person, value: user.role },
   ];
 
   const typographyStyle = {
     fontSize: 15,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     flexDirection: "column",
   };
 
@@ -21,7 +21,7 @@ const UserCardDetails = ({ user }) => {
     <>
       {details.map(({ Icon, value }) => (
         <Typography sx={typographyStyle}>
-          <Icon sx={{ fontSize: "large" }} />
+          <Icon sx={{ fontSize: "large", }} />
           {value}
         </Typography>
       ))}

@@ -19,7 +19,12 @@ import UserCardDetails from "./UserCardDetails";
 
 const UserCard = ({ user }) => {
   return (
-    <Card sx={{ maxWidth: 305, margin: 4, color: "var(--text--color)" }}>
+    <Card sx={{ margin: 4, color: "var(--text--color)" ,border: "3px solid #000" , 
+    maxHeight:{xs: 500, sm: 400, md: 600 },
+    maxWidth: 340,
+  }}
+    
+    >
       <CardMedia
         sx={UserCardStyle.cardMediaStyle}
         image={
@@ -33,7 +38,7 @@ const UserCard = ({ user }) => {
           sx={{
             width: 86,
             height: 86,
-            position: "absolute",
+            // position: "absolute",
             top: 180,
             ml: 2,
           }}
@@ -41,19 +46,19 @@ const UserCard = ({ user }) => {
 
         <Typography
           sx={{
-            position: "absolute",
+            // position: "absolute",
             top: 230,
             ml: 18,
             fontWeight: "bold",
             fontSize: 19,
             fontFamily: "var(--title--font)",
-            color: "var(--title--color)",
+            color: "var(--text--color)",
           }}
         >
-          Lizard
+          {user.first_name}
           <Typography sx={{ fontSize: 12, color: "var(--text--color)" }}>
             <LocationOn sx={{ ml: -0.5, fontSize: 12 }} />
-            Tel aviv
+            {user.country}
           </Typography>
         </Typography>
       </CardMedia>
@@ -80,8 +85,7 @@ const UserCard = ({ user }) => {
               },
             }}
           >
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+           <h4>{user.role}</h4>
           </Typography>
         </CardContent>
       </Box>
