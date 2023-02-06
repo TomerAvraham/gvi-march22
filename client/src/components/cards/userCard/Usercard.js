@@ -17,8 +17,11 @@ import "./UserCard.css";
 import * as UserCardStyle from "./UserCard.style";
 import UserCardDetails from "./UserCardDetails";
 import { PrimaryButton } from "../../common/Buttons";
+import { sentConnectionRequestById } from "../../../services/connection.service";
 
 const UserCard = ({ user }) => {
+  // const [] = useRequest()
+
   return (
     <Card sx={{ maxWidth: 305, margin: 4, color: "var(--text--color)" }}>
       <CardMedia
@@ -28,7 +31,8 @@ const UserCard = ({ user }) => {
         }
         title="green iguana"
       ></CardMedia>
-      <CardHeader sx={UserCardStyle.CardHeader}
+      <CardHeader
+        sx={UserCardStyle.CardHeader}
         avatar={
           <Avatar
             alt="Remy Sharp"
@@ -42,7 +46,6 @@ const UserCard = ({ user }) => {
         }
         title="Lizard"
         subheader="Tel aviv"
-
       >
         <Typography
           sx={{
@@ -53,8 +56,9 @@ const UserCard = ({ user }) => {
           }}
         >
           Lizard
-          <Typography sx={{ fontSize: 12, color: "var(--text--color)" }}>
-          </Typography>
+          <Typography
+            sx={{ fontSize: 12, color: "var(--text--color)" }}
+          ></Typography>
         </Typography>
       </CardHeader>
 
@@ -72,10 +76,16 @@ const UserCard = ({ user }) => {
           </Typography>
         </CardContent>
       </Box>
-      <UserCardDetails  user={user} />
+      <UserCardDetails user={user} />
 
       <CardActions sx={UserCardStyle.cardActionStyle}>
-        <PrimaryButton>Request</PrimaryButton>
+        <PrimaryButton
+          onClick={() => {
+            sentConnectionRequestById(user._id);
+          }}
+        >
+          {user.connect ? user.connect.status : "Request"}
+        </PrimaryButton>
       </CardActions>
 
       <Divider />

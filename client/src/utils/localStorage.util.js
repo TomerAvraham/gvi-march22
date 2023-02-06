@@ -1,5 +1,7 @@
-export const getLocalStorageValue = (name) => {
-  return localStorage.getItem(name);
+export const getLocalStorageValue = (key, isNeedParse = false) => {
+  const item = localStorage.getItem(key);
+  if (!item) throw new Error(`No item with key - ${key}`);
+  return isNeedParse ? JSON.parse(item) : item;
 };
 
 export const setLocalStorageValue = (key, value) => {

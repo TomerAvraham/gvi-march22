@@ -15,13 +15,13 @@ const UserCardDetails = ({ user }) => {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    mt:7,
+    mt: 7,
   };
 
   return (
     <div className="user_card_details_container">
-      {details.map(({ Icon, value }) => (
-        <Typography sx={typographyStyle}>
+      {details.map(({ Icon, value }, index) => (
+        <Typography key={index} sx={typographyStyle}>
           <Icon sx={{ fontSize: "large" }} />
           {value}
         </Typography>

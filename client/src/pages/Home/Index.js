@@ -2,23 +2,16 @@ import React, { useEffect, useState } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Container, Grid } from "@mui/material";
 import UserCard from "../../components/cards/userCard/UserCard";
+import useRequest from "../../hooks/useRequestByCallBack";
 
 const Index = () => {
-  const [users, setUsers] = useState([]);
+  const [users, isLoading, error] = useRequest(getAllUsersByRole);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    (async () => {
-      const data = await getAllUsersByRole({ signal: controller.signal });
-      setUsers(data);
-    })();
+  console.log(users);
 
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
-  return (
+  return isLoading ? (
+    <h1>Loading...</h1>
+  ) : (
     <Container>
       <Grid container spacing={2}>
         {users &&
