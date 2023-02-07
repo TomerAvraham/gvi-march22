@@ -7,8 +7,6 @@ import {
   CardContent,
   Typography,
   Divider,
-  Stack,
-  Chip,
   Avatar,
   Box,
 } from "@mui/material";
