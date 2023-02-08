@@ -11,7 +11,7 @@ function errorHandler(error, req, res, next) {
       return res.status(404).send({ ok: false, message: "Not found" });
 
     case UnauthorizeError:
-      return res.status(403).send({ ok: false, message: "Unauthorize" });
+      return res.status(403).send({ ok: false, message});
 
     case BadRequestError:
       return res.status(400).send({ ok: false, message });

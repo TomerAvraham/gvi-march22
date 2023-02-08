@@ -6,7 +6,7 @@ class NotFoundError extends Error {
 
 class UnauthorizeError extends Error {
   constructor() {
-    super("Unauthorize");
+    super(message);
   }
 }
 

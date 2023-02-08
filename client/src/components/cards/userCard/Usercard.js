@@ -17,7 +17,7 @@ import UserCardDetails from "./UserCardDetails";
 import { PrimaryButton } from "../../common/Buttons";
 import { sentConnectionRequestById } from "../../../services/connection.service";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user ,connection }) => {
   // const [] = useRequest()
 
   return (
@@ -82,7 +82,8 @@ const UserCard = ({ user }) => {
             sentConnectionRequestById(user._id);
           }}
         >
-          {user.connect ? user.connect.status : "Request"}
+          {connection.sendRequestId||connection.getRequestId ==user._id
+          ? connection.status : "Request"}
         </PrimaryButton>
       </CardActions>
 
