@@ -12,9 +12,8 @@ const api = axios.create({
 export const sentConnectionRequestById = async (id) => {
   try {
     const response = await api.post("/request/" + id);
-    console.log(response);
     return response.data;
   } catch (error) {
-    console.error(error);
+    return Promise.reject(error.response.data);
   }
 };

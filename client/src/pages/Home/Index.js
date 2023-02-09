@@ -1,23 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Container, Grid } from "@mui/material";
 import UserCard from "../../components/cards/userCard/UserCard";
 import useRequest from "../../hooks/useRequestByCallBack";
 
+function userReducer(state, action) {
+  if (action.type === "initial_users") {
+    return action.payload.users;
+  }
+
+  if (action.type === "connect_request") {
+    const { connect, userId } = action.payload;
+    const stateCopy = [...state];
+    const userToAddConnectIndex = stateCopy.findIndex(
+      (user) => user._id === userId
+    );
+    stateCopy[userToAddConnectIndex] = {
+      ...stateCopy[userToAddConnectIndex],
+      connect,
+    };
+    return stateCopy;
+  }
+
+  return state;
+}
+
 const Index = () => {
-  const [users, isLoading, error] = useRequest(getAllUsersByRole);
+  const [users, dispatch] = useReducer(userReducer, []);
 
-  console.log(users);
+  const fetchUsers = async () => {
+    const data = await getAllUsersByRole();
+    return data;
+  };
 
-  return isLoading ? (
-    <h1>Loading...</h1>
-  ) : (
+  useEffect(() => {
+    fetchUsers().then((data) =>
+      dispatch({
+        type: "initial_users",
+        payload: {
+          users: data,
+        },
+      })
+    );
+  }, []);
+
+  return (
     <Container>
       <Grid container spacing={2}>
         {users &&
           users.map((user) => (
             <Grid key={user._id} item xs={12} sm={6} md={4}>
-              <UserCard key={user._id} user={user} />
+              <UserCard dispatch={dispatch} key={user._id} user={user} />
             </Grid>
           ))}
       </Grid>

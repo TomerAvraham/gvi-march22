@@ -13,6 +13,11 @@ exports.connectionRequest = async (req, res, next) => {
     consultantId: isEntrepreneur ? userToConnectId : userIdRequester,
   };
 
+  const isConnectionExist = await Connect.exists(connectCreateOptions);
+  if (isConnectionExist) {
+    return res.status(400).json({ message: "Connect exist" });
+  }
+
   const newConnection = await Connect.create(connectCreateOptions);
 
   res.status(200).send(newConnection);

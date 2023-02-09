@@ -9,6 +9,7 @@ const connectSchema = new Schema({
     enum: Object.values(CONNECT_STATUS),
     default: CONNECT_STATUS.PENDING,
   },
+  createAt: { type: Date, default: Date.now },
 });
 
 const Connect = model("Connect", connectSchema);
