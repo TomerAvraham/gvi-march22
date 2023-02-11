@@ -81,7 +81,7 @@ const RegisterSelectField = ({
 };
 
 const Register = () => {
-  const RegisterTextField = ({ label, fieldName, register, errors }) => {
+  const RegisterTextField = ({ label, fieldName, register, errors, type }) => {
     const [typeTextState, dispatch] = useReducer(passwordReducer, {
       typeText: false,
     });
@@ -90,7 +90,7 @@ const Register = () => {
       <Grid item xs={0} sm={6}>
         <TextField
           label={label}
-          type={typeTextState.typeText ? "text" : "password"}
+          type={label === "Password" || label === "Confirm Password" ? (typeTextState.typeText ? "text": "password" ) : type}
           error={Boolean(errors[fieldName])}
           helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
           {...register(fieldName)}
@@ -125,17 +125,19 @@ const Register = () => {
   // };
 
   const registerItemLists = [
-    { label: "Email", field: "email" },
+    { label: "Email", field: "email", type:"text" },
     {
       label: "Password",
       field: "password",
+      type: undefined,
     },
     {
       label: "Confirm Password",
       field: "passwordConfirmation",
+      type: undefined,
     },
-    { label: "First Name", field: "firstName" },
-    { label: "Last Name", field: "lastName" },
+    { label: "First Name", field: "firstName", type:"text" },
+    { label: "Last Name", field: "lastName", type:"text" },
   ];
 
   const dispatch = useDispatch();
@@ -274,6 +276,7 @@ const Register = () => {
                       label={itemRegister.label}
                       fieldName={itemRegister.field}
                       register={register}
+                      type={itemRegister.type}
                       errors={errors}
                       key={index}
                     />
