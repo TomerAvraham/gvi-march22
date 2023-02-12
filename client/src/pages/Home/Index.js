@@ -4,6 +4,8 @@ import { Container, Grid } from "@mui/material";
 import UserCard from "../../components/cards/userCard/UserCard";
 import useRequest from "../../hooks/useRequestByCallBack";
 
+import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
+
 function userReducer(state, action) {
   if (action.type === "initial_users") {
     return action.payload.users;
@@ -54,6 +56,7 @@ const Index = () => {
             </Grid>
           ))}
       </Grid>
+      <ButtonReturnTop></ButtonReturnTop>
     </Container>
   );
 };
