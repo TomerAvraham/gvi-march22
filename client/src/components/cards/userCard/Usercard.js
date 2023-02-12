@@ -12,15 +12,42 @@ import {
   Avatar,
   Box,
 } from "@mui/material";
+
+
+import { CardStyle, TopBackgroundImg,  UserImage, UsernameParagraph, UserAboutParagraph } from "./UserCard.style";
+
+
+
+
 import { LocationOn, Phone, Person, Email } from "@mui/icons-material";
 import "./UserCard.css";
-import * as UserCardStyle from "./UserCard.style";
+// import * as UserCardStyle from "./UserCard.style";
 import UserCardDetails from "./UserCardDetails";
 import { PrimaryButton } from "../../common/Buttons";
 import { sentConnectionRequestById } from "../../../services/connection.service";
 import ErrorMessagePop from "../../common/ErrorMessagePop";
 
 const ERROR_MESSAGE_AUTO_HIDE_TIME = 3000;
+
+
+
+
+
+const CardComponent = ({backgroundSrc, userSrc, username, about})=> {
+  return(
+  <>
+    <TopBackgroundImg src={backgroundSrc ? backgroundSrc : undefined}/>
+    <UserImage src={userSrc? userSrc : undefined}/>
+    <UsernameParagraph>{username}</UsernameParagraph>
+    <UserAboutParagraph>  
+     {about}
+    </UserAboutParagraph>
+  </>
+  )
+}
+
+
+
 
 const UserCard = ({ user, dispatch }) => {
   const [error, setError] = useState("");
@@ -51,69 +78,15 @@ const UserCard = ({ user, dispatch }) => {
         errorMessage={error}
         hideDuration={ERROR_MESSAGE_AUTO_HIDE_TIME}
       />
-      <Card sx={{ maxWidth: 305, margin: 4, color: "var(--text--color)" }}>
-        <CardMedia
-          sx={UserCardStyle.cardMediaStyle}
-          image={
-            "https://www.realco.co.il/wp-content/uploads/2020/01/%D7%A8%D7%A7%D7%A2-%D7%9E%D7%95%D7%91%D7%99%D7%99%D7%9C-min.jpg"
-          }
-          title="green iguana"
-        ></CardMedia>
-        <CardHeader
-          sx={UserCardStyle.CardHeader}
-          avatar={
-            <Avatar
-              alt="Remy Sharp"
-              src="https://cdnb.artstation.com/p/assets/images/images/039/196/767/20210702010025/smaller_square/beomjun-baek-face-work.jpg?1625205625"
-              sx={{
-                width: 86,
-                height: 86,
-                ml: 2,
-              }}
-            ></Avatar>
-          }
-          title="Lizard"
-          subheader="Tel aviv"
-        >
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: 19,
-              fontFamily: "var(--title--font)",
-              color: "var(--title--color)",
-            }}
-          >
-            Lizard
-            <Typography
-              sx={{ fontSize: 12, color: "var(--text--color)" }}
-            ></Typography>
-          </Typography>
-        </CardHeader>
-
-        <Box>
-          <CardContent>
-            <Divider />
-            <Typography
-              variant="body2"
-              color="var(--text--color)"
-              fontFamily="var(--title--font)"
-              sx={UserCardStyle.cardAboutStyle}
-            >
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </Box>
+      <CardStyle>
+       <CardComponent username={user.firstName}/>
         <UserCardDetails user={user} />
-
-        <CardActions sx={UserCardStyle.cardActionStyle}>
+        <CardActions>
           <PrimaryButton onClick={handleConnectClick}>
             {user.connect ? user.connect.status : "Request"}
           </PrimaryButton>
         </CardActions>
-
-        <Divider />
-      </Card>
+      </CardStyle>
     </>
   );
 };

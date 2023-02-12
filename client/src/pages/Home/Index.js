@@ -2,7 +2,11 @@ import React, { useEffect, useState, useReducer } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Container, Grid } from "@mui/material";
 import UserCard from "../../components/cards/userCard/UserCard";
+
 import useRequest from "../../hooks/useRequestByCallBack";
+
+import { ContainerHome, ContainerHomeMain, BoxPendingInvitations, BoxAddPersonalContacts, ImageBookIcon, DivParagraph, NoteParagraph, InputBoxAddPersonal} from "./index.style"
+import SidebarHome from "../../components/SidebarHome/SidebarHome";
 
 function userReducer(state, action) {
   if (action.type === "initial_users") {
@@ -45,7 +49,22 @@ const Index = () => {
   }, []);
 
   return (
-    <Container>
+    <ContainerHome>
+      {/* <div style={{background: "red", width: "400px", height: "100%", borderRadius: "8px"}}></div> */}
+      <SidebarHome/>
+      <ContainerHomeMain>
+        <BoxPendingInvitations>
+          <p>No pending invitations</p>
+          <p>Manage</p>
+        </BoxPendingInvitations>
+        <BoxAddPersonalContacts>
+          <DivParagraph>
+         <ImageBookIcon/>
+         <p style={{paddingLeft: "20px"}}>Add personal contacts</p>
+          </DivParagraph>
+         <NoteParagraph>We’ll periodically import and store your contacts to help you and others connect. You choose who to connect to and who to invite.</NoteParagraph>
+         <InputBoxAddPersonal/>
+        </BoxAddPersonalContacts>
       <Grid container spacing={2}>
         {users &&
           users.map((user) => (
@@ -54,7 +73,8 @@ const Index = () => {
             </Grid>
           ))}
       </Grid>
-    </Container>
+      </ContainerHomeMain>
+    </ContainerHome>
   );
 };
 
