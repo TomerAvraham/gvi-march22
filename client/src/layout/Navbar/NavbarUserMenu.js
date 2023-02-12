@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Avatar,
@@ -19,10 +19,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import authService from "../../services/auth.service";
 
 export const USER_PROFILE_LINKS = [
-  { label: "Profile", path: "/", icon: <Avatar /> },
+  { label: "Profile", path: "/profile", icon: <Avatar /> },
   {
     label: "Dashboard",
-    path: "/",
+    path: "/profile",
     icon: (
       <Avatar>
         <DashboardIcon />
@@ -55,6 +55,7 @@ export default function NavbarUserMenu() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -114,7 +115,11 @@ export default function NavbarUserMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {USER_PROFILE_LINKS.map((link, indexId) => (
-          <MenuItem key={indexId} onClick={handleClose} align="center">
+          <MenuItem
+            key={indexId}
+            onClick={() => navigate(link.path)}
+            align="center"
+          >
             {link.icon} {link.label}
           </MenuItem>
         ))}

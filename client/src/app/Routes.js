@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { mainRoutes, footerRoutes } from "./_routes";
+import { mainRoutes, footerRoutes, ProfileRoutes } from "./_routes";
 import { useSelector } from "react-redux";
 import Layout from "../layout/Layout/Layout";
 
@@ -30,6 +30,25 @@ const RouterWrapper = ({ children }) => {
             />
           );
         })}
+
+        {ProfileRoutes.map((route, index) => {
+          return (
+            <Route
+              path={route.path}
+              element={
+                route.isProtected ? (
+                  <ProtectedRoute>
+                    <route.component />
+                  </ProtectedRoute>
+                ) : (
+                  <route.component />
+                )
+              }
+              key={index}
+            />
+          );
+        })}
+
         {footerRoutes.map((route, index) => {
           return (
             <Route

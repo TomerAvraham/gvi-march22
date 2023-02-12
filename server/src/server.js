@@ -23,7 +23,7 @@ const io = new Server(httpServer, {
 
 io.on("connection", socketMain);
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 9001;
 
 httpServer.listen(port, () => {
   console.log("Listing on port: " + port);
