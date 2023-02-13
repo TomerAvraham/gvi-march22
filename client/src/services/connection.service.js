@@ -17,3 +17,12 @@ export const sentConnectionRequestById = async (id) => {
     return Promise.reject(error.response.data);
   }
 };
+
+export const getAllConversations = async () => {
+  try {
+    const response = await api.get("/myAll");
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error.response.data);
+  }
+};

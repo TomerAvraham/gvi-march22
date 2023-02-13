@@ -5,18 +5,18 @@ import { Divider } from "@mui/material";
 // Components Card
 import CardMessageBox from "../CardMessageBox/CardMessageBox";
 import ActiveCardMessageBox from "../ActiveCardMessageBox/ActiveCardMessageBox";
+import { useSelector } from "react-redux";
 
 // Demo Data
-import messageBox from "../../../../data/messageBox";
-
 const MessageBox = () => {
   const { searchFiled } = useSidebarContext();
+  const { conversations } = useSelector((store) => store.messages);
 
   return (
     <Fragment>
       <ActiveCardMessageBox />
       <Divider variant="fullWidth" orientation="horizontal" />
-      {messageBox
+      {conversations
         .filter((item, index) => {
           return searchFiled.toLowerCase() === ""
             ? item

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Container, Grid } from "@mui/material";
-import UserCard from "../../components/cards/userCard/UserCard";
+import UserCard from "../../components/cards/UserCard/UserCard";
 import useRequest from "../../hooks/useRequestByCallBack";
 
 import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
@@ -56,7 +56,7 @@ const Index = () => {
             </Grid>
           ))}
       </Grid>
-      <ButtonReturnTop></ButtonReturnTop>
+      <ButtonReturnTop />
     </Container>
   );
 };

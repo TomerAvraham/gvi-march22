@@ -9,10 +9,6 @@ router.post(
   catchAsyncError(connectionController.connectionRequest)
 );
 
+router.get("/myAll", catchAsyncError(connectionController.getAllConnection));
+
 module.exports = router;
-
-//controller
-//build request
-
-//build model connetcion
-//update user model
