@@ -1,36 +1,32 @@
 import styled from "@emotion/styled";
 
-  export const CardStyle = styled.div`
-width: 90%;
-height: 53%;
+
+
+
+export const CardStyle = styled.div`
+width: 240px;
+height: 255px;
 margin: 0 auto;
 border-radius: 20px;
 margin-top: 50px;
 border: 0.5px solid #c5c5c5;
 position: relative;
-
-@media (min-width: 601px) {
-    
-  //  I didn't finish
-
-}
-@media (min-width: 1200px) {
-
-//  I didn't finish
-
+&:hover{
+  border: 0.5px solid #8a8a8aa8;
+  box-shadow:00 3px   #918f8f8e;
 }
 `
 
 export const TopBackgroundImg = styled.img`
 width: 100%;
-height: 20%;
+height: 25%;
 border-top-right-radius: 20px ;
 border-top-left-radius: 20px ;
 
 `
 
 TopBackgroundImg.defaultProps = {
-  src: "https://www.realco.co.il/wp-content/uploads/2020/01/%D7%A8%D7%A7%D7%A2-%D7%9E%D7%95%D7%91%D7%99%D7%99%D7%9C-min.jpg",
+  src: "https://images.pexels.com/photos/1269968/pexels-photo-1269968.jpeg?auto=compress&cs=tinysrgb&w=600",
 }
 
 export const UserImage = styled.img`
@@ -38,14 +34,16 @@ border-radius: 50%;
 width: 76px;
 height: 76px;
 position: absolute;
-top: 10%;
-right: 70%;
+top: 7%;
+right: 60%;
 transform: translate(50% 50%);
-@media screen and (max-width: 1200px){
+
+@media screen and (max-width: 1800px){
   width: 66px;
   height: 66px;
   right: 65%;
 }
+
 `
 
 UserImage.defaultProps = {
@@ -63,7 +61,14 @@ font-family: var(--title--font);
 export const UserAboutParagraph = styled.p`
 padding-left: 15px;
 padding-right:10px;
-color: var(--text--color);
+margin-bottom: 5%;
+margin-top: 8px;
+color:  #5e5e5e;
+font-size: 15px;
 font-family: var(--text--font);
 
+`
+
+export const DivEndCard = styled.div`
+margin-top: 10px;
 `
