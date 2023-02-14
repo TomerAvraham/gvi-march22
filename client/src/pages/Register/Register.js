@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import classes from "./Register.module.css";
 import formValidationSchema from "./formValidationSchema";
 import { useDispatch, useSelector } from "react-redux";
-import { registerByPayload } from "../../app/redux/slices/registerSlice";
+import { registerByPayload } from "../../app/redux/slices/authSlice";
 import { loginByEmailAndPassword } from "../../app/redux/slices/authSlice";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Visibility from "@mui/icons-material/Visibility";
