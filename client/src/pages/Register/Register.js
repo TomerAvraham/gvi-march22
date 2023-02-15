@@ -90,11 +90,18 @@ const Register = () => {
       <Grid item xs={0} sm={6}>
         <TextField
           label={label}
-          type={label === "Password" || label === "Confirm Password" ? (typeTextState.typeText ? "text": "password" ) : type}
+          type={
+            label === "Password" || label === "Confirm Password"
+              ? typeTextState.typeText
+                ? "text"
+                : "password"
+              : type
+          }
           error={Boolean(errors[fieldName])}
           helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
           {...register(fieldName)}
           size="small"
+          sx={{ width: "100%" }}
           InputProps={{
             endAdornment:
               label === "Password" || label === "Confirm Password" ? (
@@ -125,7 +132,7 @@ const Register = () => {
   // };
 
   const registerItemLists = [
-    { label: "Email", field: "email", type:"text" },
+    { label: "Email", field: "email", type: "text" },
     {
       label: "Password",
       field: "password",
@@ -136,8 +143,8 @@ const Register = () => {
       field: "passwordConfirmation",
       type: undefined,
     },
-    { label: "First Name", field: "firstName", type:"text" },
-    { label: "Last Name", field: "lastName", type:"text" },
+    { label: "First Name", field: "firstName", type: "text" },
+    { label: "Last Name", field: "lastName", type: "text" },
   ];
 
   const dispatch = useDispatch();
@@ -218,57 +225,13 @@ const Register = () => {
               <hr />
             </div>
             {/* Fields */}
-            <Box sx={{ width: "100%" }}>
+            <Box>
               <Grid
                 container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 3, md: 5, lg: 1, xl: 0 }}
+                rowSpacing={2}
+                // columnSpacing={{ xs: 1, sm: 3, md: 5, lg: 1, xl: 0 }}
+                columnSpacing={1}
               >
-                {/* <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="Email"
-                    fieldName="email"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="Password"
-                    fieldName="password"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  <RegisterTextField
-                    label="Confirm Password"
-                    fieldName="passwordConfirmation"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="Last Name"
-                    fieldName="lastName"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="First Name"
-                    fieldName="firstName"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid> */}
-                {/* Select field */}
                 {/* one map instead of the code above */}
                 {registerItemLists.map((itemRegister, index) => {
                   return (
@@ -284,7 +247,7 @@ const Register = () => {
                 })}
 
                 <Grid item xs={0} sm={6}>
-                  <FormControl sx={{ m: 0, minWidth: 222 }} size="small">
+                  <FormControl item sx={{ minWidth: "100%" }} size="small">
                     <RegisterSelectField
                       value={role}
                       id={"role"}

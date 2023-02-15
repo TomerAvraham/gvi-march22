@@ -13,42 +13,36 @@ const RouterWrapper = ({ children }) => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {mainRoutes.map((route, index) => {
-          return (
-            <Route
-              path={route.path}
-              element={
-                route.isProtected ? (
-                  <ProtectedRoute>
-                    <route.component />
-                  </ProtectedRoute>
-                ) : (
-                  <route.component />
-                )
-              }
-              key={index}
-            />
-          );
-        })}
-        {footerRoutes.map((route, index) => {
-          return (
-            <Route
-              path={route.path}
-              element={
-                route.isProtected ? (
-                  <ProtectedRoute>
-                    <route.component />
-                  </ProtectedRoute>
-                ) : (
-                  { children }
-                )
-              }
-              key={index}
-            />
-          );
-        })}
+        {mainRoutes.map((route, index) => (
+          <Route
+            key={index}
+            path={route.path}
+            element={route.isProtected ? (
+              <ProtectedRoute>
+                <route.component />
+              </ProtectedRoute>
+            ) : (
+              <route.component />
+            )}
+          />
+        ))}
+        {footerRoutes.map((route, index) => (
+          <Route
+            key={index}
+            path={route.path}
+            element={route.isProtected ? (
+              <ProtectedRoute>
+                <route.component />
+              </ProtectedRoute>
+            ) : (
+              <route.component />
+            )}
+          />
+        ))}
       </Route>
     </Routes>
   );
 };
 export default RouterWrapper;
+
+
