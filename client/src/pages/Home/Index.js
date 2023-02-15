@@ -50,7 +50,6 @@ const Index = () => {
 
   return (
     <ContainerHome>
-      {/* <div style={{background: "red", width: "400px", height: "100%", borderRadius: "8px"}}></div> */}
       <SidebarHome/>
       <ContainerHomeMain>
         <BoxPendingInvitations>

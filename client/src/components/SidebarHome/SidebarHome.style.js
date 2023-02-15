@@ -32,6 +32,11 @@ border-bottom: 0.5px solid #d8d8d8;
   font-size: 14px;
   padding: 10px;
 }
+@media (min-width: 1400px) {
+
+  font-size: 17px;
+  padding: 10px;
+}
 `
 
 export const Button = styled.button`
