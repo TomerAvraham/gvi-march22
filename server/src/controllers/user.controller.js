@@ -4,6 +4,7 @@ const {
   SELECTED_USER_FIELDS,
 } = require("../constants/user.constants");
 const userService = require("../services/user.service");
+
 const Connect = require("../models/connect.model");
 
 exports.getAllUsersByRole = async (req, res, next) => {
@@ -40,4 +41,10 @@ exports.getAllUsersByRole = async (req, res, next) => {
   }
 
   res.status(200).send(users);
+};
+
+exports.getAllUsersByRole = async (req, res, next) => {
+  const updateUser = await userService.updateUserbyid(req.userId);
+
+  console.log(updateUser);
 };

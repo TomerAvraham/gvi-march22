@@ -10,6 +10,8 @@ import {
   Button,
 } from "@mui/material";
 
+import classes from "../Profile/Profile.module.css";
+
 function Profile() {
   const {
     register,
@@ -22,15 +24,16 @@ function Profile() {
   };
 
   return (
-    <Box
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-    >
+    <Box>
       <Grid container spacing={2}>
         <Grid item xs={6}>
+          <Typography variant="h3" gutterBottom>
+            Shoval and Shahaf
+          </Typography>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
+              className={classes.margin_textfield}
               id="outlined-firstName"
               label="First Name"
               variant="outlined"
@@ -39,6 +42,7 @@ function Profile() {
               helperText={errors.firstName && "First Name is required"}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-lastName"
               label="Last Name"
               variant="outlined"
@@ -48,6 +52,7 @@ function Profile() {
             />
 
             <TextField
+              className={classes.margin_textfield}
               id="outlined-email"
               label="Email"
               variant="outlined"
@@ -59,6 +64,7 @@ function Profile() {
               helperText={errors.email && "Enter a valid email address"}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-role"
               label="Role"
               variant="outlined"
@@ -67,54 +73,63 @@ function Profile() {
               helperText={errors.role && "Role is required"}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-startUp"
               label="Start-Up"
               variant="outlined"
               {...register("startUp")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-mentoring"
               label="Mentoring"
               variant="outlined"
               {...register("mentoring")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-location"
               label="Location"
               variant="outlined"
               {...register("location")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-lnkd"
               label="LNKD"
               variant="outlined"
               {...register("lnkd")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-facebook"
               label="Facebook"
               variant="outlined"
               {...register("facebook")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-instagram"
               label="Instagram"
               variant="outlined"
               {...register("instagram")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-github"
               label="GitHub"
               variant="outlined"
               {...register("github")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-expertise"
               label="Expertise"
               variant="outlined"
               {...register("expertise")}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-phonenumber"
               label="Phone Number"
               variant="outlined"
@@ -123,6 +138,7 @@ function Profile() {
               helperText={errors.phoneNumber && "Phone Number is required"}
             />
             <TextField
+              className={classes.margin_textfield}
               id="outlined-about"
               label="About"
               variant="outlined"
