@@ -23,7 +23,7 @@ const Layout = () => {
         </Container>
       </Suspense>
 
-      {isAuthRoute || <Footer />}
+      {isAuthRoute || <Footer className={classes.layout_footer} />}
     </>
   );
 };
