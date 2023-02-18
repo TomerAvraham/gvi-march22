@@ -1,4 +1,10 @@
-import React, { useEffect, useReducer } from "react";
+import React, {
+  useEffect,
+  useReducer,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Grid, Box } from "@mui/material";
 
@@ -6,51 +12,70 @@ import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import classess from "./index.module.css";
 import { useSelector } from "react-redux";
 
-import SearchInput from "../../components/SearchInput";
+import SearchInput from "../../components/common/Search/SearchUsersInput";
 import Typography from "@mui/material/Typography";
 
 function userReducer(state, action) {
-  if (action.type === "initial_users") {
-    return action.payload.users;
+  switch (action.type) {
+    case "initial_users":
+      return action.payload.users;
+    case "connect_request":
+      const { connect, userId } = action.payload;
+      return state.map((user) =>
+        user._id === userId ? { ...user, connect } : user
+      );
+    default:
+      return state;
   }
-
-  if (action.type === "connect_request") {
-    const { connect, userId } = action.payload;
-    const stateCopy = [...state];
-    const userToAddConnectIndex = stateCopy.findIndex(
-      (user) => user._id === userId
-    );
-    stateCopy[userToAddConnectIndex] = {
-      ...stateCopy[userToAddConnectIndex],
-      connect,
-    };
-    return stateCopy;
-  }
-
-  return state;
 }
 
 const Index = () => {
   const { user } = useSelector((state) => state.auth);
-  const pageTitle =
-    user.role === "ENTREPRENEUR" ? "Find Consultent" : "Find Entrepreneur";
+  const pageTitle = useMemo(
+    () =>
+      user.role === "ENTREPRENEUR" ? "Find Consultent" : "Find Entrepreneur",
+    [user.role]
+  );
 
   const [users, dispatch] = useReducer(userReducer, []);
-  const fetchUsers = async () => {
-    const data = await getAllUsersByRole();
-    return data;
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [isFiltering, setIsFiltering] = useState(false);
 
   useEffect(() => {
-    fetchUsers().then((data) =>
-      dispatch({
-        type: "initial_users",
-        payload: {
-          users: data,
-        },
-      })
-    );
+    getAllUsersByRole().then((data) => {
+      if (data.length > 0) {
+        dispatch({
+          type: "initial_users",
+          payload: {
+            users: data,
+          },
+        });
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    });
   }, []);
+
+  const onSearch = useCallback(
+    (query) => {
+      if (query) {
+        const filtered = users.filter(
+          (user) =>
+            user.firstName.toLowerCase().includes(query.toLowerCase()) ||
+            user.lastName.toLowerCase().includes(query.toLowerCase()) ||
+            user.email.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredUsers(filtered);
+        setIsFiltering(true);
+      } else {
+        setFilteredUsers([]);
+        setIsFiltering(false);
+      }
+    },
+    [users]
+  );
 
   return (
     <Box component={"section"} sx={{ my: 1 }}>
@@ -58,22 +83,34 @@ const Index = () => {
         <Typography variant="h5" paddingY={3}>
           {pageTitle}
         </Typography>
-        <SearchInput />
+        <SearchInput onSearch={onSearch} />
       </div>
       <br></br>
-      <Grid container spacing={4}>
-        {users.length ? (
-          users.map((user) => (
-            <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-              <ReviewCard user={user} dispatch={dispatch} />
+      {isLoading ? (
+        <Typography variant="p">Loading...</Typography>
+      ) : (
+        <Grid container spacing={4}>
+          {users.length > 0 ? (
+            isFiltering && filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => (
+                <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                  <ReviewCard user={user} dispatch={dispatch} />
+                </Grid>
+              ))
+            ) : (
+              users.map((user) => (
+                <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                  <ReviewCard user={user} dispatch={dispatch} />
+                </Grid>
+              ))
+            )
+          ) : (
+            <Grid item>
+              <Typography variant="p">Not Found</Typography>
             </Grid>
-          ))
-        ) : (
-          <Grid item>
-            <Typography variant="p">Not Found</Typography>
-          </Grid>
-        )}
-      </Grid>
+          )}
+        </Grid>
+      )}
     </Box>
   );
 };

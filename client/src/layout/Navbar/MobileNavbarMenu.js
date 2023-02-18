@@ -39,13 +39,16 @@ const MobileNavbarMenu = ({
           display: { xs: "block", md: "none" },
         }}
       >
-        {appRoutes.map((link, index) => (
-          <MenuItem key={index} onClick={handleCloseNavMenu}>
-            <Link to={link.path} align="center">
-              {link.linkLabel}
-            </Link>
-          </MenuItem>
-        ))}
+        {appRoutes.map(
+          (link, index) =>
+            link.isNavbarLink && (
+              <MenuItem key={index} onClick={handleCloseNavMenu}>
+                <Link to={link.path} align="center">
+                  {link.linkLabel}
+                </Link>
+              </MenuItem>
+            )
+        )}
       </Menu>
     </Box>
   );
