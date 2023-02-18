@@ -1,4 +1,3 @@
-import React, { useState, useReducer } from "react";
 import {
   FormControl,
   InputLabel,
@@ -16,6 +15,8 @@ const RegisterSelectField = ({
   value,
   handleChange,
 }) => {
+
+  // loop through USER_ROLE constant
   const userRoleMap = new Map(Object.entries(USER_ROLE));
 
   return (

@@ -62,7 +62,7 @@ const Register = () => {
   }, [isAuth, navigate]);
 
   const [role, setRole] = useState("");
-  
+
   const handleChange = (event) => {
     setRole(event.target.value);
   };
@@ -79,7 +79,6 @@ const Register = () => {
     dispatch(registerByPayload(formValues));
 
     setTimeout(() => {
-      console.log(formValues.email, formValues.password);
       dispatch(loginByEmailAndPassword(formValues));
     }, 500);
   };
@@ -124,7 +123,6 @@ const Register = () => {
                 // columnSpacing={{ xs: 1, sm: 3, md: 5, lg: 1, xl: 0 }}
                 columnSpacing={1}
               >
-                {/* one map instead of the code above */}
                 {registerItemLists.map((itemRegister, index) => {
                   return (
                     <RegisterTextField
@@ -137,7 +135,6 @@ const Register = () => {
                     />
                   );
                 })}
-
                 <Grid item xs={0} sm={6}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <RegisterSelectField

@@ -1,0 +1,11 @@
+.search_container {
+     display: flex;
+     gap: 1rem;
+     align-items: center;
+}
+
+.search_container input {
+     background-color: rgba(0, 0, 0, 0.031);
+     border-radius: 8px;
+     /* padding: 0.4rem 0.2rem; */
+}

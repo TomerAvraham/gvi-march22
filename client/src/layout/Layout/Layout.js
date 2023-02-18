@@ -15,7 +15,7 @@ const Layout = () => {
       {isAuthRoute || <Navbar />}
       <Suspense fallback={<Loader />}>
         <Container
-          sx={{ padding: isAuthRoute && "0!important" }}
+          sx={{ padding: isAuthRoute && "0!important",mb:"auto" }}
           maxWidth={isAuthRoute ? "xxl" : "xl"}
           className={classes.layout_container}
         >

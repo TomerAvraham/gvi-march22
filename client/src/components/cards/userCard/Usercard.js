@@ -47,7 +47,7 @@ const UserCard = ({ user, dispatch }) => {
         errorMessage={error}
         hideDuration={ERROR_MESSAGE_AUTO_HIDE_TIME}
       />
-      <CardComponent user={user} onClick={handleConnectClick}/>
+      <CardComponent user={user} onClick={handleConnectClick}/>asd
     </>
   );
 };
