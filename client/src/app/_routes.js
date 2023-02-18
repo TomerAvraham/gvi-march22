@@ -7,7 +7,8 @@ const Chat = React.lazy(() => import("../pages/Chat"));
 const User = React.lazy(() => import("../pages/User/User"));
 const PrivacyPolicy = React.lazy(() => import("../pages/PrivacyPolicy"));
 
-const mainRoutes = [
+const appRoutes = [
+  // Main Routes
   {
     linkLabel: "Home",
     path: "/",
@@ -22,19 +23,23 @@ const mainRoutes = [
     isProtected: false,
     isNavbarLink: true,
   },
-  { linkLabel: "User", path: "/user/:userId", component: User },
+
+  // Auth Routes
   { linkLabel: "Login", path: "/login", component: Login },
   { linkLabel: "Register", path: "/register", component: Register },
-];
 
-const footerRoutes = [
+  // User Routes
+  { linkLabel: "User", path: "/user/:userId", component: User },
+
+  // Footer Routes
   {
     linkLabel: "Privacy Policy",
     path: "/privacyPolicy",
     component: PrivacyPolicy,
+    isFooterLink: true,
   },
-  { linkLabel: "Contact", path: "/contact" },
-  { linkLabel: "Copy Rights", path: "/copyRights" },
+  { linkLabel: "Contact", path: "/contact", isFooterLink: true },
+  { linkLabel: "Copy Rights", path: "/copyRights", isFooterLink: true },
 ];
 
-export { mainRoutes, footerRoutes };
+export { appRoutes };

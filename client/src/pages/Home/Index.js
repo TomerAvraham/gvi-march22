@@ -88,7 +88,7 @@ const Index = () => {
     //   </ContainerHomeMain>
     // </ContainerHome>
 
-    <Box component={"section"} padding={"2rem"}>
+    <Box component={"section"} sx={{ my: 1 }}>
       <div className={classess.search_container}>
         <Typography variant="h5" paddingY={3}>
           {pageTitle}
@@ -97,13 +97,14 @@ const Index = () => {
       </div>
       <br></br>
       <Grid container spacing={4}>
-        {users.length ?
-          users.map((user) => (
-            <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-              {/* <UserCard dispatch={dispatch} key={user._id} user={user} /> */}
-              <ReviewCard user={user} dispatch={dispatch} />
-            </Grid>
-          )) : 'Not Found!'}
+        {users.length
+          ? users.map((user) => (
+              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                {/* <UserCard dispatch={dispatch} key={user._id} user={user} /> */}
+                <ReviewCard user={user} dispatch={dispatch} />
+              </Grid>
+            ))
+          : "Not Found!"}
       </Grid>
     </Box>
   );

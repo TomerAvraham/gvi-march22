@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
 import SearchInput from "../../components/SearchInput";
-import { mainRoutes } from "../../app/_routes";
+import { appRoutes } from "../../app/_routes";
 import MobileNavbarMenu from "./MobileNavbarMenu";
 import classes from "./Navbar.module.css";
 
@@ -76,7 +76,7 @@ const Navbar = () => {
           </Typography>
           {isAuth && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {mainRoutes.map(
+              {appRoutes.map(
                 (link, indexId) =>
                   link.isNavbarLink && (
                     <Link key={indexId} to={link.path}>
