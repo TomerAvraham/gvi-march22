@@ -1,6 +1,7 @@
 const Connect = require("../models/connect.model");
 const { getUserRoleById } = require("../services/user.service");
 const { USER_ROLE } = require("../constants/user.constants");
+const { CONNECT_STATUS } = require("../constants/connect.constants");
 
 exports.connectionRequest = async (req, res, next) => {
   const userToConnectId = req.params.userToConnectId;
@@ -11,6 +12,7 @@ exports.connectionRequest = async (req, res, next) => {
   const connectCreateOptions = {
     entrepreneurId: isEntrepreneur ? userIdRequester : userToConnectId,
     consultantId: isEntrepreneur ? userToConnectId : userIdRequester,
+    requestedBy: userIdRequester,
   };
 
   const isConnectionExist = await Connect.exists(connectCreateOptions);
@@ -30,29 +32,26 @@ exports.connectionRequest = async (req, res, next) => {
  * @Return Updated connection
  */
 exports.approveConnection = async (req, res) => {
-  const { connectionId } = req.params || req.body;
-
-  const { userId } = req; // assuming the user is authenticated and their information is stored in req.userId
+  const { connectionId } = req.body || req.params;
+  const { userId } = req;
 
   const connection = await Connect.findById(connectionId);
 
   if (!connection) {
-    return res.status(404).send({ error: "Connection not found" });
-  }
-
-  // Check if the user is the receiver of the connection request
-  if (
-    connection.entrepreneurId.toString() === userId ||
-    connection.consultantId.toString() === userId
-  ) {
-    // Approve the connection
-    connection.status = CONNECT_STATUS.APPROVED;
-    await connection.save();
-
-    return res.status(200).send(connection);
-  } else {
     return res
-      .status(403)
-      .send({ error: "You are not authorized to approve this connection" });
+      .status(404)
+      .send({ error: true, message: "Connection not found" });
   }
+
+  if (connection.requestedBy.toString() === userId) {
+    return res.status(401).send({
+      error: true,
+      message: "You are not authorized to approve this connection",
+    });
+  }
+
+  connection.status = CONNECT_STATUS.APPROVED;
+  await connection.save();
+
+  res.status(200).send(connection);
 };

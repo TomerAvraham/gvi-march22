@@ -17,7 +17,7 @@ export default function CustomBreadcrumbs() {
   return (
     <Box role="presentation" onClick={handleClick} sx={{ my: 3 }}>
       <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" href="/">
+        <Link underline="hover" color="inherit" to="/">
           Home
         </Link>
         {pathnames.map((name, index) => {

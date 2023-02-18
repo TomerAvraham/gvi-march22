@@ -9,6 +9,11 @@ const connectSchema = new Schema({
     enum: Object.values(CONNECT_STATUS),
     default: CONNECT_STATUS.PENDING,
   },
+  requestedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   createAt: { type: Date, default: Date.now },
 });
 

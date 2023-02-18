@@ -9,6 +9,11 @@ router.post(
   catchAsyncError(connectionController.connectionRequest)
 );
 
+router.put(
+  "/approve/:connectionId",
+  catchAsyncError(connectionController.approveConnection)
+);
+
 module.exports = router;
 
 //controller
