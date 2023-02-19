@@ -18,6 +18,15 @@ export const sentConnectionRequestById = async (id) => {
   }
 };
 
+export const getAllConversations = async () => {
+  try {
+    const response = await api.get("/myAll");
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error.response.data);
+  }
+};
+
 export const approveConnectionById = async (id) => {
   try {
     const response = await api.put("/approve/" + id);
