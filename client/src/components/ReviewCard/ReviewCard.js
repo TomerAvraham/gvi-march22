@@ -87,7 +87,7 @@ export default function ReviewCard({ user, dispatch }) {
         image="https://media.istockphoto.com/id/1390650720/photo/digital-network-connection-abstract-connection-of-dots-and-lines-technology-background-plexus.jpg?b=1&s=170667a&w=0&k=20&c=SUkUz3EzbbcC25vGSHdV_9MxR0Mun8giVcuHoyOKwDo="
         title="green iguana"
       >
-        <ConnectStatusChip sx={{m:10}} user={user} />
+        <ConnectStatusChip sx={{ m: 10 }} user={user} />
       </CardMedia>
       <CardHeader
         avatar={
@@ -101,14 +101,23 @@ export default function ReviewCard({ user, dispatch }) {
         title={`${user.firstName}  ${user.lastName}`}
         subheader={user.email}
       />
-      <CardContent>
+      <CardContent sx={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="body2" color="text.secondary">
-          Role: <strong>{user.role}</strong>
-          <br />
+          Role: {user.role}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          phoneNumber: {user.phoneNumber || "048745978"}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Mentoring: {user.mentoring || "mentoring"}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Expertise: {user.expertise}
+        </Typography>
+        {/* <br />
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
+          mussels, if you like. */}
       </CardContent>
 
       <CardActions disableSpacing>
@@ -130,9 +139,11 @@ export default function ReviewCard({ user, dispatch }) {
         </Tooltip>
 
         <Tooltip title="Send Message">
-          <IconButton aria-label="Send Message">
-            <SendIcon />
-          </IconButton>
+          <Link to="/chat">
+            <IconButton aria-label="Send Message">
+              <SendIcon />
+            </IconButton>
+          </Link>
         </Tooltip>
         <ExpandMore
           expand={expanded}
@@ -145,18 +156,21 @@ export default function ReviewCard({ user, dispatch }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
+          <Typography paragraph>About:</Typography>
+
+          {user.about ? (
+            <Typography variant="body2" color="text.secondary">
+              {user.about}
+            </Typography>
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
+              over medium-high heat. Add chicken, shrimp and chorizo, and cook,
+              stirring occasionally until lightly browned, 6 to 8 minutes.
+              fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
+              cups chicken broth; bring to a boil.
+            </Typography>
+          )}
         </CardContent>
       </Collapse>
     </Card>

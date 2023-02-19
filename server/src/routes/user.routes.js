@@ -5,5 +5,6 @@ const userController = require("../controllers/user.controller");
 
 // Get all users by specific role
 router.get("/role/all", catchAsyncError(userController.getAllUsersByRole));
+router.get("/getOne/:userId", catchAsyncError(userController.getOneUserById));
 
 module.exports = router;

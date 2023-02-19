@@ -1,14 +1,51 @@
-import React from 'react'
-import { useLocation } from "react-router-dom";
-const User = (props) => {
-  const location = useLocation();
-  const query = new URLSearchParams(location.state);
-  const userId = query.getAll("state");
-  console.log(userId)
+import React, { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { getUserById } from "../../services/user.service";
+
+const User = () => {
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const { userId } = useParams();
+
+  const fetchData = useCallback(async () => {
+    try {
+      const data = await getUserById(userId);
+      setUser({ ...data });
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId) {
+      fetchData();
+    }
+
+    return () => {
+      setUser({});
+    };
+  }, [fetchData, userId]);
+
+  if (!userId) {
+    return null;
+  }
 
   return (
-    <div>User Name:{userId} </div>
-  )
-}
+    <section>
+      <br />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          <p>User first name: {user.firstName}</p>
+          <p>User last name: {user.lastName}</p>
+          <p>email: {user.email}</p>
+          <p>role: {user.role}</p>
+        </div>
+      )}
+    </section>
+  );
+};
 
-export default User
+export default User;

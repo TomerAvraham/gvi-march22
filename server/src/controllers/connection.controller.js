@@ -1,6 +1,9 @@
 const Connect = require("../models/connect.model");
 const { getUserRoleById } = require("../services/user.service");
-const { USER_ROLE } = require("../constants/user.constants");
+const {
+  USER_ROLE,
+  SELECTED_USER_FIELDS,
+} = require("../constants/user.constants");
 const { CONNECT_STATUS } = require("../constants/connect.constants");
 
 exports.connectionRequest = async (req, res, next) => {
@@ -40,7 +43,7 @@ exports.connectionRequest = async (req, res, next) => {
       return res.status(200).send({ message: "Connection deleted" });
 
     case CONNECT_STATUS.REJECTED:
-      // TODO: do somthing for status REJECTED
+      // TODO: do something for status REJECTED
       break;
 
     default:
@@ -49,6 +52,15 @@ exports.connectionRequest = async (req, res, next) => {
   }
 
   res.status(400).send({ message: "Connection already exists" });
+};
+
+exports.deleteConnection = async (connectionId, res) => {
+  try {
+    await Connect.findByIdAndDelete(connectionId);
+    return res.status(200).send({ message: "Connection deleted" });
+  } catch (error) {
+    return res.status(500).send({ message: "Failed to delete connection" });
+  }
 };
 
 exports.getAllConnection = async (req, res, next) => {
