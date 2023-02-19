@@ -1,5 +1,6 @@
 import React from "react";
-import {updateUserbyid} from "../../services/user.service"
+import {updateProfileByPayload} from "../../app/redux/slices/profileSlice"
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import AdbIcon from '@mui/icons-material/Adb';
 import {
@@ -14,6 +15,8 @@ import {
 
 import classes from "../Profile/Profile.module.css";
 
+
+
 const updateUser="";
 
 function Profile() {
@@ -23,10 +26,25 @@ function Profile() {
     formState: { errors },
   } = useForm();
 
+  const dispatch = useDispatch();
+
   const onSubmit =  async (data) => {
-    updateUser=data;
-    console.log(data);
-    updateUserbyid()
+    console.log(data)
+    const formValues={
+  email:data.email,
+  phoneNumber:data.phoneNumber,
+  expertise:data.expertise,
+  github:data.github,
+  instagram:data.instagram,
+  facebook:data.facebook,
+  lnkd:data.lnkd,
+  about:data.about,
+  mentoring:data.mentoring,
+  startUp:data.startUp,
+  lastName:data.lastName,
+  firstName:data.firstName,
+    }
+    dispatch(updateProfileByPayload(formValues));
   };
 
   const TextFieldArray=[
@@ -34,7 +52,6 @@ function Profile() {
     {label:"Last Name",register:"lastName"},
     {label:"Start-Up",register:"startUp"},
     {label:"Mentoring",register:"mentoring"},
-    {label:"Location",register:"location"},
     {label:"About",register:"about"},
     {label:"LNKD",register:"lnkd"},
     {label:"Facebook",register:"facebook"},

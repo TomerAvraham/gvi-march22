@@ -43,8 +43,12 @@ exports.getAllUsersByRole = async (req, res, next) => {
   res.status(200).send(users);
 };
 
-exports.getAllUsersByRole = async (req, res, next) => {
-  const updateUser = await userService.updateUserbyid(req.userId);
+exports.putUpdateInformationInUser = async (req, res, next) => {
+  const connectUser=await User.findById(req.userId);
+  const updateUser=req.body;
 
-  console.log(updateUser);
-};
+  console.log(connectUser)
+  console.log(updateUser)
+
+  res.status(200)
+}
