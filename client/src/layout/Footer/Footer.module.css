@@ -1,21 +1,21 @@
 .footer_container {
-     position: fixed;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     bottom: 2rem;
-     left: 0;
-     right: 0;
-     text-align: center;
-     font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 40px;
 }
 
 .footer_container p {
-     margin-top: 10px;
+  margin-top: 10px;
 }
 
 .footer_links {
-     margin: 15px;
-     color: #787878;
+  margin: 15px;
+  color: #787878;
 }

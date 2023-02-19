@@ -44,11 +44,20 @@ exports.getAllUsersByRole = async (req, res, next) => {
 };
 
 exports.putUpdateInformationInUser = async (req, res, next) => {
-  const connectUser=await User.findById(req.userId);
-  const updateUser=req.body;
+  try {
+    const connectUser = await User.findById(req.userId);
+    const updateUser = req.body;
 
-  console.log(connectUser)
-  console.log(updateUser)
+    const result = await User.findByIdAndUpdate(connectUser, updateUser, {
+      new: true,
+    });
 
-  res.status(200)
-}
+    console.log(connectUser);
+    console.log(updateUser);
+    console.log(result);
+
+    res.status(result);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
