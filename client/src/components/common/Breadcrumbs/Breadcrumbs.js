@@ -15,7 +15,7 @@ export default function CustomBreadcrumbs() {
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
-    <Box role="presentation" onClick={handleClick} sx={{ my: 3 }}>
+    <Box role="presentation" onClick={handleClick} sx={{ mt: 3 }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" to="/">
           Home

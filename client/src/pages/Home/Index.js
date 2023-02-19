@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useReducer,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useEffect, useReducer, useState, useMemo } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Grid, Box } from "@mui/material";
 
@@ -15,6 +9,7 @@ import { useSelector } from "react-redux";
 import SearchInput from "../../components/common/Search/SearchUsersInput";
 import Typography from "@mui/material/Typography";
 import SkeletonLoader from "../../components/common/Skeleton/SkeletonLoader";
+import useUserSearch from "../../hooks/useUserSearch";
 
 function userReducer(state, action) {
   switch (action.type) {
@@ -40,8 +35,6 @@ const Index = () => {
 
   const [users, dispatch] = useReducer(userReducer, []);
   const [isLoading, setIsLoading] = useState(true);
-  const [filteredUsers, setFilteredUsers] = useState([]);
-  const [isFiltering, setIsFiltering] = useState(false);
 
   useEffect(() => {
     getAllUsersByRole().then((data) => {
@@ -59,24 +52,7 @@ const Index = () => {
     });
   }, []);
 
-  const onSearch = useCallback(
-    (query) => {
-      if (query) {
-        const filtered = users.filter(
-          (user) =>
-            user.firstName.toLowerCase().includes(query.toLowerCase()) ||
-            user.lastName.toLowerCase().includes(query.toLowerCase()) ||
-            user.email.toLowerCase().includes(query.toLowerCase())
-        );
-        setFilteredUsers(filtered);
-        setIsFiltering(true);
-      } else {
-        setFilteredUsers([]);
-        setIsFiltering(false);
-      }
-    },
-    [users]
-  );
+  const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
 
   return (
     <Box component={"section"} sx={{ my: 1 }}>
@@ -84,30 +60,27 @@ const Index = () => {
         <Typography variant="h5" paddingY={3}>
           {pageTitle}
         </Typography>
-        <SearchInput onSearch={onSearch} />
+        <SearchInput onSearch={searchUsers} />
       </div>
-      <br></br>
       {isLoading ? (
         <SkeletonLoader />
       ) : (
         <Grid container spacing={4}>
-          {users.length > 0 ? (
-            isFiltering && filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
-                <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-                  <ReviewCard user={user} dispatch={dispatch} />
-                </Grid>
-              ))
-            ) : (
-              users.map((user) => (
-                <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-                  <ReviewCard user={user} dispatch={dispatch} />
-                </Grid>
-              ))
-            )
+          {isFiltering && filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => (
+              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                <ReviewCard user={user} dispatch={dispatch} />
+              </Grid>
+            ))
+          ) : users.length > 0 && !isFiltering ? (
+            users.map((user) => (
+              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                <ReviewCard user={user} dispatch={dispatch} />
+              </Grid>
+            ))
           ) : (
             <Grid item>
-              <Typography variant="p">Not Found</Typography>
+              <Typography variant="p">No users found</Typography>
             </Grid>
           )}
         </Grid>

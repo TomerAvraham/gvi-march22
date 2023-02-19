@@ -87,7 +87,7 @@ export default function ReviewCard({ user, dispatch }) {
         image="https://media.istockphoto.com/id/1390650720/photo/digital-network-connection-abstract-connection-of-dots-and-lines-technology-background-plexus.jpg?b=1&s=170667a&w=0&k=20&c=SUkUz3EzbbcC25vGSHdV_9MxR0Mun8giVcuHoyOKwDo="
         title="green iguana"
       >
-        <ConnectStatusChip user={user} />
+        <ConnectStatusChip sx={{m:10}} user={user} />
       </CardMedia>
       <CardHeader
         avatar={
