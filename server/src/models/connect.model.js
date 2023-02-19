@@ -13,6 +13,7 @@ const connectSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
+    immutable: true,
   },
   createAt: { type: Date, default: Date.now },
 });

@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 
 import SearchInput from "../../components/common/Search/SearchUsersInput";
 import Typography from "@mui/material/Typography";
+import SkeletonLoader from "../../components/common/Skeleton/SkeletonLoader";
 
 function userReducer(state, action) {
   switch (action.type) {
@@ -87,7 +88,7 @@ const Index = () => {
       </div>
       <br></br>
       {isLoading ? (
-        <Typography variant="p">Loading...</Typography>
+        <SkeletonLoader />
       ) : (
         <Grid container spacing={4}>
           {users.length > 0 ? (

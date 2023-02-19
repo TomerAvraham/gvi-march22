@@ -12,75 +12,41 @@ exports.connectionRequest = async (req, res, next) => {
   const connectCreateOptions = {
     entrepreneurId: isEntrepreneur ? userIdRequester : userToConnectId,
     consultantId: isEntrepreneur ? userToConnectId : userIdRequester,
-    requestedBy: userIdRequester,
   };
 
-  const isConnectionExist = await Connect.exists(connectCreateOptions);
-
-  if (isConnectionExist) {
-    const connection = await Connect.findById(isConnectionExist._id);
-
-    if (connection.status === CONNECT_STATUS.PENDING) {
-      if (connection.requestedBy === userIdRequester) {
-        await Connect.findByIdAndDelete(connection._id);
-        return res.status(200).send({ message: "connection deleted" });
-      }
-      connection.status = CONNECT_STATUS.APPROVED;
-      await connection.save();
-      return res.status(200).send(connection);
-    }
-
-    // TODO: add more statments to catch all status options
-    // if (connection.status === CONNECT_STATUS.PENDING) {
-    //   if (connection.requestedBy === userIdRequester) {
-    //     await Connect.findByIdAndDelete(connection._id);
-    //     return res.status(200).send({ message: "connection deleted" });
-    //   }
-    //   connection.status = CONNECT_STATUS.APPROVED;
-    //   await connection.save();
-    //   return res.status(200).send(connection);
-    // }
-
-    // if (connection.status === CONNECT_STATUS.PENDING) {
-    //   connection.status = CONNECT_STATUS.APPROVED;
-    //   const newConnection = await connection.save();
-    //   return res.status(200).send(newConnection);
-    // }
-
-    return res.status(400).send({ message: "Connect exist" });
-  }
-
-  const newConnection = await Connect.create(connectCreateOptions);
-  res.status(200).send(newConnection);
-};
-
-/**
- * @param  {} req
- * @param  {} res
- * Approve Connection
- * @Return Updated connection
- */
-exports.approveConnection = async (req, res) => {
-  const { connectionId } = req.body || req.params;
-  const { userId } = req;
-
-  const connection = await Connect.findById(connectionId);
+  const connection = await Connect.findOne(connectCreateOptions);
 
   if (!connection) {
-    return res
-      .status(404)
-      .send({ error: true, message: "Connection not found" });
+    connectCreateOptions.requestedBy = userIdRequester;
+    const newConnection = await Connect.create(connectCreateOptions);
+    return res.status(200).send(newConnection);
   }
 
-  if (connection.requestedBy.toString() === userId) {
-    return res.status(401).send({
-      error: true,
-      message: "You are not authorized to approve this connection",
-    });
+  const requestedByUserId = connection.requestedBy.toString();
+
+  switch (connection.status) {
+    case CONNECT_STATUS.PENDING:
+      if (requestedByUserId === userIdRequester) {
+        await Connect.findByIdAndDelete(connection._id);
+        return res.status(200).send({ message: "Connection deleted" });
+      }
+
+      connection.status = CONNECT_STATUS.APPROVED;
+      const updatedConnection = await connection.save();
+      return res.status(200).send(updatedConnection);
+
+    case CONNECT_STATUS.APPROVED:
+      await Connect.findByIdAndDelete(connection._id);
+      return res.status(200).send({ message: "Connection deleted" });
+
+    case CONNECT_STATUS.REJECTED:
+      // TODO: do somthing for status REJECTED
+      break;
+
+    default:
+      await Connect.findByIdAndDelete(connection._id);
+      return res.status(200).send({ message: "Connection deleted" });
   }
 
-  connection.status = CONNECT_STATUS.APPROVED;
-  await connection.save();
-
-  res.status(200).send(connection);
+  res.status(400).send({ message: "Connection already exists" });
 };
