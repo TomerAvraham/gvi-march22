@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import SkeletonLoader from "../../components/common/Skeleton/SkeletonLoader";
 import useUserSearch from "../../hooks/useUserSearch";
 
+import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
+
 function userReducer(state, action) {
   switch (action.type) {
     case "initial_users":

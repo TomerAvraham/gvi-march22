@@ -15,9 +15,3 @@ router.put(
 );
 
 module.exports = router;
-
-//controller
-//build request
-
-//build model connetcion
-//update user model

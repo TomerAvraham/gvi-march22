@@ -50,3 +50,18 @@ exports.connectionRequest = async (req, res, next) => {
 
   res.status(400).send({ message: "Connection already exists" });
 };
+
+exports.getAllConnection = async (req, res, next) => {
+  const fetcherRole = await getUserRoleById(req.userId);
+  const isEntrepreneur = fetcherRole === USER_ROLE.ENTREPRENEUR;
+  const connectKeyToFilter = isEntrepreneur ? "entrepreneurId" : "consultantId";
+  const connectKeyToPopulate = isEntrepreneur
+    ? "consultantId"
+    : "entrepreneurId";
+
+  const connections = await Connect.find({
+    [connectKeyToFilter]: req.userId,
+  }).populate(connectKeyToPopulate, SELECTED_USER_FIELDS);
+
+  res.send(connections);
+};

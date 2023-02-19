@@ -6,12 +6,19 @@ import {
   BoxLastMessageTime,
   BoxMessage,
   BoxMessageContent,
-  BoxMessageUser
+  BoxMessageUser,
 } from "./CardMessageBox.Styled";
 import { TypographyStyle } from "../../../../style/globalCss";
 
 const CardMessageBox = ({ chat }) => {
-  const { image, name, lastMessage, lastMessageTime, noReadMessage } = chat;
+  const { consultantId } = chat;
+  const {
+    imgSRC: image,
+    firstName: name,
+    lastMessage,
+    lastMessageTime,
+    noReadMessage,
+  } = consultantId;
 
   const [noReadMessages, setNoReadMessages] = useState(noReadMessage);
 

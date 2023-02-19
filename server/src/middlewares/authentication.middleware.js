@@ -9,10 +9,9 @@ const authJwtToken = (req, res, next) => {
     const decodedToken = JwtTokenService.verifyAccessToken(token);
     req.userId = decodedToken.userId;
 
-  //we just add it to show completion of task although 
-  // you already change it in the code.
-      //req.fetcherRoleById=decodedToken.userId;
-    
+    //we just add it to show completion of task although
+    // you already change it in the code.
+    //req.fetcherRoleById=decodedToken.userId;
 
     next();
   } catch (error) {
