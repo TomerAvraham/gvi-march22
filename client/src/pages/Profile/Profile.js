@@ -1,6 +1,7 @@
 import React from "react";
 import {updateUserbyid} from "../../services/user.service"
 import { useForm } from "react-hook-form";
+import AdbIcon from '@mui/icons-material/Adb';
 import {
   Grid,
   TextField,
@@ -13,6 +14,8 @@ import {
 
 import classes from "../Profile/Profile.module.css";
 
+const updateUser="";
+
 function Profile() {
   const {
     register,
@@ -21,8 +24,9 @@ function Profile() {
   } = useForm();
 
   const onSubmit =  async (data) => {
-    console.log(data)
-    await updateUserbyid(data);
+    updateUser=data;
+    console.log(data);
+    updateUserbyid()
   };
 
   const TextFieldArray=[
@@ -43,7 +47,7 @@ function Profile() {
     <Box>
       <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={6}>
-          <Typography variant="h3" gutterBottom className={classes.title_design}>
+          <Typography variant="h4" gutterBottom className={classes.title_design}>
             Update Profile Information
           </Typography>
 
@@ -81,29 +85,32 @@ function Profile() {
               error={errors.email}
               helperText={errors.email && "Enter a valid email address"}
             />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" className={classes.button_design}>
               Submit
             </Button>
           </form>
         </Grid>
         <Divider orientation="vertical" flexItem>
-          VERTICAL
+          GVI
         </Divider>
         <Grid item xs={12} md={6} lg={4}>
-          <Paper elevation={3}>
-            <Box p={2}>
-              <Typography variant="h5" gutterBottom>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+          <Paper elevation={3} className={classes.paper_design}>
+            <Box p={2} className={classes.box_design}>
+            <Typography variant="h5" gutterBottom className={classes.text_paper_design}>
+               Please Enter your correct and updated 
+               information to continue using the website
               </Typography>
+              <img 
+                className={classes.img_design}
+                src="/profileIconToProfilePage.png"
+                alt="Profile Icon"
+                >
+              </img>
+              <Typography className={classes.text_paper_design}>THANK YOU</Typography>
+              <div className={classes.company_div}>
+              <AdbIcon/>
+              <Typography className={classes.gvi_design}>GVI</Typography>
+              </div>
             </Box>
           </Paper>
         </Grid>
@@ -113,3 +120,4 @@ function Profile() {
 }
 
 export default Profile;
+export {updateUser};
