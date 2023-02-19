@@ -16,12 +16,41 @@ exports.connectionRequest = async (req, res, next) => {
   };
 
   const isConnectionExist = await Connect.exists(connectCreateOptions);
+
   if (isConnectionExist) {
-    return res.status(400).json({ message: "Connect exist" });
+    const connection = await Connect.findById(isConnectionExist._id);
+
+    if (connection.status === CONNECT_STATUS.PENDING) {
+      if (connection.requestedBy === userIdRequester) {
+        await Connect.findByIdAndDelete(connection._id);
+        return res.status(200).send({ message: "connection deleted" });
+      }
+      connection.status = CONNECT_STATUS.APPROVED;
+      await connection.save();
+      return res.status(200).send(connection);
+    }
+
+    // TODO: add more statments to catch all status options
+    // if (connection.status === CONNECT_STATUS.PENDING) {
+    //   if (connection.requestedBy === userIdRequester) {
+    //     await Connect.findByIdAndDelete(connection._id);
+    //     return res.status(200).send({ message: "connection deleted" });
+    //   }
+    //   connection.status = CONNECT_STATUS.APPROVED;
+    //   await connection.save();
+    //   return res.status(200).send(connection);
+    // }
+
+    // if (connection.status === CONNECT_STATUS.PENDING) {
+    //   connection.status = CONNECT_STATUS.APPROVED;
+    //   const newConnection = await connection.save();
+    //   return res.status(200).send(newConnection);
+    // }
+
+    return res.status(400).send({ message: "Connect exist" });
   }
 
   const newConnection = await Connect.create(connectCreateOptions);
-
   res.status(200).send(newConnection);
 };
 
