@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
 import { useSidebarContext } from "../../../../context/Sidebar.context";
 import { InputAdornment, ListItemIcon, Menu, Typography } from "@mui/material";
 import { AccountTreeOutlined, Send } from "@mui/icons-material";
+
+// Text Functions
+import { capitalizeFirstLetter } from "../../../../utils/capitalize.utils";
 
 // Styled Components - With MUI
 import {
@@ -26,6 +31,9 @@ import notificationDemo from "../../../../data/notification";
 const profileDemo = "/demoProfile/profile.png";
 
 const Topbar = () => {
+  const { user } = useSelector((store) => store.auth);
+  const { firstName, lastName, imgSRC } = user;
+
   const { setSearchFiled } = useSidebarContext();
 
   const [notification, setNotification] = useState(false);
@@ -39,8 +47,10 @@ const Topbar = () => {
         <IconMenu />
 
         <ProfileTopbar>
-          <img src={profileDemo} alt="Profile" />
-          <TypographyStyle variant="h2">John Doe</TypographyStyle>
+          <img src={imgSRC ? imgSRC : profileDemo} alt="Profile" />
+          <TypographyStyle variant="h2">
+            {capitalizeFirstLetter(firstName)} {capitalizeFirstLetter(lastName)}
+          </TypographyStyle>
         </ProfileTopbar>
 
         <BadgeNotification
@@ -94,7 +104,7 @@ const Topbar = () => {
               mt: "5px"
             }}
           >
-            All Message <ArrowDownIcon />
+            All Messages <ArrowDownIcon />
           </TypographyStyle>
 
           {/* Menu For Type Message */}
@@ -107,7 +117,7 @@ const Topbar = () => {
               <ListItemIcon>
                 <Send fontSize="small" />
                 <Typography variant="h4" sx={{ ml: "10px" }}>
-                  Direct Message
+                  All Messages
                 </Typography>
               </ListItemIcon>
             </MenuItemNotificationAndMessage>

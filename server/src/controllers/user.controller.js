@@ -41,3 +41,9 @@ exports.getAllUsersByRole = async (req, res, next) => {
 
   res.status(200).send(users);
 };
+
+exports.getUserById = async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id).select(SELECTED_USER_FIELDS);
+  res.send(user);
+};

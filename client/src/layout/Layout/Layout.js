@@ -10,17 +10,24 @@ const Layout = () => {
   const { pathname } = useLocation();
   const isAuthRoute =
     pathname === "/register" || pathname === "/login" ? true : false;
+  const isChatPage =
+    pathname === "/chat" || pathname === `/chat/:userId` ? true : false;
+
   return (
     <>
       {isAuthRoute || <Navbar />}
       <Suspense fallback={<Loader />}>
-        <Container
-          sx={{ padding: isAuthRoute && "0!important" }}
-          maxWidth={isAuthRoute ? "xxl" : "xl"}
-          className={classes.layout_container}
-        >
+        {isChatPage ? (
           <Outlet />
-        </Container>
+        ) : (
+          <Container
+            sx={{ padding: isAuthRoute && "0!important" }}
+            maxWidth={isAuthRoute ? "xxl" : "xl"}
+            className={classes.layout_container}
+          >
+            <Outlet />
+          </Container>
+        )}
       </Suspense>
 
       {isAuthRoute || <Footer />}

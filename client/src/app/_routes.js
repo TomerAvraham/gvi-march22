@@ -17,8 +17,15 @@ const mainRoutes = [
     linkLabel: "Chat",
     path: "/chat",
     component: Chat,
-    isProtected: false,
+    isProtected: true,
     isNavbarLink: true
+  },
+  {
+    linkLabel: "Chat User ID",
+    path: "/chat/:userId",
+    component: Chat,
+    isProtected: true,
+    isNavbarLink: false
   },
   { linkLabel: "Login", path: "/login", component: Login },
   { linkLabel: "Register", path: "/register", component: Register }

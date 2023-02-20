@@ -17,3 +17,12 @@ export const getAllUsersByRole = async (options = {}) => {
     console.log(error);
   }
 };
+
+export const getUserById = async (id) => {
+  try {
+    const response = await api.get(`/userByID/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
