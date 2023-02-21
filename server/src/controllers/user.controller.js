@@ -5,6 +5,7 @@ const {
 } = require("../constants/user.constants");
 const userService = require("../services/user.service");
 const Connect = require("../models/connect.model");
+const { NotFoundError, BadRequestError } = require("../errors/Errors");
 
 exports.getAllUsersByRole = async (req, res, next) => {
   const userRole = await userService.getUserRoleById(req.userId);
@@ -45,8 +46,15 @@ exports.getAllUsersByRole = async (req, res, next) => {
 exports.getOneUserById = async (req, res, next) => {
   const { userId } = req.params;
   const user = await User.findById(userId);
-  if (!user) {
-    return res.status(404).send({ message: "User not found" });
-  }
+  if (!user) return next(new NotFoundError());
   res.send(user);
+};
+
+exports.deleteOneUserById = async (req, res, next) => {
+  const { userId } = req.params;
+
+  if (!userId) return next(new BadRequestError());
+  const deletedUser = await User.findByIdAndDelete(userId);
+
+  res.status(202).send(deletedUser);
 };
