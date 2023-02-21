@@ -5,7 +5,10 @@ const Login = React.lazy(() => import("../pages/Login/Login"));
 const Register = React.lazy(() => import("../pages/Register/Register"));
 const Chat = React.lazy(() => import("../pages/Chat"));
 const User = React.lazy(() => import("../pages/User/User"));
-const PrivacyPolicy = React.lazy(() => import("../pages/PrivacyPolicy"));
+const PrivacyPolicy = React.lazy(() =>
+  import("../pages/PrivacyPolicy/PrivacyPolicy")
+);
+const ContactUs = React.lazy(() => import("../pages/ContactUs/ContactUs"));
 
 const appRoutes = [
   // Main Routes
@@ -29,7 +32,12 @@ const appRoutes = [
   { linkLabel: "Register", path: "/register", component: Register },
 
   // User Routes
-  { linkLabel: "User", path: "/user/:userId", component: User,isProtected: true },
+  {
+    linkLabel: "User",
+    path: "/user/:userId",
+    component: User,
+    isProtected: true,
+  },
 
   // Footer Routes
   {
@@ -38,7 +46,12 @@ const appRoutes = [
     component: PrivacyPolicy,
     isFooterLink: true,
   },
-  { linkLabel: "Contact", path: "/contact", isFooterLink: true },
+  {
+    linkLabel: "Contact Us",
+    path: "/contactUs",
+    isFooterLink: true,
+    component: ContactUs,
+  },
   { linkLabel: "Copy Rights", path: "/copyRights", isFooterLink: true },
 ];
 
