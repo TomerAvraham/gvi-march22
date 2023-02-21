@@ -52,7 +52,7 @@ const Index = () => {
         setIsLoading(false);
       }
     });
-  }, []);
+  }, [users, isLoading, user]);
 
   const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
 

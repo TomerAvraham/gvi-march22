@@ -14,6 +14,7 @@ const contactUsFields = [
 
 const ContactUs = () => {
   const pageTitle = "Contact Us";
+  const pageSubTitle = "We'll be glad to hear from you.";
   return (
     <Box
       component="form"
@@ -25,7 +26,10 @@ const ContactUs = () => {
       className={classes.Contact_us_container}
     >
       <form>
-        <Typography variant="h4">{pageTitle}</Typography>
+        <Box component="section" sx={{ mb: 2 }}>
+          <Typography variant="h4">{pageTitle}</Typography>
+          <Typography variant="p">{pageSubTitle}</Typography>
+        </Box>
         {contactUsFields.map((item, indexId) => (
           <TextField
             className={classes.Contact_us_text_field}

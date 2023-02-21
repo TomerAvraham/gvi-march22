@@ -121,7 +121,7 @@ export default function ReviewCard({ user, dispatch }) {
       </CardContent>
 
       <CardActions disableSpacing>
-        <Tooltip title={user.connect ? user.connect.status : "Request"}>
+        <Tooltip title={user.connect ? "Cancel Request" : "Request"}>
           <IconButton
             aria-label="Request"
             color={color}
