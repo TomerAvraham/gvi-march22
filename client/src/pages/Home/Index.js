@@ -40,7 +40,7 @@ const Index = () => {
 
   useEffect(() => {
     getAllUsersByRole().then((data) => {
-      if (data.length > 0) {
+      if (data?.length > 0) {
         dispatch({
           type: "initial_users",
           payload: {

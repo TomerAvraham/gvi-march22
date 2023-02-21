@@ -29,7 +29,7 @@ const appRoutes = [
   { linkLabel: "Register", path: "/register", component: Register },
 
   // User Routes
-  { linkLabel: "User", path: "/user/:userId", component: User },
+  { linkLabel: "User", path: "/user/:userId", component: User,isProtected: true },
 
   // Footer Routes
   {
