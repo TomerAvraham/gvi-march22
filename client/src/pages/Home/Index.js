@@ -47,13 +47,13 @@ const Index = () => {
           },
         });
         setIsLoading(false);
-      } else {
-        setIsLoading(false);
       }
     });
-  }, [users, isLoading, user]);
+  }, [user]);
 
   const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
+
+  console.log(isLoading);
 
   return (
     <Box component={"section"} sx={{ my: 1 }}>

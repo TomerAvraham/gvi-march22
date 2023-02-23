@@ -28,6 +28,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { getUserStatusConnection } from "../../utils/connection.util";
 import CardMenu from "./CardMenu";
+import { useSelector } from "react-redux";
 
 import { sentConnectionRequestById } from "../../services/connection.service";
 const ERROR_MESSAGE_AUTO_HIDE_TIME = 3000;
@@ -44,6 +45,9 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function ReviewCard({ user, dispatch }) {
+  const { role } = useSelector((store) => store.auth.user);
+  const isAdmin = role === "ADMIN";
+
   const [expanded, setExpanded] = React.useState(false);
   const userUrl = `/user/${user._id}`;
   const handleExpandClick = () => {
@@ -93,11 +97,11 @@ export default function ReviewCard({ user, dispatch }) {
         avatar={
           <Link to={{ pathname: userUrl, state: `?id=${user._id}` }}>
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {/* <img src="/demoProfile/profile.png" alt=''></img> */}R
+              <img src="/demoProfile/profile.png" alt=""></img>
             </Avatar>
           </Link>
         }
-        action={<CardMenu userId={user._id} />}
+        action={isAdmin ? <CardMenu userId={user._id} /> : <></>}
         title={`${user.firstName}  ${user.lastName}`}
         subheader={user.email}
       />
