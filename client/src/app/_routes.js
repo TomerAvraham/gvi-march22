@@ -29,6 +29,13 @@ const appRoutes = [
   },
 
   // Auth Routes
+  {
+    linkLabel: "Chat User ID",
+    path: "/chat/:userId",
+    component: Chat,
+    isProtected: true,
+    isNavbarLink: false,
+  },
   { linkLabel: "Login", path: "/login", component: Login },
   { linkLabel: "Register", path: "/register", component: Register },
 

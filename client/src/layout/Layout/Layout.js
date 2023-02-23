@@ -18,14 +18,20 @@ const Layout = () => {
   const navbar = isAuthRoute || <Navbar />;
   const footer = isAuthRoute || <Footer />;
 
+  const isChatPage = pathname.includes("chat");
+
   return (
     <>
       {navbar}
       <Suspense fallback={<Loader />}>
-        <Container {...containerProps}>
-          {isAuthRoute || <CustomBreadcrumbs />}
+        {isAuthRoute || <CustomBreadcrumbs />}
+        {isChatPage ? (
           <Outlet />
-        </Container>
+        ) : (
+          <Container {...containerProps}>
+            <Outlet />
+          </Container>
+        )}
       </Suspense>
       {footer}
     </>

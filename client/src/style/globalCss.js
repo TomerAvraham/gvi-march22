@@ -7,23 +7,23 @@ export const MainContainer = styled(Stack)(({ theme }) => ({
   minHeight: "100vh"
 }));
 
-export const Sidebar = styled(Stack)(({ theme }) => ({
-  // width: "400px",
-  height: "100%",
-  minHeight: "100vh",
-  backgroundColor: "#F9F9F9",
-  borderRadius: "0 28px 0 0",
-  overflow: "hidden",
-  boxShadow: "0 4px 4px 0 rgba(0, 0, 0, 0.4)",
-  zIndex: 1
-}));
+// export const Sidebar = styled(Stack)(({ theme }) => ({
+//   // width: "400px",
+//   height: "100%",
+//   minHeight: "100vh",
+//   backgroundColor: "#ffffff",
+//   borderRadius: "0 28px 0 0",
+//   overflow: "hidden",
+//   boxShadow: "0 4px 4px 0 rgba(0, 0, 0, 0.4)",
+//   zIndex: 1
+// }));
 
-export const Main = styled(Stack)(({ theme }) => ({
-  width: "100%",
-  height: "100%",
-  minHeight: "100vh",
-  backgroundColor: "#F9F9F9"
-}));
+// export const Main = styled(Stack)(({ theme }) => ({
+//   width: "100%",
+//   height: "100%",
+//   minHeight: "100vh",
+//   backgroundColor: "#ffffff"
+// }));
 
 export const TypographyStyle = styled(Typography)(({ theme, props }) => ({
   "&.MuiTypography-h1": {

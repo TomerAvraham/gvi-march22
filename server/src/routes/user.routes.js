@@ -17,4 +17,7 @@ router.put(
   catchAsyncError(userController.putUpdateInformationInUser)
 );
 
+// Get User By ID
+router.get("/userByID/:id", catchAsyncError(userController.getUserById));
+
 module.exports = router;

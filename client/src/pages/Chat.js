@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import SidebarProvider from "../context/Sidebar.context";
 
 // Styled Components - With MUI
-import { Main, MainContainer, Sidebar } from "../style/globalCss";
+import { MainContainer } from "../style/globalCss";
 import Grid from "@mui/material/Unstable_Grid2";
 
 // Components
 import SidebarChat from "../components/SidebarChat/SidebarChat";
+import ChatBox from "../components/chat/ChatComponents";
 import { useDispatch } from "react-redux";
 import { getAllConversations } from "../app/redux/slices/messageSlice";
 
@@ -32,7 +33,7 @@ const Chat = () => {
           </Grid>
           {/* End */}
 
-          {/* Main */}
+          {/* ChatBox */}
           <Grid
             item
             xs={12}
@@ -41,7 +42,7 @@ const Chat = () => {
             lg={9}
             sx={{ display: { xs: "none", sm: "grid" } }}
           >
-            Main
+            <ChatBox />
           </Grid>
           {/* End */}
         </Grid>
