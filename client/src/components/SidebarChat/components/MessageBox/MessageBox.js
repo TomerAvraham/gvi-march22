@@ -7,11 +7,12 @@ import { Divider } from "@mui/material";
 import CardMessageBox from "../CardMessageBox/CardMessageBox";
 // import ActiveCardMessageBox from "../ActiveCardMessageBox/ActiveCardMessageBox";
 import { useSelector } from "react-redux";
+import { useChat } from "../../../../context/Chat.context";
 
 const MessageBox = () => {
   const { searchFiled } = useSidebarContext();
-  const { conversations } = useSelector((store) => store.messages);
   const { user } = useSelector((store) => store.auth);
+  const { conversations } = useChat();
 
   return (
     <Fragment>

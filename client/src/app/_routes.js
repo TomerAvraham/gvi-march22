@@ -3,7 +3,7 @@ import React from "react";
 const Index = React.lazy(() => import("../pages/Home/Index"));
 const Login = React.lazy(() => import("../pages/Login/Login"));
 const Register = React.lazy(() => import("../pages/Register/Register"));
-const Chat = React.lazy(() => import("../pages/Chat"));
+const Chat = React.lazy(() => import("../pages/Chat/Chat"));
 const User = React.lazy(() => import("../pages/User/User"));
 const PrivacyPolicy = React.lazy(() =>
   import("../pages/PrivacyPolicy/PrivacyPolicy")
@@ -62,7 +62,12 @@ const appRoutes = [
     isFooterLink: true,
     component: ContactUs,
   },
-  { linkLabel: "Copy Rights", path: "/copyRights", isFooterLink: true },
+  {
+    linkLabel: "Copy Rights",
+    path: "/copyRights",
+    isFooterLink: true,
+    component: ContactUs,
+  },
 ];
 
 export { appRoutes };
