@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 import {
   Box,
@@ -13,23 +14,11 @@ import {
 import { useDispatch } from "react-redux";
 
 import { setIsAuth } from "../../app/redux/slices/authSlice";
-
+import { useSelector } from "react-redux";
 import { PersonAdd, Settings, Logout } from "@mui/icons-material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import authService from "../../services/auth.service";
 
-export const USER_PROFILE_LINKS = [
-  { label: "Profile", path: "/", icon: <Avatar /> },
-  {
-    label: "Dashboard",
-    path: "/",
-    icon: (
-      <Avatar>
-        <DashboardIcon />
-      </Avatar>
-    ),
-  },
-];
 export const USER_SETTING_LINKS = [
   {
     label: "Add Account",
@@ -44,6 +33,20 @@ export const USER_SETTING_LINKS = [
 ];
 
 export default function NavbarUserMenu() {
+  const { isAuth, user } = useSelector((state) => state.auth);
+
+  const USER_PROFILE_LINKS = [
+    { label: "Profile", path: `/user/${user._id}`, icon: <Avatar /> },
+    {
+      label: "Dashboard",
+      path: "/",
+      icon: (
+        <Avatar>
+          <DashboardIcon />
+        </Avatar>
+      ),
+    },
+  ];
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
@@ -83,7 +86,6 @@ export default function NavbarUserMenu() {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -114,16 +116,20 @@ export default function NavbarUserMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {USER_PROFILE_LINKS.map((link, indexId) => (
-          <MenuItem key={indexId} onClick={handleClose} align="center">
-            {link.icon} {link.label}
-          </MenuItem>
+          <Link key={indexId} to={link.path}>
+            <MenuItem onClick={handleClose} align="center">
+              {link.icon} {link.label}
+            </MenuItem>
+          </Link>
         ))}
         <Divider />
         {USER_SETTING_LINKS.map((link, indexId) => (
-          <MenuItem key={indexId} onClick={handleClose} align="center">
-            {link.icon}
-            {link.label}
-          </MenuItem>
+          <Link key={indexId} to={link.path}>
+            <MenuItem onClick={handleClose} align="center">
+              {link.icon}
+              {link.label}
+            </MenuItem>
+          </Link>
         ))}
         <MenuItem onClick={() => handleLogout()}>
           <ListItemIcon>

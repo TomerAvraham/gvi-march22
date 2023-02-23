@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import UserMenu from "./UserMenu";
 import NavbarUserMenu from "./NavbarUserMenu";
 import {
   AppBar,
@@ -12,26 +11,17 @@ import {
   Button,
 } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
-import SearchInput from "../../components/SearchInput";
-import { mainRoutes } from "../../app/_routes";
+import SearchUsersInput from "../../components/common/Search/SearchUsersInput";
+import { appRoutes } from "../../app/_routes";
 import MobileNavbarMenu from "./MobileNavbarMenu";
 import classes from "./Navbar.module.css";
 
 const Navbar = () => {
   const { isAuth } = useSelector((state) => state.auth);
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   const handleCloseNavMenu = () => {
@@ -76,7 +66,7 @@ const Navbar = () => {
           </Typography>
           {isAuth && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {mainRoutes.map(
+              {appRoutes.map(
                 (link, indexId) =>
                   link.isNavbarLink && (
                     <Link key={indexId} to={link.path}>
@@ -99,7 +89,7 @@ const Navbar = () => {
                 marginRight: "1rem",
               }}
             >
-              <SearchInput />
+              <SearchUsersInput />
             </Box>
           )}
           {isAuth && (

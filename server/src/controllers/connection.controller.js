@@ -4,6 +4,7 @@ const {
   USER_ROLE,
   SELECTED_USER_FIELDS,
 } = require("../constants/user.constants");
+const { CONNECT_STATUS } = require("../constants/connect.constants");
 
 exports.connectionRequest = async (req, res, next) => {
   const userToConnectId = req.params.userToConnectId;
@@ -16,14 +17,50 @@ exports.connectionRequest = async (req, res, next) => {
     consultantId: isEntrepreneur ? userToConnectId : userIdRequester,
   };
 
-  const isConnectionExist = await Connect.exists(connectCreateOptions);
-  if (isConnectionExist) {
-    return res.status(400).json({ message: "Connect exist" });
+  const connection = await Connect.findOne(connectCreateOptions);
+
+  if (!connection) {
+    connectCreateOptions.requestedBy = userIdRequester;
+    const newConnection = await Connect.create(connectCreateOptions);
+    return res.status(200).send(newConnection);
   }
 
-  const newConnection = await Connect.create(connectCreateOptions);
+  const requestedByUserId = connection.requestedBy.toString();
 
-  res.status(200).send(newConnection);
+  switch (connection.status) {
+    case CONNECT_STATUS.PENDING:
+      if (requestedByUserId === userIdRequester) {
+        await Connect.findByIdAndDelete(connection._id);
+        return res.status(200).send({ message: "Connection deleted" });
+      }
+
+      connection.status = CONNECT_STATUS.APPROVED;
+      const updatedConnection = await connection.save();
+      return res.status(200).send(updatedConnection);
+
+    case CONNECT_STATUS.APPROVED:
+      await Connect.findByIdAndDelete(connection._id);
+      return res.status(200).send({ message: "Connection deleted" });
+
+    case CONNECT_STATUS.REJECTED:
+      // TODO: do something for status REJECTED
+      break;
+
+    default:
+      await Connect.findByIdAndDelete(connection._id);
+      return res.status(200).send({ message: "Connection deleted" });
+  }
+
+  res.status(400).send({ message: "Connection already exists" });
+};
+
+exports.deleteConnection = async (connectionId, res) => {
+  try {
+    await Connect.findByIdAndDelete(connectionId);
+    return res.status(200).send({ message: "Connection deleted" });
+  } catch (error) {
+    return res.status(500).send({ message: "Failed to delete connection" });
+  }
 };
 
 exports.getAllConnection = async (req, res, next) => {

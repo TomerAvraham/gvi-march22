@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 import FooterLinks from "./FooterLinks";
 import classes from "./Footer.module.css";
 
-const year = new Date().getFullYear();
+const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
       <div className={classes.footer_container}>
         <FooterLinks />
         <Typography variant="p" component="p">
-          Copyright GVI March 2022 - {year}.
+          Copyright GVI March 2022 - {currentYear}.
         </Typography>
       </div>
     </Box>

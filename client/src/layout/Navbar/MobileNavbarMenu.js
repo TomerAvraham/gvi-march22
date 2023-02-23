@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { mainRoutes } from "../../app/_routes";
+import { appRoutes } from "../../app/_routes";
 
 const MobileNavbarMenu = ({
   handleOpenNavMenu,
@@ -39,13 +39,16 @@ const MobileNavbarMenu = ({
           display: { xs: "block", md: "none" },
         }}
       >
-        {mainRoutes.map((link, index) => (
-          <MenuItem key={index} onClick={handleCloseNavMenu}>
-            <Link to={link.path} align="center">
-              {link.linkLabel}
-            </Link>
-          </MenuItem>
-        ))}
+        {appRoutes.map(
+          (link, index) =>
+            link.isNavbarLink && (
+              <MenuItem key={index} onClick={handleCloseNavMenu}>
+                <Link to={link.path} align="center">
+                  {link.linkLabel}
+                </Link>
+              </MenuItem>
+            )
+        )}
       </Menu>
     </Box>
   );

@@ -17,8 +17,23 @@ export const isLoginByToken = createAsyncThunk(
     return response.data;
   }
 );
+export const registerByPayload = createAsyncThunk(
+  "register/registerByPayload",
+  async (values) => {
+    const response = await authService.register(
+      values.email,
+      values.password,
+      values.passwordConfirmation,
+      values.role,
+      values.lastName,
+      values.firstName
+    );
+    return response.data;
+  }
+);
 
 const initialState = {
+  isRegister: false,
   isLoading: false,
   isAuth: false,
   error: "",
@@ -70,6 +85,24 @@ const authSlice = createSlice({
       state.error = "";
       state.isAuth = true;
       state.user = payload;
+    },
+    [registerByPayload.pending]: (state, action) => {
+      state.isLoading = true;
+      state.error = "";
+      state.isRegister = false;
+      state.isAuth = false;
+    },
+    [registerByPayload.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isRegister = false;
+      state.isAuth = false;
+      state.error = "missing information";
+    },
+    [registerByPayload.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = "";
+      state.isRegister = true;
+      state.isAuth = true;
     },
   },
 });

@@ -4,139 +4,47 @@ import { useForm } from "react-hook-form";
 import classes from "./Register.module.css";
 import formValidationSchema from "./formValidationSchema";
 import { useDispatch, useSelector } from "react-redux";
-import { registerByPayload } from "../../app/redux/slices/registerSlice";
+import { registerByPayload } from "../../app/redux/slices/authSlice";
 import { loginByEmailAndPassword } from "../../app/redux/slices/authSlice";
 import { joiResolver } from "@hookform/resolvers/joi";
-import Visibility from "@mui/icons-material/Visibility";
-import IconButton from "@mui/material/IconButton";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import RegisterTextField from "./components/RegisterTextField";
+import RegisterSelectField from "./components/RegisterSelectField";
 import {
-  TextField,
   Box,
   Typography,
   FormGroup,
   FormControlLabel,
   Checkbox,
   Grid,
-  InputLabel,
-  MenuItem,
-  FormHelperText,
   FormControl,
-  Select,
-  InputAdornment,
 } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import AdbIcon from "@mui/icons-material/Adb";
 import { PrimaryButton } from "../../components/common/Buttons";
 
-//need to move to utils
-
-function passwordReducer(state, action) {
-  switch (action.type) {
-    case "TEXT":
-      return { typeText: !state.typeText };
-    default:
-      break;
-  }
-}
-
-const RegisterSelectField = ({
-  label,
-  fieldName,
-  register,
-  errors,
-  handleChange,
-  value,
-  labelId,
-  inputLabel,
-  inputLabelId,
-  id,
-}) => {
-  return (
-    <>
-      <InputLabel error={Boolean(errors[fieldName])} id="role-select">
-        {label}
-      </InputLabel>
-      <Select
-        error={Boolean(errors[fieldName])}
-        {...register(fieldName)}
-        // helpertext={errors[fieldName] ? errors[fieldName]?.message : " "}
-        value={value}
-        label={label}
-        onChange={handleChange}
-        labelId={labelId}
-        id={id}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={"ENTREPRENEUR"}>ENTREPRENEUR</MenuItem>
-        <MenuItem value={"CONSULTANT"}>CONSULTANT</MenuItem>
-      </Select>
-      <FormHelperText error={Boolean(errors[fieldName])}>
-        {errors[fieldName] ? errors[fieldName]?.message : " "}
-      </FormHelperText>
-    </>
-  );
-};
-
 const Register = () => {
-  const RegisterTextField = ({ label, fieldName, register, errors }) => {
-    const [typeTextState, dispatch] = useReducer(passwordReducer, {
-      typeText: false,
-    });
-
-    return (
-      <Grid item xs={0} sm={6}>
-        <TextField
-          label={label}
-          type={typeTextState.typeText ? "text" : "password"}
-          error={Boolean(errors[fieldName])}
-          helperText={errors[fieldName] ? errors[fieldName]?.message : " "}
-          {...register(fieldName)}
-          size="small"
-          InputProps={{
-            endAdornment:
-              label === "Password" || label === "Confirm Password" ? (
-                !typeTextState.typeText ? (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => dispatch({ type: "TEXT" })}>
-                      <Visibility />
-                    </IconButton>
-                  </InputAdornment>
-                ) : (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => dispatch({ type: "TEXT" })}>
-                      <VisibilityOff />
-                    </IconButton>
-                  </InputAdornment>
-                )
-              ) : null,
-          }}
-        />
-      </Grid>
-    );
-  };
-
-  // const [showPassword, setShowPassword] = useState(false);
-
-  // const togglePassword = () => {
-  //   setShowPassword(!showPassword);
-  // };
-
   const registerItemLists = [
-    { label: "Email", field: "email" },
+    { label: "Email", field: "email", type: "text" },
     {
       label: "Password",
       field: "password",
+      type: undefined,
     },
     {
       label: "Confirm Password",
       field: "passwordConfirmation",
+      type: undefined,
     },
-    { label: "First Name", field: "firstName" },
-    { label: "Last Name", field: "lastName" },
+    { label: "First Name", field: "firstName", type: "text" },
+    { label: "Last Name", field: "lastName", type: "text" },
   ];
+
+  const pageTitles = {
+    mainTitle: "Register",
+    title: "Manage all your connection efficiently",
+    subTitle:
+      "Let's get you all set up so you can verify your personal account.",
+  };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -171,16 +79,8 @@ const Register = () => {
     dispatch(registerByPayload(formValues));
 
     setTimeout(() => {
-      console.log(formValues.email, formValues.password);
       dispatch(loginByEmailAndPassword(formValues));
     }, 500);
-  };
-
-  const pageTitles = {
-    mainTitle: "Register",
-    title: "Manage all your connection efficiently",
-    subTitle:
-      "Let's get you all set up so you can verify your personal account.",
   };
 
   return (
@@ -216,72 +116,27 @@ const Register = () => {
               <hr />
             </div>
             {/* Fields */}
-            <Box sx={{ width: "100%" }}>
+            <Box>
               <Grid
                 container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 3, md: 5, lg: 1, xl: 0 }}
+                rowSpacing={2}
+                // columnSpacing={{ xs: 1, sm: 3, md: 5, lg: 1, xl: 0 }}
+                columnSpacing={1}
               >
-                {/* <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="Email"
-                    fieldName="email"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="Password"
-                    fieldName="password"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  <RegisterTextField
-                    label="Confirm Password"
-                    fieldName="passwordConfirmation"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="Last Name"
-                    fieldName="lastName"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid>
-                <Grid item xs={0} sm={6}>
-                  {" "}
-                  <RegisterTextField
-                    label="First Name"
-                    fieldName="firstName"
-                    register={register}
-                    errors={errors}
-                  />
-                </Grid> */}
-                {/* Select field */}
-                {/* one map instead of the code above */}
                 {registerItemLists.map((itemRegister, index) => {
                   return (
                     <RegisterTextField
                       label={itemRegister.label}
                       fieldName={itemRegister.field}
                       register={register}
+                      type={itemRegister.type}
                       errors={errors}
                       key={index}
                     />
                   );
                 })}
-
                 <Grid item xs={0} sm={6}>
-                  <FormControl sx={{ m: 0, minWidth: 222 }} size="small">
+                  <FormControl sx={{ minWidth: "100%" }} size="small">
                     <RegisterSelectField
                       value={role}
                       id={"role"}

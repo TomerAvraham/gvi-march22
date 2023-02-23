@@ -5,6 +5,7 @@ const {
 } = require("../constants/user.constants");
 const userService = require("../services/user.service");
 const Connect = require("../models/connect.model");
+const { NotFoundError, BadRequestError } = require("../errors/Errors");
 
 exports.getAllUsersByRole = async (req, res, next) => {
   const userRole = await userService.getUserRoleById(req.userId);
@@ -40,4 +41,27 @@ exports.getAllUsersByRole = async (req, res, next) => {
   }
 
   res.status(200).send(users);
+};
+
+exports.getOneUserById = async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+  if (!user) return next(new NotFoundError());
+  res.send(user);
+};
+
+exports.deleteOneUserById = async (req, res, next) => {
+  const { userId } = req.params;
+  const userLoggedIn = req.userId;
+
+  if (userId === userLoggedIn) {
+    return new BadRequestError("Cannot Delete the user you are logged with.");
+  }
+
+  if (!userId) return next(new BadRequestError());
+  const deletedUser = await User.findByIdAndDelete(userId);
+
+  res
+    .status(202)
+    .send({ error: false, message: `User:${deletedUser.email} Deleted.` });
 };

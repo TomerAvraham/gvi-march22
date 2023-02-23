@@ -5,25 +5,31 @@ import Footer from "../Footer/Footer";
 import Container from "@mui/material/Container";
 import classes from "./Layout.module.css";
 import Loader from "../../components/common/Loader/Loader";
+import CustomBreadcrumbs from "../../components/common/Breadcrumbs/Breadcrumbs";
 
 const Layout = () => {
   const { pathname } = useLocation();
-  const isAuthRoute =
-    pathname === "/register" || pathname === "/login" ? true : false;
+  const isAuthRoute = pathname === "/register" || pathname === "/login";
+
+  const containerProps = {
+    sx: { padding: isAuthRoute ? "0!important" : undefined, mb: "auto" },
+    maxWidth: isAuthRoute ? "xxl" : "xl",
+    className: classes.layout_container,
+  };
+
+  const navbar = isAuthRoute || <Navbar />;
+  const footer = isAuthRoute || <Footer />;
+
   return (
     <>
-      {isAuthRoute || <Navbar />}
+      {navbar}
       <Suspense fallback={<Loader />}>
-        <Container
-          sx={{ padding: isAuthRoute && "0!important" }}
-          maxWidth={isAuthRoute ? "xxl" : "xl"}
-          className={classes.layout_container}
-        >
+        <Container {...containerProps}>
+          {isAuthRoute || <CustomBreadcrumbs />}
           <Outlet />
         </Container>
       </Suspense>
-
-      {isAuthRoute || <Footer />}
+      {footer}
     </>
   );
 };

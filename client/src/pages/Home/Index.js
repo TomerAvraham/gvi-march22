@@ -1,63 +1,92 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useReducer, useState, useMemo } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
-import { Container, Grid } from "@mui/material";
-import UserCard from "../../components/cards/UserCard/UserCard";
-import useRequest from "../../hooks/useRequestByCallBack";
+import { Grid, Box } from "@mui/material";
+
+import ReviewCard from "../../components/ReviewCard/ReviewCard";
+import classess from "./index.module.css";
+import { useSelector } from "react-redux";
+
+import SearchInput from "../../components/common/Search/SearchUsersInput";
+import Typography from "@mui/material/Typography";
+import SkeletonLoader from "../../components/common/Skeleton/SkeletonLoader";
+import useUserSearch from "../../hooks/useUserSearch";
 
 import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
-
 function userReducer(state, action) {
-  if (action.type === "initial_users") {
-    return action.payload.users;
+  switch (action.type) {
+    case "initial_users":
+      return action.payload.users;
+    case "connect_request":
+      const { connect, userId } = action.payload;
+      return state.map((user) =>
+        user._id === userId ? { ...user, connect } : user
+      );
+    default:
+      return state;
   }
-
-  if (action.type === "connect_request") {
-    const { connect, userId } = action.payload;
-    const stateCopy = [...state];
-    const userToAddConnectIndex = stateCopy.findIndex(
-      (user) => user._id === userId
-    );
-    stateCopy[userToAddConnectIndex] = {
-      ...stateCopy[userToAddConnectIndex],
-      connect,
-    };
-    return stateCopy;
-  }
-
-  return state;
 }
 
 const Index = () => {
-  const [users, dispatch] = useReducer(userReducer, []);
+  const { user } = useSelector((state) => state.auth);
+  const pageTitle = useMemo(
+    () =>
+      user.role === "ENTREPRENEUR" ? "Find Consultent" : "Find Entrepreneur",
+    [user.role]
+  );
 
-  const fetchUsers = async () => {
-    const data = await getAllUsersByRole();
-    return data;
-  };
+  const [users, dispatch] = useReducer(userReducer, []);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchUsers().then((data) =>
-      dispatch({
-        type: "initial_users",
-        payload: {
-          users: data,
-        },
-      })
-    );
-  }, []);
+    getAllUsersByRole().then((data) => {
+      if (data?.length > 0) {
+        dispatch({
+          type: "initial_users",
+          payload: {
+            users: data,
+          },
+        });
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    });
+  }, [users, isLoading, user]);
+
+  const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
 
   return (
-    <Container>
-      <Grid container spacing={2}>
-        {users &&
-          users.map((user) => (
-            <Grid key={user._id} item xs={12} sm={6} md={4}>
-              <UserCard dispatch={dispatch} key={user._id} user={user} />
+    <Box component={"section"} sx={{ my: 1 }}>
+      <div className={classess.search_container}>
+        <Typography variant="h5" paddingY={3}>
+          {pageTitle}
+        </Typography>
+        <SearchInput onSearch={searchUsers} />
+      </div>
+      {isLoading ? (
+        <SkeletonLoader />
+      ) : (
+        <Grid container spacing={4}>
+          {isFiltering && filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => (
+              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                <ReviewCard user={user} dispatch={dispatch} />
+              </Grid>
+            ))
+          ) : users.length > 0 && !isFiltering ? (
+            users.map((user) => (
+              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                <ReviewCard user={user} dispatch={dispatch} />
+              </Grid>
+            ))
+          ) : (
+            <Grid item>
+              <Typography variant="p">No users found</Typography>
             </Grid>
-          ))}
-      </Grid>
-      <ButtonReturnTop />
-    </Container>
+          )}
+        </Grid>
+      )}
+    </Box>
   );
 };
 
