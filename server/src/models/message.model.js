@@ -2,9 +2,9 @@ const { Schema, model } = require("mongoose");
 
 const messageSchema = new Schema({
   message: { type: String, required: true },
-  conversationId: {
+  connectId: {
     type: Schema.Types.ObjectId,
-    ref: "Conversation",
+    ref: "Connect",
     required: true,
   },
   date: { type: Date, required: true },
