@@ -8,6 +8,13 @@ router.get("/role/all", catchAsyncError(userController.getAllUsersByRole));
 // Get one user by id
 router.get("/getOne/:userId", catchAsyncError(userController.getOneUserById));
 // Delete one user by id
-router.delete("/deleteOne/:userId", catchAsyncError(userController.deleteOneUserById));
+router.delete(
+  "/deleteOne/:userId",
+  catchAsyncError(userController.deleteOneUserById)
+);
+router.put(
+  "/update",
+  catchAsyncError(userController.putUpdateInformationInUser)
+);
 
 module.exports = router;

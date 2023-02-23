@@ -4,6 +4,7 @@ const {
   SELECTED_USER_FIELDS,
 } = require("../constants/user.constants");
 const userService = require("../services/user.service");
+
 const Connect = require("../models/connect.model");
 const { NotFoundError, BadRequestError } = require("../errors/Errors");
 
@@ -64,4 +65,23 @@ exports.deleteOneUserById = async (req, res, next) => {
   res
     .status(202)
     .send({ error: false, message: `User:${deletedUser.email} Deleted.` });
+};
+
+exports.putUpdateInformationInUser = async (req, res, next) => {
+  try {
+    const connectUser = await User.findById(req.userId);
+    const updateUser = req.body;
+
+    const result = await User.findByIdAndUpdate(connectUser, updateUser, {
+      new: true,
+    });
+
+    console.log(connectUser);
+    console.log(updateUser);
+    console.log(result);
+
+    res.status(result);
+  } catch (error) {
+    console.log(error.message);
+  }
 };

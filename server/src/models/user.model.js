@@ -84,6 +84,7 @@ userSchema.methods.setAccessToken = function (accessToken) {
   this.save();
 };
 
+
 const User = model("User", userSchema);
 
 module.exports = User;

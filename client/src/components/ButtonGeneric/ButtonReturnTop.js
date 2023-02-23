@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import Fab from "@mui/material/Fab";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+
 import "./ButtonReturnTopStyle.css";
 
 const ButtonReturnTop = () => {
@@ -18,23 +21,20 @@ const ButtonReturnTop = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' 
+      behavior: "smooth",
     });
   };
 
   /* &#8679; is used to create the upward arrow */
   return (
     <>
-  
       {showButton && (
-        <button onClick={scrollToTop} className="back-to-top">
-          &#8679;
-        </button>
+        <Fab onClick={scrollToTop} color="primary" className="back-to-top">
+          <ArrowUpwardIcon />
+        </Fab>
       )}
-    
     </>
   );
 };
 
 export default ButtonReturnTop;
-

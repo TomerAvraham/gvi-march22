@@ -3,7 +3,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Container from "@mui/material/Container";
-import classes from "./Layout.module.css";
 import Loader from "../../components/common/Loader/Loader";
 import CustomBreadcrumbs from "../../components/common/Breadcrumbs/Breadcrumbs";
 
@@ -14,7 +13,6 @@ const Layout = () => {
   const containerProps = {
     sx: { padding: isAuthRoute ? "0!important" : undefined, mb: "auto" },
     maxWidth: isAuthRoute ? "xxl" : "xl",
-    className: classes.layout_container,
   };
 
   const navbar = isAuthRoute || <Navbar />;

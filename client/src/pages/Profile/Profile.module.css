@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap");
+
+.margin_textfield {
+  margin: 0.5rem;
+}
+
+.title_design {
+  font-family: "Cinzel", serif;
+  text-decoration: underline 1px;
+  font-weight: bolder;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.img_design {
+  width: 95%;
+  height: 95%;
+  border-radius: 7px;
+  margin: 2%;
+}
+
+.paper_design {
+  margin-top: 15px;
+  background-color: #0071ff;
+  height: 75vh;
+  width: 40vw;
+  box-shadow: 4px 4px 4px 4px #b2b2b2;
+}
+
+.text_paper_design {
+  padding: 2%;
+  font-family: "Cinzel", serif;
+  text-align: center;
+}
+.box_design {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.company_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gvi_design {
+  font-size: 20px;
+  margin-left: 5px;
+  font-family: "Anton", sans-serif;
+}
+
+.button_design {
+  width: 200px;
+  height: 50px;
+  margin-left: 35%;
+  margin-top: 2.5%;
+}
+@media screen and (max-width: 1200px) {
+  .divider_mode {
+    display: none;
+  }
+
+  .img_design {
+    display: none;
+  }
+  .paper_design {
+    width: 100vw;
+    height: 50vh;
+  }
+}

@@ -7,7 +7,7 @@ export const USER_ROLE = {
 };
 
 export const USER_PROFILE_LINKS = [
-  { label: "Profile", path: "/" },
+  { label: "Profile", path: "/profile" },
   { label: "Account", path: "/" },
   { label: "Dashboard", path: "/" },
 ];

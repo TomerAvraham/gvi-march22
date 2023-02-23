@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
 import {
   Box,
   Avatar,
@@ -19,6 +18,18 @@ import { PersonAdd, Settings, Logout } from "@mui/icons-material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import authService from "../../services/auth.service";
 
+export const USER_PROFILE_LINKS = [
+  { label: "Profile", path: "/profile", icon: <Avatar /> },
+  {
+    label: "Dashboard",
+    path: "/profile",
+    icon: (
+      <Avatar>
+        <DashboardIcon />
+      </Avatar>
+    ),
+  },
+];
 export const USER_SETTING_LINKS = [
   {
     label: "Add Account",
@@ -58,6 +69,7 @@ export default function NavbarUserMenu() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -116,11 +128,13 @@ export default function NavbarUserMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {USER_PROFILE_LINKS.map((link, indexId) => (
-          <Link key={indexId} to={link.path}>
-            <MenuItem onClick={handleClose} align="center">
-              {link.icon} {link.label}
-            </MenuItem>
-          </Link>
+          <MenuItem
+            key={indexId}
+            onClick={() => navigate(link.path)}
+            align="center"
+          >
+            {link.icon} {link.label}
+          </MenuItem>
         ))}
         <Divider />
         {USER_SETTING_LINKS.map((link, indexId) => (

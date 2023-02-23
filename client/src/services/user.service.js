@@ -35,3 +35,37 @@ export const deleteUserById = async (userId) => {
     console.log(error);
   }
 };
+export const putUpdateInformationInUser = async (
+  email,
+  phoneNumber,
+  expertise,
+  github,
+  instagram,
+  facebook,
+  lnkd,
+  about,
+  mentoring,
+  startUp,
+  lastName,
+  firstName
+) => {
+  try {
+    const response = await api.put("/update", {
+      email,
+      phoneNumber,
+      expertise,
+      github,
+      instagram,
+      facebook,
+      lnkd,
+      about,
+      mentoring,
+      startUp,
+      lastName,
+      firstName,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

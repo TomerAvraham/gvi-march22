@@ -10,8 +10,8 @@ import SearchInput from "../../components/common/Search/SearchUsersInput";
 import Typography from "@mui/material/Typography";
 import SkeletonLoader from "../../components/common/Skeleton/SkeletonLoader";
 import useUserSearch from "../../hooks/useUserSearch";
-
 import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
+
 function userReducer(state, action) {
   switch (action.type) {
     case "initial_users":
@@ -53,8 +53,6 @@ const Index = () => {
 
   const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
 
-  console.log(isLoading);
-
   return (
     <Box component={"section"} sx={{ my: 1 }}>
       <div className={classess.search_container}>
@@ -86,6 +84,7 @@ const Index = () => {
           )}
         </Grid>
       )}
+      <ButtonReturnTop />
     </Box>
   );
 };

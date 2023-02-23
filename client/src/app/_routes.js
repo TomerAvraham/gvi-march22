@@ -9,6 +9,7 @@ const PrivacyPolicy = React.lazy(() =>
   import("../pages/PrivacyPolicy/PrivacyPolicy")
 );
 const ContactUs = React.lazy(() => import("../pages/ContactUs/ContactUs"));
+const Profile = React.lazy(() => import("../pages/Profile/Profile"));
 
 const appRoutes = [
   // Main Routes
@@ -38,6 +39,8 @@ const appRoutes = [
     component: User,
     isProtected: true,
   },
+  // profile routes
+  { linkLabel: "Profile", path: "/profile", component: Profile },
 
   // Footer Routes
   {
