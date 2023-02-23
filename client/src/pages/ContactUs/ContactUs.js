@@ -32,6 +32,7 @@ const ContactUs = () => {
         </Box>
         {contactUsFields.map((item, indexId) => (
           <TextField
+          size="small"
             className={classes.Contact_us_text_field}
             id="outlined-basic"
             required

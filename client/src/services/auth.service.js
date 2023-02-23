@@ -20,7 +20,7 @@ const login = async (email, password) => {
 const logout = async () => {
   try {
     const token = getLocalStorageValue("ac_token");
-    if (!token) return;
+    if (!token) return Promise.reject();
     const { data } = await api.delete("/logout", { data: { token } });
     if (data.ok) {
       deleteLocalStorageValue("ac_token");

@@ -52,9 +52,16 @@ exports.getOneUserById = async (req, res, next) => {
 
 exports.deleteOneUserById = async (req, res, next) => {
   const { userId } = req.params;
+  const userLoggedIn = req.userId;
+
+  if (userId === userLoggedIn) {
+    return new BadRequestError("Cannot Delete the user you are logged with.");
+  }
 
   if (!userId) return next(new BadRequestError());
   const deletedUser = await User.findByIdAndDelete(userId);
 
-  res.status(202).send(deletedUser);
+  res
+    .status(202)
+    .send({ error: false, message: `User:${deletedUser.email} Deleted.` });
 };

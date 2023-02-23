@@ -21,7 +21,15 @@ export const getAllUsersByRole = async (options = {}) => {
 export const getUserById = async (userId) => {
   try {
     const response = await api.get(`/getOne/${userId}`);
-    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteUserById = async (userId) => {
+  try {
+    const response = await api.delete(`/deleteOne/${userId}`);
     return response.data;
   } catch (error) {
     console.log(error);

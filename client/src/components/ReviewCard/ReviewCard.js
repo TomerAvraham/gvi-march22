@@ -97,7 +97,7 @@ export default function ReviewCard({ user, dispatch }) {
             </Avatar>
           </Link>
         }
-        action={<CardMenu />}
+        action={<CardMenu userId={user._id} />}
         title={`${user.firstName}  ${user.lastName}`}
         subheader={user.email}
       />
