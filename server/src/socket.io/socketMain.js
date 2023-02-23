@@ -1,7 +1,9 @@
+const handleChat = require("./handlers/chat.handlers");
+
 function socketMain(socket) {
-  socket.on("test", () => {
-    console.log("test event");
-  });
+  console.log("user connected");
+
+  handleChat(socket);
 }
 
 module.exports = socketMain;

@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(routes);
+
 const io = new Server(httpServer, {
   cors: {
     origin: ["http://localhost:3000"],
