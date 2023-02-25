@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 
 function handleClick(event) {
   event.preventDefault();
-  console.info("You clicked a breadcrumb.");
 }
 
 export default function CustomBreadcrumbs() {
@@ -15,6 +15,7 @@ export default function CustomBreadcrumbs() {
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
+    <Container maxWidth="xl">
     <Box role="presentation" onClick={handleClick} sx={{ mt: 3 }}>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" to="/">
@@ -35,5 +36,6 @@ export default function CustomBreadcrumbs() {
         })}
       </Breadcrumbs>
     </Box>
+    </Container>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SidebarProvider from "../../context/Sidebar.context";
 
 import { MainContainer } from "../../style/globalCss";

@@ -25,5 +25,10 @@ router.get(
   "/getCountries/",
   catchAsyncError(userController.getListOfCountriesFromUsers)
 );
+// Get List Of Expertises from users
+router.get(
+  "/getExpertises/",
+  catchAsyncError(userController.getListOfExpertisesFromUsers)
+);
 
 module.exports = router;

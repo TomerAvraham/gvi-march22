@@ -6,14 +6,17 @@ import Container from "@mui/material/Container";
 import Loader from "../../components/common/Loader/Loader";
 import CustomBreadcrumbs from "../../components/common/Breadcrumbs/Breadcrumbs";
 
-const Layout = () => {
+const Layout = React.memo(() => {
   const { pathname } = useLocation();
   const isAuthRoute = pathname === "/register" || pathname === "/login";
 
-  const containerProps = {
-    sx: { padding: isAuthRoute ? "0!important" : undefined, mb: "auto" },
-    maxWidth: isAuthRoute ? "xxl" : "xl",
-  };
+  const containerProps = React.useMemo(
+    () => ({
+      sx: { padding: isAuthRoute ? "0!important" : undefined, mb: "auto" },
+      maxWidth: isAuthRoute ? "xxl" : "xl",
+    }),
+    [isAuthRoute]
+  );
 
   const navbar = isAuthRoute || <Navbar />;
   const footer = isAuthRoute || <Footer />;
@@ -24,7 +27,7 @@ const Layout = () => {
     <>
       {navbar}
       <Suspense fallback={<Loader />}>
-        {isAuthRoute || <CustomBreadcrumbs />}
+      {!isAuthRoute && !isChatPage && <CustomBreadcrumbs />}
         {isChatPage ? (
           <Outlet />
         ) : (
@@ -36,6 +39,6 @@ const Layout = () => {
       {footer}
     </>
   );
-};
+});
 
 export default Layout;

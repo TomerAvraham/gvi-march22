@@ -14,8 +14,8 @@ const {
 } = require("../errors/Errors");
 
 exports.getAllUsersByRole = async (req, res, next) => {
-  const userRole = await userService.getUserRoleById(req.userId);
-  const is_admin = await userService.isAdmin(req.userId);
+  const userRole = await userService.getUserRoleById(req?.userId);
+  const is_admin = await userService.isAdmin(req?.userId);
 
   let filterRoleByFetcherRole;
 
@@ -129,4 +129,20 @@ exports.getListOfCountriesFromUsers = async (req, res, next) => {
     console.error(error);
     next(new NotFoundError());
   }
+};
+
+exports.getListOfExpertisesFromUsers = async (req, res, next) => {
+  const expertises = await User.aggregate([
+    {
+      $group: {
+        _id: "$expertise",
+      },
+    },
+  ]).allowDiskUse(true);
+
+  const listOfExpertises = expertises.map((expertise) => {
+    return expertise._id.toString();
+  });
+
+  res.status(200).send(listOfExpertises);
 };

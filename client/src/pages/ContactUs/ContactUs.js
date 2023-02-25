@@ -25,13 +25,13 @@ const ContactUs = () => {
       autoComplete="off"
       className={classes.Contact_us_container}
     >
-      <form>
         <Box component="section" sx={{ mb: 2 }}>
           <Typography variant="h4">{pageTitle}</Typography>
           <Typography variant="p">{pageSubTitle}</Typography>
         </Box>
         {contactUsFields.map((item, indexId) => (
           <TextField
+          key={indexId}
           size="small"
             className={classes.Contact_us_text_field}
             id="outlined-basic"
@@ -45,7 +45,6 @@ const ContactUs = () => {
         ))}
 
         <PrimaryButton type="submit">Submit</PrimaryButton>
-      </form>
     </Box>
   );
 };

@@ -78,3 +78,11 @@ export const getCountryList = async () => {
     console.log(error);
   }
 };
+export const getExpertisesList = async () => {
+  try {
+    const response = await api.get(`/getExpertises`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

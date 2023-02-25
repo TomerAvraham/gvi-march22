@@ -1,6 +1,6 @@
 import React from "react";
 import { updateProfileByPayload } from "../../app/redux/slices/profileSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AdbIcon from "@mui/icons-material/Adb";
 import {
@@ -89,7 +89,7 @@ function Profile() {
               variant="outlined"
               {...register("phoneNumber", {
                 pattern:
-                  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/i,
+                /^[+]?[(]?\d{1,4}[)]?[-\s.]?\d{2,4}[-\s.]?\d{4,6}$/i,
               })}
               error={errors.phoneNumber}
               helperText={errors.phoneNumber && "Enter a valid phone number"}

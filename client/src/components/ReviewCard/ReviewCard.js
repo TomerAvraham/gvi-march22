@@ -11,7 +11,7 @@ import CardMenu from "./CardMenu";
 import ConnectStatusChip from "./ConnectStatusChip";
 import { sentConnectionRequestById } from "../../services/connection.service";
 import classess from "./reviewCard.module.css";
-
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { styled } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
@@ -140,9 +140,9 @@ export default function ReviewCard({ user, dispatch }) {
           </IconButton>
         </Tooltip>
 
-        <Tooltip title="Add to favorites">
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+        <Tooltip title="Like">
+          <IconButton aria-label="Like">
+            <ThumbUpIcon />
           </IconButton>
         </Tooltip>
 

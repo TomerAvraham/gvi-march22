@@ -1,7 +1,12 @@
 import React, { useEffect, useReducer, useState, useMemo } from "react";
-import { getAllUsersByRole, getCountryList } from "../../services/user.service";
+import {
+  getAllUsersByRole,
+  getCountryList,
+  getExpertisesList,
+} from "../../services/user.service";
 import { Grid, Box } from "@mui/material";
 import CountrySelectField from "./components/CountrySelectField";
+import ExpertiseSelectField from "./components/ExpertiseSelectField";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import classess from "./index.module.css";
 import { useSelector } from "react-redux";
@@ -11,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import SkeletonLoader from "../../components/common/Skeleton/SkeletonLoader";
 import useUserSearch from "../../hooks/useUserSearch";
 import useUserCountrySelect from "../../hooks/useUserCountrySelect";
+import useUserExpertiseSelect from "../../hooks/useUserExpertiseSelect";
 import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
 
 function userReducer(state, action) {
@@ -28,16 +34,21 @@ function userReducer(state, action) {
 }
 
 const Index = () => {
-  const { user } = useSelector((state) => state.auth);
-  const pageTitle = useMemo(
-    () =>
-      user.role === "ENTREPRENEUR" ? "Find Consultent" : "Find Entrepreneur",
-    [user.role]
-  );
+  const currentUser = useSelector((state) => state.auth?.user);
+  const pageTitle = useMemo(() => {
+    if (currentUser.role === "ADMIN") {
+      return "Find Consultant & Entrepreneur";
+    } else if (currentUser.role === "ENTREPRENEUR") {
+      return "Find Consultant";
+    } else {
+      return "Find Entrepreneur";
+    }
+  }, [currentUser.role]);
 
   const [users, dispatch] = useReducer(userReducer, []);
   const [isLoading, setIsLoading] = useState(true);
   const [countries, setCountries] = useState([]);
+  const [expertises, setExpertises] = useState([]);
 
   useEffect(() => {
     getAllUsersByRole().then((data) => {
@@ -53,7 +64,8 @@ const Index = () => {
     });
 
     getCountryList().then((data) => setCountries(data));
-  }, [user]);
+    getExpertisesList().then((data) => setExpertises(data));
+  }, [currentUser]);
 
   const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
   const {
@@ -63,9 +75,18 @@ const Index = () => {
     handleCountryChange,
   } = useUserCountrySelect(users);
 
+  const {
+    filteredByExpertise,
+    isFilteringByExpertise,
+    expertise,
+    handleExpertiseChange,
+  } = useUserExpertiseSelect(users);
+
   const renderUser = (user) => (
     <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-      <ReviewCard user={user} dispatch={dispatch} />
+      {user._id !== currentUser._id && (
+        <ReviewCard user={user} dispatch={dispatch} />
+      )}
     </Grid>
   );
 
@@ -80,8 +101,13 @@ const Index = () => {
         </Box>
         <Box sx={{ ml: "auto" }}>
           <div className={classess.search_container}>
+            <ExpertiseSelectField
+              expertises={expertises}
+              expertise={expertise}
+              handleExpertiseChange={handleExpertiseChange}
+            />
             <CountrySelectField
-            countries={countries}
+              countries={countries}
               country={country}
               handleCountryChange={handleCountryChange}
             />
@@ -92,7 +118,9 @@ const Index = () => {
         <SkeletonLoader />
       ) : (
         <Grid container spacing={4}>
-          {isFilteringByCountry && !isFiltering ? (
+          {isFilteringByExpertise && !isFiltering && !isFilteringByCountry ? (
+            filteredByExpertise.map(renderUser)
+          ) : isFilteringByCountry && !isFiltering ? (
             filteredByCountry.map(renderUser)
           ) : isFiltering && filteredUsers.length > 0 ? (
             filteredUsers.map(renderUser)
@@ -105,6 +133,7 @@ const Index = () => {
           )}
         </Grid>
       )}
+
       <ButtonReturnTop />
     </Box>
   );

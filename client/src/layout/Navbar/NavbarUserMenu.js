@@ -44,7 +44,7 @@ export const USER_SETTING_LINKS = [
 ];
 
 export default function NavbarUserMenu() {
-  const { isAuth, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const USER_PROFILE_LINKS = [
     { label: "Profile", path: `/user/${user._id}`, icon: <Avatar /> },
