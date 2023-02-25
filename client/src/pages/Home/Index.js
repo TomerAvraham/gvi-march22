@@ -1,4 +1,10 @@
-import React, { useEffect, useReducer, useState, useMemo } from "react";
+import React, {
+  useEffect,
+  useReducer,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   getAllUsersByRole,
   getCountryList,
@@ -83,13 +89,18 @@ const Index = () => {
     handleExpertiseChange,
   } = useUserExpertiseSelect(users);
 
-  const renderUser = (user) => (
-    <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-      {user._id !== currentUser._id && (
-        <ReviewCard user={user} dispatch={dispatch} />
-      )}
-    </Grid>
-  );
+  const [isLayoutToggeld, setIsToggle] = useState(false);
+
+  const handleIsLayoutToggeld = useCallback(() => {
+    setIsToggle((prev) => !prev);
+  }, []);
+
+  const renderUser = (user) =>
+    user._id !== currentUser._id && (
+      <Grid key={user._id} item xs={12} sm={10} md={6} lg={4} xl={isLayoutToggeld ? 12 : 3}>
+        <ReviewCard isLayoutToggeld={isLayoutToggeld} user={user} dispatch={dispatch} />
+      </Grid>
+    );
 
   return (
     <Box component={"section"} sx={{ my: 1 }}>
@@ -102,7 +113,10 @@ const Index = () => {
         </Box>
         <Box sx={{ ml: "auto" }}>
           <div className={classess.search_container}>
-            <ToggleCardsLayout />
+            <ToggleCardsLayout
+              isLayoutToggeld={isLayoutToggeld}
+              handleIsLayoutToggeld={handleIsLayoutToggeld}
+            />
             <ExpertiseSelectField
               expertises={expertises}
               expertise={expertise}
@@ -119,7 +133,7 @@ const Index = () => {
       {isLoading ? (
         <SkeletonLoader />
       ) : (
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           {isFilteringByExpertise && !isFiltering && !isFilteringByCountry ? (
             filteredByExpertise.map(renderUser)
           ) : isFilteringByCountry && !isFiltering ? (

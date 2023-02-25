@@ -11,7 +11,7 @@ import CardMenu from "./CardMenu";
 import ConnectStatusChip from "./ConnectStatusChip";
 import { sentConnectionRequestById } from "../../services/connection.service";
 import classess from "./reviewCard.module.css";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { styled } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
@@ -45,7 +45,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ReviewCard({ user, dispatch }) {
+export default function ReviewCard({ user, dispatch, isLayoutToggeld }) {
   const { role } = useSelector((store) => store.auth.user);
   const isAdmin = role === "ADMIN";
 
@@ -80,7 +80,7 @@ export default function ReviewCard({ user, dispatch }) {
   const color = getConnectionStatusColor(status);
 
   return (
-    <Card sx={{ maxWidth: 345 }} className={classess.card_container}>
+    <Card sx={{ maxWidth: "100%" }} className={classess.card_container}>
       <ErrorMessagePop
         isOpen={Boolean(error)}
         errorMessage={error}
@@ -88,9 +88,9 @@ export default function ReviewCard({ user, dispatch }) {
       />
 
       <CardMedia
-        sx={{ height: 85 }}
+        sx={{ height: isLayoutToggeld || 85 }}
         image="https://media.istockphoto.com/id/1390650720/photo/digital-network-connection-abstract-connection-of-dots-and-lines-technology-background-plexus.jpg?b=1&s=170667a&w=0&k=20&c=SUkUz3EzbbcC25vGSHdV_9MxR0Mun8giVcuHoyOKwDo="
-        title="green iguana"
+        title={`${user.firstName} ${user.lastName}`}
       >
         <ConnectStatusChip sx={{ m: 10 }} user={user} />
       </CardMedia>
@@ -106,7 +106,12 @@ export default function ReviewCard({ user, dispatch }) {
         title={`${user.firstName}  ${user.lastName}`}
         subheader={user.email}
       />
-      <CardContent sx={{ display: "flex", flexDirection: "column" }}>
+      <CardContent
+        sx={{
+          display: "flex",
+          flexDirection: isLayoutToggeld ? "row" : "column",
+        }}
+      >
         <Typography variant="body2" color="text.secondary">
           Role: {user.role}
         </Typography>
@@ -119,7 +124,6 @@ export default function ReviewCard({ user, dispatch }) {
         <Typography variant="body2" color="text.secondary">
           Expertise: {user.expertise}
         </Typography>
-        
         Country: {user.location && user.location.country}
         {/* <br />
           This impressive paella is a perfect party dish and a fun meal to cook
