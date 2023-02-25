@@ -1,13 +1,23 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import React from "react";
+import { Box, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
 const INPUT_LABEL = "Country";
 
-export default function CountrySelectField({ country, handleCountryChange }) {
+export default function CountrySelectField({
+  countries = [],
+  country = "",
+  handleCountryChange = () => {},
+}) {
+  const countryItems = React.useMemo(
+    () =>
+      countries.map((item) => (
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
+      )),
+    [countries]
+  );
+
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl size="small" fullWidth>
@@ -15,13 +25,14 @@ export default function CountrySelectField({ country, handleCountryChange }) {
         <Select
           labelId="simple-select-label"
           id="simple-select"
-          value={country}
           label={INPUT_LABEL}
+          value={country}
           onChange={handleCountryChange}
         >
-          <MenuItem value={"Israel"}>Israel</MenuItem>
-          <MenuItem value={"United States"}>United States</MenuItem>
-          <MenuItem value={"Canada"}>Canada</MenuItem>
+          <MenuItem value="">
+            <em>All</em>
+          </MenuItem>
+          {countryItems}
         </Select>
       </FormControl>
     </Box>

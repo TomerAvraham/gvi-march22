@@ -20,8 +20,10 @@ function useUserCountrySelect(users) {
 
   useEffect(() => {
     if (country) {
-      setIsFilteringByCountry(true);
-      setFilteredByCountry(filterUsersByCountry(country));
+      if (country !== "") {
+        setIsFilteringByCountry(true);
+        setFilteredByCountry(filterUsersByCountry(country));
+      }
     } else {
       setIsFilteringByCountry(false);
       setFilteredByCountry([]);

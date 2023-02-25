@@ -69,3 +69,12 @@ export const putUpdateInformationInUser = async (
     console.log(error);
   }
 };
+
+export const getCountryList = async () => {
+  try {
+    const response = await api.get(`/getCountries`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

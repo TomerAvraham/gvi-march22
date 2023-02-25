@@ -15,9 +15,15 @@ class BadRequestError extends Error {
     super(message || "Bad request");
   }
 }
+class ServerErrror extends Error {
+  constructor(message) {
+    super(message || "Internal server error");
+  }
+}
 
 module.exports = {
   NotFoundError,
   UnauthorizeError,
   BadRequestError,
+  ServerErrror,
 };

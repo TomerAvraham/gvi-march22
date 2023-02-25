@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState, useMemo } from "react";
-import { getAllUsersByRole } from "../../services/user.service";
+import { getAllUsersByRole, getCountryList } from "../../services/user.service";
 import { Grid, Box } from "@mui/material";
 import CountrySelectField from "./components/CountrySelectField";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
@@ -37,6 +37,7 @@ const Index = () => {
 
   const [users, dispatch] = useReducer(userReducer, []);
   const [isLoading, setIsLoading] = useState(true);
+  const [countries, setCountries] = useState([]);
 
   useEffect(() => {
     getAllUsersByRole().then((data) => {
@@ -50,6 +51,8 @@ const Index = () => {
         setIsLoading(false);
       }
     });
+
+    getCountryList().then((data) => setCountries(data));
   }, [user]);
 
   const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
@@ -59,6 +62,12 @@ const Index = () => {
     country,
     handleCountryChange,
   } = useUserCountrySelect(users);
+
+  const renderUser = (user) => (
+    <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+      <ReviewCard user={user} dispatch={dispatch} />
+    </Grid>
+  );
 
   return (
     <Box component={"section"} sx={{ my: 1 }}>
@@ -72,6 +81,7 @@ const Index = () => {
         <Box sx={{ ml: "auto" }}>
           <div className={classess.search_container}>
             <CountrySelectField
+            countries={countries}
               country={country}
               handleCountryChange={handleCountryChange}
             />
@@ -83,23 +93,11 @@ const Index = () => {
       ) : (
         <Grid container spacing={4}>
           {isFilteringByCountry && !isFiltering ? (
-            filteredByCountry.map((user) => (
-              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-                <ReviewCard user={user} dispatch={dispatch} />
-              </Grid>
-            ))
+            filteredByCountry.map(renderUser)
           ) : isFiltering && filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-                <ReviewCard user={user} dispatch={dispatch} />
-              </Grid>
-            ))
+            filteredUsers.map(renderUser)
           ) : users.length > 0 && !isFiltering ? (
-            users.map((user) => (
-              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
-                <ReviewCard user={user} dispatch={dispatch} />
-              </Grid>
-            ))
+            users.map(renderUser)
           ) : (
             <Grid item>
               <Typography variant="p">No users found</Typography>

@@ -6,17 +6,30 @@ const {
 const userService = require("../services/user.service");
 
 const Connect = require("../models/connect.model");
-const { NotFoundError, BadRequestError } = require("../errors/Errors");
+const {
+  NotFoundError,
+  BadRequestError,
+  ServerErrror,
+  UnauthorizeError,
+} = require("../errors/Errors");
 
 exports.getAllUsersByRole = async (req, res, next) => {
   const userRole = await userService.getUserRoleById(req.userId);
+  const is_admin = await userService.isAdmin(req.userId);
 
-  const filterRoleByFetcherRole =
-    userRole === USER_ROLE.ENTREPRENEUR
-      ? USER_ROLE.CONSULTANT
-      : USER_ROLE.ENTREPRENEUR;
+  let filterRoleByFetcherRole;
+  if (is_admin) {
+    filterRoleByFetcherRole = {};
+  } else {
+    filterRoleByFetcherRole = {
+      role:
+        userRole === USER_ROLE.ENTREPRENEUR
+          ? USER_ROLE.CONSULTANT
+          : USER_ROLE.ENTREPRENEUR,
+    };
+  }
 
-  const users = await User.find({ role: filterRoleByFetcherRole }).select(
+  const users = await User.find(filterRoleByFetcherRole).select(
     SELECTED_USER_FIELDS
   );
   const connectionKeyByRole =
@@ -52,18 +65,22 @@ exports.getOneUserById = async (req, res, next) => {
 
 exports.deleteOneUserById = async (req, res, next) => {
   const { userId } = req.params;
-  const userLoggedIn = req.userId;
+  const userLoggedIn = await User.findById(req.userId);
 
-  if (userId === userLoggedIn) {
-    return new BadRequestError("Cannot Delete the user you are logged with.");
+  if (userLoggedIn.role === USER_ROLE.ADMIN) {
+    if (!userId) return next(new BadRequestError());
+
+    if (userId === userLoggedIn._id) {
+      return new BadRequestError("Cannot Delete the user you are logged with.");
+    }
+
+    const deletedUser = await User.findByIdAndDelete(userId);
+    res
+      .status(202)
+      .send({ error: false, message: `User:${deletedUser.email} Deleted.` });
+  } else {
+    return next(new UnauthorizeError());
   }
-
-  if (!userId) return next(new BadRequestError());
-  const deletedUser = await User.findByIdAndDelete(userId);
-
-  res
-    .status(202)
-    .send({ error: false, message: `User:${deletedUser.email} Deleted.` });
 };
 
 exports.putUpdateInformationInUser = async (req, res, next) => {
@@ -82,5 +99,33 @@ exports.putUpdateInformationInUser = async (req, res, next) => {
     res.status(result);
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+exports.getListOfCountriesFromUsers = async (req, res, next) => {
+  try {
+    const countries = await User.aggregate([
+      {
+        $group: {
+          _id: "$location.country",
+        },
+      },
+      {
+        $match: {
+          _id: { $ne: null },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          country: "$_id",
+        },
+      },
+    ]).allowDiskUse(true);
+
+    res.status(200).send(countries.map((country) => country.country));
+  } catch (error) {
+    console.error(error);
+    next(new NotFoundError());
   }
 };

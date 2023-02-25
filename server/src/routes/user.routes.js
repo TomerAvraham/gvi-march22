@@ -20,4 +20,10 @@ router.put(
 // Get User By ID
 router.get("/userByID/:id", catchAsyncError(userController.getUserById));
 
+// Get List Of Countries from users
+router.get(
+  "/getCountries/",
+  catchAsyncError(userController.getListOfCountriesFromUsers)
+);
+
 module.exports = router;
