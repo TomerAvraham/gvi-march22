@@ -18,6 +18,7 @@ exports.getAllUsersByRole = async (req, res, next) => {
   const is_admin = await userService.isAdmin(req.userId);
 
   let filterRoleByFetcherRole;
+
   if (is_admin) {
     filterRoleByFetcherRole = {};
   } else {

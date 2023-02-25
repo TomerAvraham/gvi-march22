@@ -3,3 +3,5 @@
 # all env files
 **.env
  **package-lock.json
+#all logs file
+**logs
