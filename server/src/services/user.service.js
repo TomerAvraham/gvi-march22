@@ -13,5 +13,9 @@ exports.getUserRoleById = async (id) => {
 
 exports.isAdmin = async (id) => {
   const { role } = await User.findById(id).select("role");
+  if (!role) {
+    // handle the case where the user is not found
+    return;
+  }
   return role === USER_ROLE.ADMIN;
 };

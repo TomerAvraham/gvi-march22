@@ -28,7 +28,6 @@ import {
   Tooltip,
 } from "@mui/material";
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SendIcon from "@mui/icons-material/Send";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";

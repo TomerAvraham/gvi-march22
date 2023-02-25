@@ -18,6 +18,7 @@ import useUserSearch from "../../hooks/useUserSearch";
 import useUserCountrySelect from "../../hooks/useUserCountrySelect";
 import useUserExpertiseSelect from "../../hooks/useUserExpertiseSelect";
 import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
+import ToggleCardsLayout from "./components/ToggleCardsLayout";
 
 function userReducer(state, action) {
   switch (action.type) {
@@ -101,6 +102,7 @@ const Index = () => {
         </Box>
         <Box sx={{ ml: "auto" }}>
           <div className={classess.search_container}>
+            <ToggleCardsLayout />
             <ExpertiseSelectField
               expertises={expertises}
               expertise={expertise}
