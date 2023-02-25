@@ -19,7 +19,6 @@ exports.getAllUsersByRole = async (req, res, next) => {
   const users = await User.find({ role: filterRoleByFetcherRole }).select(
     SELECTED_USER_FIELDS
   );
-
   const connectionKeyByRole =
     userRole === USER_ROLE.ENTREPRENEUR ? "entrepreneurId" : "consultantId";
   const connectionKeyToAddConnect =

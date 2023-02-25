@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState, useMemo } from "react";
 import { getAllUsersByRole } from "../../services/user.service";
 import { Grid, Box } from "@mui/material";
-
+import CountrySelectField from "./components/CountrySelectField";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import classess from "./index.module.css";
 import { useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import SearchInput from "../../components/common/Search/SearchUsersInput";
 import Typography from "@mui/material/Typography";
 import SkeletonLoader from "../../components/common/Skeleton/SkeletonLoader";
 import useUserSearch from "../../hooks/useUserSearch";
+import useUserCountrySelect from "../../hooks/useUserCountrySelect";
 import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
 
 function userReducer(state, action) {
@@ -52,20 +53,42 @@ const Index = () => {
   }, [user]);
 
   const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
+  const {
+    filteredByCountry,
+    isFilteringByCountry,
+    country,
+    handleCountryChange,
+  } = useUserCountrySelect(users);
 
   return (
     <Box component={"section"} sx={{ my: 1 }}>
       <div className={classess.search_container}>
-        <Typography variant="h5" paddingY={3}>
-          {pageTitle}
-        </Typography>
-        <SearchInput onSearch={searchUsers} />
+        <Box className={classess.search_container}>
+          <Typography variant="h5" paddingY={3}>
+            {pageTitle}
+          </Typography>
+          <SearchInput onSearch={searchUsers} />
+        </Box>
+        <Box sx={{ ml: "auto" }}>
+          <div className={classess.search_container}>
+            <CountrySelectField
+              country={country}
+              handleCountryChange={handleCountryChange}
+            />
+          </div>
+        </Box>
       </div>
       {isLoading ? (
         <SkeletonLoader />
       ) : (
         <Grid container spacing={4}>
-          {isFiltering && filteredUsers.length > 0 ? (
+          {isFilteringByCountry && !isFiltering ? (
+            filteredByCountry.map((user) => (
+              <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
+                <ReviewCard user={user} dispatch={dispatch} />
+              </Grid>
+            ))
+          ) : isFiltering && filteredUsers.length > 0 ? (
             filteredUsers.map((user) => (
               <Grid key={user._id} item xs={12} sm={6} md={4} lg={3}>
                 <ReviewCard user={user} dispatch={dispatch} />

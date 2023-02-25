@@ -1,36 +1,38 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { PrimaryButton } from "../common/Buttons";
-import classess from "./reviewCard.module.css";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import Tooltip from "@mui/material/Tooltip";
-import SendIcon from "@mui/icons-material/Send";
-import { Link } from "react-router-dom";
+import React from "react";
 import ErrorMessagePop from "../common/ErrorMessagePop";
-import { getConnectionStatusColor } from "../../utils/connection.util";
-import ConnectStatusChip from "./ConnectStatusChip";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { getUserStatusConnection } from "../../utils/connection.util";
-import CardMenu from "./CardMenu";
-import { useSelector } from "react-redux";
+import {
+  getConnectionStatusColor,
+  getUserStatusConnection,
+} from "../../utils/connection.util";
 
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CardMenu from "./CardMenu";
+import ConnectStatusChip from "./ConnectStatusChip";
 import { sentConnectionRequestById } from "../../services/connection.service";
+import classess from "./reviewCard.module.css";
+
+import { styled } from "@mui/material/styles";
+import { red } from "@mui/material/colors";
+
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Collapse,
+  Avatar,
+  IconButton,
+  Typography,
+  Tooltip,
+} from "@mui/material";
+
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SendIcon from "@mui/icons-material/Send";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+
 const ERROR_MESSAGE_AUTO_HIDE_TIME = 3000;
 
 const ExpandMore = styled((props) => {
