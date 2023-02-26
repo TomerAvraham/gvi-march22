@@ -37,6 +37,7 @@ export const deleteUserById = async (userId) => {
 };
 export const putUpdateInformationInUser = async (
   email,
+  imgSRC,
   phoneNumber,
   expertise,
   github,
@@ -52,6 +53,7 @@ export const putUpdateInformationInUser = async (
   try {
     const response = await api.put("/update", {
       email,
+      imgSRC,
       phoneNumber,
       expertise,
       github,

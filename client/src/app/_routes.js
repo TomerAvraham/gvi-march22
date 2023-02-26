@@ -39,7 +39,7 @@ const appRoutes = [
   { linkLabel: "Login", path: "/login", component: Login },
   { linkLabel: "Register", path: "/register", component: Register },
 
-  // User Routes
+  // // User Routes
   {
     linkLabel: "User",
     path: "/user/:userId",
