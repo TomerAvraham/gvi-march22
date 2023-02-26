@@ -16,4 +16,9 @@ router.put(
   catchAsyncError(connectionController.approveConnection)
 );
 
+router.post(
+  "/invite",
+  catchAsyncError(connectionController.inviteConnectionByMail)
+);
+
 module.exports = router;

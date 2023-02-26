@@ -6,7 +6,11 @@ import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import Tooltip from "@mui/material/Tooltip";
 
-const ToggleCardsLayout = ({ isLayoutToggeld, handleIsLayoutToggeld }) => {
+const ToggleCardsLayout = ({
+  isLayoutToggeld,
+  handleIsLayoutToggeld,
+  handleInviteDialogClickOpen,
+}) => {
   return (
     <>
       <ButtonGroup
@@ -14,17 +18,24 @@ const ToggleCardsLayout = ({ isLayoutToggeld, handleIsLayoutToggeld }) => {
         variant="outlined"
         aria-label="outlined primary button group"
       >
-        <Tooltip placement="top" arrow  title="Toggle Cards layout">
+        <Tooltip
+          placement="top"
+          arrow
+          title={isLayoutToggeld ? "Card View" : "List View"}
+        >
           <Button onClick={handleIsLayoutToggeld}>
-            {isLayoutToggeld ? <ViewStreamIcon /> : <ViewWeekIcon />}
+            {isLayoutToggeld ? <ViewWeekIcon /> : <ViewStreamIcon />}
           </Button>
         </Tooltip>
       </ButtonGroup>
-      <Tooltip placement="top" arrow  title="Invite Friend's to connect">
-
-      <Button variant="outlined" endIcon={<ForwardToInboxIcon />}>
-        Invite
-      </Button>
+      <Tooltip placement="top" arrow title="Invite Friend's to connect">
+        <Button
+          variant="outlined"
+          onClick={handleInviteDialogClickOpen}
+          endIcon={<ForwardToInboxIcon />}
+        >
+          Invite Connection
+        </Button>
       </Tooltip>
     </>
   );

@@ -98,7 +98,7 @@ export default function ReviewCard({ user, dispatch, isLayoutToggeld }) {
         avatar={
           <Link to={{ pathname: userUrl, state: `?id=${user._id}` }}>
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              <img src="/demoProfile/profile.png" alt=""></img>
+              {user.imgSRC ? <img width={75} src={user.imgSRC} alt=""></img> : "R"}
             </Avatar>
           </Link>
         }

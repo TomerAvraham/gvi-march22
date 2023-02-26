@@ -26,6 +26,8 @@ import useUserExpertiseSelect from "../../hooks/useUserExpertiseSelect";
 import ButtonReturnTop from "../../components/ButtonGeneric/ButtonReturnTop";
 import ToggleCardsLayout from "./components/ToggleCardsLayout";
 
+import InviteDialog from "./components/InviteDialog";
+
 function userReducer(state, action) {
   switch (action.type) {
     case "initial_users":
@@ -56,6 +58,15 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [countries, setCountries] = useState([]);
   const [expertises, setExpertises] = useState([]);
+  const [isInviteDialogOpen, setIsInviteDialogOpen] = React.useState(false);
+
+  const handleInviteDialogClickOpen = () => {
+    setIsInviteDialogOpen(true);
+  };
+
+  const handleInviteDialogClose = () => {
+    setIsInviteDialogOpen(false);
+  };
 
   useEffect(() => {
     getAllUsersByRole().then((data) => {
@@ -97,8 +108,20 @@ const Index = () => {
 
   const renderUser = (user) =>
     user._id !== currentUser._id && (
-      <Grid key={user._id} item xs={12} sm={10} md={6} lg={4} xl={isLayoutToggeld ? 12 : 3}>
-        <ReviewCard isLayoutToggeld={isLayoutToggeld} user={user} dispatch={dispatch} />
+      <Grid
+        key={user._id}
+        item
+        xs={12}
+        sm={10}
+        md={6}
+        lg={4}
+        xl={isLayoutToggeld ? 12 : 3}
+      >
+        <ReviewCard
+          isLayoutToggeld={isLayoutToggeld}
+          user={user}
+          dispatch={dispatch}
+        />
       </Grid>
     );
 
@@ -113,7 +136,13 @@ const Index = () => {
         </Box>
         <Box sx={{ ml: "auto" }}>
           <div className={classess.search_container}>
+            <InviteDialog
+              isInviteDialogOpen={isInviteDialogOpen}
+              handleInviteDialogClickOpen={handleInviteDialogClickOpen}
+              handleInviteDialogClose={handleInviteDialogClose}
+            />
             <ToggleCardsLayout
+              handleInviteDialogClickOpen={handleInviteDialogClickOpen}
               isLayoutToggeld={isLayoutToggeld}
               handleIsLayoutToggeld={handleIsLayoutToggeld}
             />

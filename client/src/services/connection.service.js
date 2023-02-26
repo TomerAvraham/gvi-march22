@@ -35,3 +35,13 @@ export const approveConnectionById = async (id) => {
     return Promise.reject(error.response.data);
   }
 };
+
+export const inviteConnectionByEmail = async (emailTo) => {
+  try {
+    const response = await api.post("/invite" , {emailTo});
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error.response.data);
+  }
+};

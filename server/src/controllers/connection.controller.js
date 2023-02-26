@@ -1,10 +1,15 @@
 const Connect = require("../models/connect.model");
-const { getUserRoleById } = require("../services/user.service");
+const {
+  getUserRoleById,
+  getUserEmailById,
+} = require("../services/user.service");
 const {
   USER_ROLE,
   SELECTED_USER_FIELDS,
 } = require("../constants/user.constants");
 const { CONNECT_STATUS } = require("../constants/connect.constants");
+const { BadRequestError } = require("../errors/Errors");
+const { sendEmail } = require("../services/mailer.service");
 
 exports.connectionRequest = async (req, res, next) => {
   const userToConnectId = req.params.userToConnectId;
@@ -76,4 +81,22 @@ exports.getAllConnection = async (req, res, next) => {
   }).populate(connectKeyToPopulate, SELECTED_USER_FIELDS);
 
   res.send(connections);
+};
+
+exports.inviteConnectionByMail = async (req, res, next) => {
+  const emailFrom = await getUserEmailById(req.userId);
+  const emailTo = req.body.emailTo;
+
+  if (!emailTo && emailFrom) {
+    return res.send({ error: true, messgae: "No email provided" });
+  }
+
+  const response = await sendEmail(emailFrom, emailTo);
+
+  if (response.error) {
+    return res.status(500).send({ error: true, messgae: response});
+  }
+
+  res.status(200).send({ error: false, messgae: "Email sent"});
+
 };
