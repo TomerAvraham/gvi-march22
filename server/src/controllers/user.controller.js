@@ -70,16 +70,17 @@ exports.deleteOneUserById = async (req, res, next) => {
 exports.putUpdateInformationInUser = async (req, res, next) => {
   try {
     const connectUser = await User.findById(req.userId);
-    const updateUser = req.body;
+    const response = req.body;
+    const updateUser={};
+
+    Object.keys(response).forEach(function(key,index){
+      if(response[key])updateUser[key]=response[key]
+      console.log(updateUser)
+    })
 
     const result = await User.findByIdAndUpdate(connectUser, updateUser, {
       new: true,
     });
-
-    console.log(connectUser);
-    console.log(updateUser);
-    console.log(result);
-
     res.status(result);
   } catch (error) {
     console.log(error.message);

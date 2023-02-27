@@ -29,7 +29,8 @@ function Profile() {
   const onSubmit = async (data) => {
     console.log(data);
     const formValues = {
-      email: data.email,
+      imgSRC: data.imgSRC,
+      email:data.email,
       phoneNumber: data.phoneNumber,
       expertise: data.expertise,
       github: data.github,
@@ -56,6 +57,7 @@ function Profile() {
     { label: "Instagram", register: "instagram" },
     { label: "GitHub", register: "github" },
     { label: "Expertise", register: "expertise" },
+    { label: "ImgSRC", register: "imgSRC" },
   ];
 
   return (
