@@ -11,6 +11,14 @@ const Consulting = new Schema({
   name: String,
 });
 
+const likeSchema = new Schema({
+  likedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  createAt: { type: Date, default: Date.now, immutable: true },
+});
+
 const userSchema = new Schema({
   email: {
     type: String,
@@ -58,6 +66,7 @@ const userSchema = new Schema({
   phoneNumber: String,
   about: String,
   imgSRC: String,
+  likes: [likeSchema],
   jwt_ac_token: { type: String },
   jwt_rf_token: { type: String },
 });
@@ -84,6 +93,25 @@ userSchema.methods.setAccessToken = function (accessToken) {
   this.save();
 };
 
+userSchema.methods.addLike = async function (userId) {
+  const existingLikeIndex = this.likes.findIndex(
+    (like) => like.likedBy.toString() === userId.toString()
+  );
+
+  let isLikeAdded = false;
+  let isLikeRemoved = false;
+
+  if (existingLikeIndex === -1) {
+    this.likes.push({ likedBy: userId });
+    isLikeAdded = true;
+  } else {
+    this.likes.splice(existingLikeIndex, 1);
+    isLikeRemoved = true;
+  }
+
+  this.save();
+  return { isLikeAdded, isLikeRemoved };
+};
 
 const User = model("User", userSchema);
 

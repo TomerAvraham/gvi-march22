@@ -30,5 +30,6 @@ router.get(
   "/getExpertises/",
   catchAsyncError(userController.getListOfExpertisesFromUsers)
 );
+router.post("/addLike/:userToAddLike", catchAsyncError(userController.addLike));
 
 module.exports = router;

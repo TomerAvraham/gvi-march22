@@ -4,9 +4,9 @@ import {
   getConnectionStatusColor,
   getUserStatusConnection,
 } from "../../utils/connection.util";
-
+import { addLikeToUser } from "../../app/redux/slices/userSlice";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CardMenu from "./CardMenu";
 import ConnectStatusChip from "./ConnectStatusChip";
 import { sentConnectionRequestById } from "../../services/connection.service";
@@ -14,7 +14,6 @@ import classess from "./reviewCard.module.css";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { styled } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
-
 import {
   Card,
   CardHeader,
@@ -45,12 +44,17 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ReviewCard({ user, dispatch, isLayoutToggeld }) {
+function ReviewCard({ user, dispatch, isLayoutToggeld }) {
   const { role } = useSelector((store) => store.auth.user);
+
+
   const isAdmin = role === "ADMIN";
+
+  const reduxDispatch = useDispatch();
 
   const [expanded, setExpanded] = React.useState(false);
   const userUrl = `/user/${user._id}`;
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -76,6 +80,10 @@ export default function ReviewCard({ user, dispatch, isLayoutToggeld }) {
       });
   };
 
+  const handleAddLikeToUser = async () => {
+    reduxDispatch(addLikeToUser(user._id));
+  };
+
   const status = getUserStatusConnection(user);
   const color = getConnectionStatusColor(status);
 
@@ -98,7 +106,11 @@ export default function ReviewCard({ user, dispatch, isLayoutToggeld }) {
         avatar={
           <Link to={{ pathname: userUrl, state: `?id=${user._id}` }}>
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {user.imgSRC ? <img width={75} src={user.imgSRC} alt=""></img> : "R"}
+              {user.imgSRC ? (
+                <img width={75} src={user.imgSRC} alt=""></img>
+              ) : (
+                "R"
+              )}
             </Avatar>
           </Link>
         }
@@ -144,7 +156,7 @@ export default function ReviewCard({ user, dispatch, isLayoutToggeld }) {
         </Tooltip>
 
         <Tooltip title="Like">
-          <IconButton aria-label="Like">
+          <IconButton onClick={handleAddLikeToUser} aria-label="Like">
             <ThumbUpIcon />
           </IconButton>
         </Tooltip>
@@ -187,3 +199,5 @@ export default function ReviewCard({ user, dispatch, isLayoutToggeld }) {
     </Card>
   );
 }
+
+export default React.memo(ReviewCard);

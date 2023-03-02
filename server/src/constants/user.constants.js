@@ -24,6 +24,7 @@ const SELECTED_USER_FIELDS = [
   "phoneNumber",
   "about",
   "imgSRC",
+  "likes",
 ].join(" ");
 
 module.exports = {

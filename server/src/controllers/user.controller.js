@@ -146,3 +146,19 @@ exports.getListOfExpertisesFromUsers = async (req, res, next) => {
 
   res.status(200).send(listOfExpertises);
 };
+
+exports.addLike = async (req, res, next) => {
+  const userIdToAddLike = req.params.userToAddLike;
+  const userIdRequester = req.userId;
+
+  const user = await User.findById(userIdToAddLike);
+  const { isLikeAdded, isLikeRemoved } = await user.addLike(userIdRequester);
+
+  if (isLikeAdded) {
+    return res.send({ error: false, message: "Like Added" });
+  } else if (isLikeRemoved) {
+    return res.send({ error: false, message: "Like removed" });
+  }
+
+  next(new ServerErrror());
+};

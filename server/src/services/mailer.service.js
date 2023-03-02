@@ -11,10 +11,12 @@ const sendEmail = async (from, to) => {
       user: testAccount.user,
       pass: testAccount.pass,
     },
-    tls: {
-      rejectUnauthorized: false,
-    },
+    // tls: {
+    //   rejectUnauthorized: false,
+    // },
   });
+
+  console.log(testAccount)
 
   const mailOptions = {
     from: process.env.APP_MAIN_EMAIL,

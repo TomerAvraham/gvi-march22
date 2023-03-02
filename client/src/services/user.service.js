@@ -86,3 +86,11 @@ export const getExpertisesList = async () => {
     console.log(error);
   }
 };
+export const addLikeToUserById = async (userId) => {
+  try {
+    const response = await api.post(`/addLike/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -58,7 +58,7 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [countries, setCountries] = useState([]);
   const [expertises, setExpertises] = useState([]);
-  const [isInviteDialogOpen, setIsInviteDialogOpen] = React.useState(false);
+  const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false);
 
   const handleInviteDialogClickOpen = () => {
     setIsInviteDialogOpen(true);
@@ -69,21 +69,32 @@ const Index = () => {
   };
 
   useEffect(() => {
-    getAllUsersByRole().then((data) => {
-      if (data?.length > 0) {
+    async function fetchData() {
+      const users = await getAllUsersByRole();
+      if (users.length > 0) {
         dispatch({
           type: "initial_users",
           payload: {
-            users: data,
+            users: users,
           },
         });
         setIsLoading(false);
       }
-    });
-
-    getCountryList().then((data) => setCountries(data));
-    getExpertisesList().then((data) => setExpertises(data));
+    }
+    fetchData();
   }, [currentUser]);
+  
+  useEffect(() => {
+    async function fetchData() {
+      const [countries, expertises] = await Promise.all([
+        getCountryList(),
+        getExpertisesList(),
+      ]);
+      setCountries(countries);
+      setExpertises(expertises);
+    }
+    fetchData();
+  }, [users]);
 
   const { filteredUsers, isFiltering, searchUsers } = useUserSearch(users);
   const {
